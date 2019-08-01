@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,10 @@ public class Car : MonoBehaviour {
     public bool infiniteFuel = false;
     public float maximumFuel = 100;
     public float currentFuel { get; private set; }
+
+    public void FireWeapons() {
+        
+    }
 
     /// <summary>
     /// The ball that is the car. Think of it as a hamster ball.

@@ -156,6 +156,12 @@ MonoBehaviour:
   chunkUnloadOffset: 100
   prefabChunks:
   - {fileID: 114069947782396694, guid: 4d4480e95fe02124e98e8a42067ae3b3, type: 3}
+  - {fileID: 114069947782396694, guid: 4d4480e95fe02124e98e8a42067ae3b3, type: 3}
+  - {fileID: 114069947782396694, guid: e783b5a7fd339c24d89efd1b48a9bd4f, type: 3}
+  - {fileID: 114069947782396694, guid: 1db096e6cc4591e4fad6522ced0500bb, type: 3}
+  - {fileID: 114069947782396694, guid: 6dd1e971c4f873a4181acdf580981450, type: 3}
+  - {fileID: 114069947782396694, guid: 693ce17fc0ce04346bd519d3e0b036cd, type: 3}
+  - {fileID: 114175125777673942, guid: fe9dff4607de3fb41bfcef7ab5a3a062, type: 3}
 --- !u!4 &812214921
 Transform:
   m_ObjectHideFlags: 0
@@ -197,8 +203,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25691443764cc543bd884539437ff88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnemys: 5
-  enemyPrefab: {fileID: 378768914, guid: e5b31bad70051814a9297b09d7369879, type: 3}
+  maxEnemies: 5
+  enemyPrefab: {fileID: 5046095656521649748, guid: 68a3268ba014d754ab9ed2feff42c176,
+    type: 3}
 --- !u!1 &1364927327
 GameObject:
   m_ObjectHideFlags: 0

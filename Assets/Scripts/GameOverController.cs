@@ -11,12 +11,14 @@ public class GameOverController : MonoBehaviour {
 
 	void Start () {
 
-        if (PlayerManager.playerOne != null && PlayerManager.playerOne.car.currentFuel <= 0) message.text = "No Fuel";
-
-        string text = "Score : " + (int)PlayerManager.playerOne.score;
+        
+	}
+    public void Init(DriverPlayer driver) {
+        if (driver.car.currentFuel <= 0) message.text = "No Fuel";
+        string text = "Score : " + (int)driver.score;
         string[] chars = text.Split();
         score.text = string.Join(" ", chars);
-	}
+    }
     public void PlayAgain()
     {
         SceneManager.LoadScene("LevelGen");

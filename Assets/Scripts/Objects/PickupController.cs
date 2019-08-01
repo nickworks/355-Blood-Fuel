@@ -11,8 +11,8 @@ public class PickupController : MonoBehaviour {
         if(other.tag == "Player")
         {
             Destroy(gameObject);
-            PlayerManager.playerOne.car.AddFuel(10);
-            PlayerManager.playerOne.score += 10;
+            Car car = other.GetComponent<Car>();
+            if(car != null) car.AddFuel(10);
         }
     }
 }

@@ -63,8 +63,7 @@ public class EnemyController : MonoBehaviour {
 
     void Start() {
         body = GetComponent<Rigidbody>();
-        target = PlayerManager.playerOne.car.transform;
-        targetBody = PlayerManager.playerOne.car.ballBody;
+
         body.AddForce(0, 0, 2000);
         explosion = GetComponent<ImpactExplosion>();
     }
@@ -427,6 +426,6 @@ public class EnemyController : MonoBehaviour {
 
     void Explode()
     {
-        PlayerManager.playerOne.score += 500;
+        //PlayerManager.playerOne.score += 500;
     }
 }

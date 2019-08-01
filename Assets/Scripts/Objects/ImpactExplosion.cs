@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// If this object hits something really fast, it blows up
+/// </summary>
 public class ImpactExplosion : MonoBehaviour {
     Vector3 prevVelocity;
     public float threshold = 0;
@@ -22,10 +25,10 @@ public class ImpactExplosion : MonoBehaviour {
 
     void OnCollisionEnter(Collision col)
     {
-        //if (col.gameObject.tag == undefined) return;
-        if(col.gameObject.tag == "Pickup")
+        
+        if(gameObject.tag == "Car" && col.gameObject.tag == "Pickup")
         {
-            PlayerManager.playerOne.car.AddFuel(10);
+            GetComponent<Car>().AddFuel(10);
             Destroy(col.gameObject);
         }
         else if(col.impulse.sqrMagnitude > threshold * threshold)

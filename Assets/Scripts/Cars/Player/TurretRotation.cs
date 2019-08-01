@@ -10,12 +10,17 @@ public class TurretRotation : MonoBehaviour {
     public Transform cursor;
     public AnimationCurve curve;
 
+    public Car car;
+
+    void Start() {
+        car = GetComponentInParent<Car>();
+    }
     // Update is called once per frame
     void LateUpdate()
     {
         if(PlayerInput.mode == InputMode.Gamepad)
         {
-            cursor.parent = PlayerManager.playerOne.car.suspension;
+            cursor.parent = car.suspension;
             AimWithAnalog();
         }
         if (PlayerInput.mode == InputMode.MouseKeyboard)
@@ -121,7 +126,7 @@ public class TurretRotation : MonoBehaviour {
 
     private void SpawnBarrel()
     {
-        if (true || PlayerManager.playerOne.car.currentFuel > fuelPerBarrelTossed)
+        if (car.currentFuel > fuelPerBarrelTossed)
         {
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, Random.onUnitSphere);
             
@@ -131,12 +136,12 @@ public class TurretRotation : MonoBehaviour {
             GameObject obj = Instantiate(prefabBarrel, transform.position + dir, rot);
 
             Rigidbody barrel = obj.GetComponent<Rigidbody>();
-            barrel.velocity += PlayerManager.playerOne.car.ballBody.velocity; // inherit the car's velocity
+            barrel.velocity += car.ballBody.velocity; // inherit the car's velocity
 
             barrel.AddForce(dir * 13, ForceMode.Impulse); // push the barrel
             barrel.AddTorque(Random.onUnitSphere * 10); // random spin
 
-            PlayerManager.playerOne.car.AddFuel(-fuelPerBarrelTossed); // lose fuel
+            car.AddFuel(-fuelPerBarrelTossed); // lose fuel
         }
     }
 }

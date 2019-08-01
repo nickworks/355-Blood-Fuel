@@ -116,10 +116,6 @@ public class DriverAI : Driver
         car.aiSteerVisual.position = nearestPoint;
         car.aiSteerVisual.rotation = Quaternion.identity;
     }
-    void Explode()
-    {
-        PlayerManager.playerOne.score += 500;
-    }
 
     public override void OnDestroy() {
         EnemySpawner.Remove(this);

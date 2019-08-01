@@ -39,6 +39,6 @@ public class DriverPlayer : Driver {
     }
 
     public override void OnDestroy() {
-        
+        PlayerManager.Remove(this);
     }
 }
