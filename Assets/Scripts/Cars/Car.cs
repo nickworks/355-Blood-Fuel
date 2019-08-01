@@ -48,6 +48,8 @@ public class Car : MonoBehaviour {
     public float throttleMaxAir = 1500;
     public float turnMultiplier = 1;
 
+    public float health = 100;
+
     [HideInInspector] public Driver driver;
     CarState state;
 
@@ -69,6 +71,10 @@ public class Car : MonoBehaviour {
     {
         if (driver != null) driver.Drive();
         SwitchState(state.Update());
+        if (health <= 0) Destroy(gameObject);
+    }
+    private void OnDestroy() {
+        if (driver != null) driver.OnDestroy();
     }
     public void AddFuel(float delta)
     {

@@ -8,13 +8,24 @@ public class DriverAI : Driver
     /// <summary>
     /// We want to drive towards this thing
     /// </summary>
-    public Transform target;
+    private Vector3 steeringTarget;
+
+    /// <summary>
+    /// The vehicle this ai would like to attack
+    /// </summary>
+    public Car attackTarget;
 
     override public void Drive()
     {
         car.infiniteFuel = true;
+        if(attackTarget == null) {
+            DriverPlayer player = PlayerManager.FindNearest(car.transform.position);
+            if (player != null) attackTarget = player.car;
+        }
+        CheckIfDead();
         SteerTowardsPath();
         ApplySteeringAndThrottle();
+
     }
 
     private void ApplySteeringAndThrottle()
@@ -44,7 +55,6 @@ public class DriverAI : Driver
     /// Are we touching the ground
     /// </summary>
 
-    bool isDead = false;
     float turnAmount;
     float chargePercent;
     
@@ -55,19 +65,20 @@ public class DriverAI : Driver
     /// </summary>
     void CheckIfDead()
     {
-        if (!target)
-        {
-            isDead = false;
+        if(attackTarget == null) {
+            Debug.Log("dying cause I don't have an attackTarget");
+            car.health = 0;
+            return;
+
         }
-        else
-        {
-            float targetDisSqr = (car.transform.position - target.position).sqrMagnitude;
-            if (car.transform.position.z < target.position.z && targetDisSqr > 50 * 50)
-            { // too far behind
-                isDead = true;
-            }
+        Vector3 vectorToTarget = (attackTarget.transform.position - car.transform.position);
+        float targetDisSqr = vectorToTarget.sqrMagnitude;
+        if (targetDisSqr >  50 * 50)
+        { // too far away
+
+            Debug.Log($"dying cause I'm too far away from the thing I want to attack ({vectorToTarget})");
+            car.health = 0;
         }
-        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -105,15 +116,13 @@ public class DriverAI : Driver
     }
     void SteerTowardsPath()
     {
-        Vector3 nearestPoint = DrivePath.ProjectToNearestPath(car.transform.position);
+        steeringTarget = DrivePath.ProjectToNearestPath(car.transform.position);
         float turnMultiplier = 10f;
-        turnAmount = (nearestPoint.x - car.transform.position.x) * turnMultiplier;
+
+        turnAmount = (steeringTarget.x - car.transform.position.x) * turnMultiplier;
         turnAmount = Mathf.Clamp(turnAmount, -1, 1);
 
-        //if (nearestPoint.x < transform.position.x) turnAmount = -1;
-        //if (nearestPoint.x > transform.position.x) turnAmount = 1;
-
-        car.aiSteerVisual.position = nearestPoint;
+        car.aiSteerVisual.position = steeringTarget;
         car.aiSteerVisual.rotation = Quaternion.identity;
     }
 

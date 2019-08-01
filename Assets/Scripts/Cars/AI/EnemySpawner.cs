@@ -20,7 +20,9 @@ public class EnemySpawner : MonoBehaviour {
 	void Update () {
 
          if (activeAi.Count < maxEnemies && spawnTimer <= 0) {
-            SpawnEnemy();
+            //print("only " + activeAi.Count + " spawning 1 more");
+            Car car = PlayerManager.PickRandom().car;
+            if(car != null) SpawnEnemyNear(car.transform);
             
         } else if (spawnTimer > 0) {
             spawnTimer -= Time.deltaTime;
@@ -28,14 +30,12 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 
-    void SpawnEnemy() {
-        if (PlayerManager.playerOne == null) return;
-        if (PlayerManager.playerOne.car == null) return;
-
+    void SpawnEnemyNear(Transform transform) {
+       
         float buffer = 5;
         float spawnWidth = 20;
 
-        Vector3 position = PlayerManager.playerOne.car.transform.position;
+        Vector3 position = transform.position;
         position.z -= Random.Range(10, 15);
         position.x += Random.Range(-spawnWidth, spawnWidth);
         if (position.x > 0 && position.x < buffer) position.x = buffer;
@@ -45,11 +45,13 @@ public class EnemySpawner : MonoBehaviour {
 
         DriverAI ai = new DriverAI();
         ai.TakeControl(car);
+        activeAi.Add(ai);
 
         spawnTimer = Random.Range(1, 2);
     }
 
     static public void Remove(DriverAI ai) {
         activeAi.Remove(ai);
+        //print(" removing dead ai");
     }
 }
