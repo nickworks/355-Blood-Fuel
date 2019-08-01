@@ -59,6 +59,10 @@ public class Car : MonoBehaviour {
         currentFuel = maximumFuel;
         SwitchState(new CarStateGround());
     }
+    public void InitSpeed(Car car) {
+        ballBody = GetComponent<Rigidbody>();
+        ballBody.velocity = car.ballBody.velocity;
+    }
     private void SwitchState(CarState newCS)
     {
         if (newCS == null) return;

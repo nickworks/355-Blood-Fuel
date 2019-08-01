@@ -21,19 +21,19 @@ public class EnemySpawner : MonoBehaviour {
         
         if (activeAi.Count < maxEnemies && spawnTimer <= 0) {
            DriverPlayer player = PlayerManager.PickRandom();
-           if(player != null && player.car != null) SpawnEnemyNear(player.car.transform);
+           if(player != null && player.car != null) SpawnEnemyNear(player);
            
         } else if (spawnTimer > 0) {
             spawnTimer -= Time.deltaTime;
         }
 	}
 
+    void SpawnEnemyNear(DriverPlayer player) {
 
-    void SpawnEnemyNear(Transform target) {
-
-        Vector3 position = GetSpawnLocationNear(target);
+        Vector3 position = GetSpawnLocationNear(player.car.transform);
 
         Car car = Instantiate(enemyPrefab,position,Quaternion.identity);
+        car.InitSpeed(player.car);
 
         DriverAI ai = new DriverAI();
         ai.TakeControl(car);
