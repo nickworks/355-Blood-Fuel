@@ -11,7 +11,7 @@ public class GameOverController : MonoBehaviour {
 
 	void Start () {
 
-        if (DriverPlayer.main && DriverPlayer.main.car.currentFuel <= 0) message.text = "No Fuel";
+        if (DriverPlayer.main != null && DriverPlayer.main.car.currentFuel <= 0) message.text = "No Fuel";
 
         string text = "Score : " + (int)DriverPlayer.score;
         string[] chars = text.Split();

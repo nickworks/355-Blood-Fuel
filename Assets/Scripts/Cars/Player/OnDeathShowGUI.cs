@@ -12,7 +12,7 @@ public class OnDeathShowGUI : MonoBehaviour {
     }
     void Update()
     {
-        if (DriverPlayer.main && DriverPlayer.main.car.currentFuel <= 0) SpawnGUI();
+        if (DriverPlayer.main != null && DriverPlayer.main.car.currentFuel <= 0) SpawnGUI();
     }
     void SpawnGUI()
     {

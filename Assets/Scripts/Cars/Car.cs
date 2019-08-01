@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Car : MonoBehaviour {
 
+
     public float attackCost = 5;
     public bool infiniteFuel = false;
     public float maximumFuel = 100;
@@ -40,6 +41,7 @@ public class Car : MonoBehaviour {
     public float throttleMaxAir = 1500;
     public float turnMultiplier = 1;
 
+    [HideInInspector] public Driver driver;
     CarState state;
 
     void Start()
@@ -58,6 +60,7 @@ public class Car : MonoBehaviour {
     }
     void Update()
     {
+        if (driver != null) driver.Drive();
         SwitchState(state.Update());
     }
     public void AddFuel(float delta)

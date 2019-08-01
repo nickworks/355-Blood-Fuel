@@ -28,7 +28,8 @@ public class TurretRotation : MonoBehaviour {
 
     private void DrawAimPath()
     {
-        return; // TEMP DISABLE
+        // TEMP DISABLE
+        /*
         Vector3[] pts = new Vector3[DriverPlayer.main.line.positionCount];
         
         float height = 2;
@@ -49,6 +50,7 @@ public class TurretRotation : MonoBehaviour {
         }
 
         DriverPlayer.main.line.SetPositions(pts);
+        */
     }
     float aimMaxDistance = 15;
     private void AimWithAnalog()
@@ -68,7 +70,7 @@ public class TurretRotation : MonoBehaviour {
         target *= aimMaxDistance;
         if (aimAxisV > 0) target.z *= 2;
 
-        DriverPlayer.main.line.enabled = !deadZone;
+        //DriverPlayer.main.line.enabled = !deadZone; // TEMP DISABLE
 
         if (deadZone) return;
 

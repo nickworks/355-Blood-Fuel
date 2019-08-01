@@ -63,7 +63,7 @@ public class EnemyController : MonoBehaviour {
 
     void Start() {
         body = GetComponent<Rigidbody>();
-        target = DriverPlayer.main.transform;
+        target = DriverPlayer.main.car.transform;
         targetBody = DriverPlayer.main.car.ballBody;
         body.AddForce(0, 0, 2000);
         explosion = GetComponent<ImpactExplosion>();
