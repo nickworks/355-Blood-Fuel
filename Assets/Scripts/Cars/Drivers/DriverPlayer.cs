@@ -9,8 +9,7 @@ public class DriverPlayer : Driver {
     public PlayerHUD prefabHUD;
     static PlayerHUD hud;
 
-    public DriverPlayer()
-    {
+    public DriverPlayer() {
         score = 0;
         if (!hud)
         {
@@ -18,8 +17,7 @@ public class DriverPlayer : Driver {
             //hud.SetCar(car);
         }
     }
-    override public void Drive() 
-    {
+    override public void Drive() {
         if (car == null) return;
 
         //AddFuel(-1 * Time.deltaTime); // lose 1 fuel per second
@@ -33,9 +31,9 @@ public class DriverPlayer : Driver {
         car.SetThrottle(Mathf.Max(-t, v));
         car.Turn(h);
 
-        if (Input.GetButtonDown("Fire1")) car.Jump();
+        if (Input.GetButtonDown("Jump")) car.Jump();
+        if (Input.GetButtonDown("Fire1")) car.FireWeapons();
         if (Input.GetButtonDown("Fire2")) car.Boost();
-
     }
 
     public override void OnDestroy() {

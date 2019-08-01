@@ -20,16 +20,15 @@ public class TurretRotation : MonoBehaviour {
         Destroy(cursor.gameObject);
     }
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            SpawnBarrel();
-        }
+    public void FireWeapons() {
+        SpawnBarrel();
     }
-    void LateUpdate()
-    {
-        if(PlayerInput.mode == InputMode.Gamepad)
+    public void AimWeapon(float yaw) {
+
+        float parentYaw = transform.parent.eulerAngles.y;
+        transform.localEulerAngles = new Vector3(0, yaw - parentYaw, 0);
+        /*
+        if (PlayerInput.mode == InputMode.Gamepad)
         {
             cursor.parent = car.suspension;
             AimWithAnalog();
@@ -38,7 +37,7 @@ public class TurretRotation : MonoBehaviour {
         {
             cursor.parent = null;
             AimWithMouse();
-        }
+        }*/
         DrawAimPath();
     }
     void AimWithMouse()
@@ -90,6 +89,7 @@ public class TurretRotation : MonoBehaviour {
         bool aimFurtherOut = (target.sqrMagnitude >= cursor.localPosition.sqrMagnitude);
         float inputAlignAmount = Vector3.Dot(target, cursor.localPosition);
         bool letsAimThisThing = (aimFurtherOut || inputAlignAmount < .5f || target.sqrMagnitude > .8f);
+
         if (letsAimThisThing)
         {
             cursor.localPosition += (target - cursor.localPosition) * Time.deltaTime * 4;
@@ -124,10 +124,8 @@ public class TurretRotation : MonoBehaviour {
         */
     }
 
-    private void SpawnBarrel()
-    {
-        if (car.currentFuel > fuelPerBarrelTossed)
-        {
+    private void SpawnBarrel() {
+        if (car.currentFuel > fuelPerBarrelTossed) {
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, Random.onUnitSphere);
             
             Vector3 dir = spawnPoint.position - transform.position;

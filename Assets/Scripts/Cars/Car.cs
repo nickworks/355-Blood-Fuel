@@ -11,9 +11,7 @@ public class Car : MonoBehaviour {
     public float maximumFuel = 100;
     public float currentFuel { get; private set; }
 
-    public void FireWeapons() {
-        
-    }
+    TurretRotation weapon;
 
     /// <summary>
     /// The ball that is the car. Think of it as a hamster ball.
@@ -56,9 +54,10 @@ public class Car : MonoBehaviour {
     void Start()
     {
         ballBody = GetComponent<Rigidbody>();
+        weapon = GetComponentInChildren<TurretRotation>();
+
         currentFuel = maximumFuel;
         SwitchState(new CarStateGround());
-
     }
     private void SwitchState(CarState newCS)
     {
@@ -100,7 +99,10 @@ public class Car : MonoBehaviour {
     public void Turn(float amount)
     {
         turnAmount = amount * turnMultiplier;
-    }   
+    }
+    public void FireWeapons() {
+        if (weapon != null) weapon.FireWeapons();
+    }
     public void SandParticles(float amt)
     {
         SetParticleRate(dustParticles, amt);
