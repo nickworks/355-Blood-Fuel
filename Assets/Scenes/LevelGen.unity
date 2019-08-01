@@ -191,6 +191,10 @@ MonoBehaviour:
   camera: {fileID: 1667868497}
   playerCarPrefab: {fileID: 5046095656521649748, guid: 68a3268ba014d754ab9ed2feff42c176,
     type: 3}
+  prefabGuiOverlay: {fileID: 114897097810191700, guid: ba44ddb0905512d42a4c9891b67eb5cb,
+    type: 3}
+  prefabGuiGameOver: {fileID: 1017848950075502, guid: 98b96d81702ae3c48a767271949bbcdb,
+    type: 3}
 --- !u!114 &812214923
 MonoBehaviour:
   m_ObjectHideFlags: 0

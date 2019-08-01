@@ -11,6 +11,8 @@ public class PlayerManager : MonoBehaviour
     public FollowTarget camera;
 
     public Car playerCarPrefab;
+
+    public PlayerHUD prefabGuiOverlay;
     public GameObject prefabGuiGameOver;
 
     void Start()
@@ -20,13 +22,17 @@ public class PlayerManager : MonoBehaviour
     }
     void SpawnPlayer() {
 
-        DriverPlayer player = new DriverPlayer();
-        Car car = Instantiate(playerCarPrefab);
-        player.TakeControl(car);
-
+        DriverPlayer player = new DriverPlayer(); // spawn player
         activePlayers.Add(player);
 
-        camera.target = car.transform;
+        Car car = Instantiate(playerCarPrefab); // spawn car
+
+        player.TakeControl(car); // player takes control of new car
+
+        camera.target = car.transform; // set camera to follow new car
+
+        PlayerHUD hud = Instantiate(prefabGuiOverlay); // spawn hud for this player
+        hud.SetPlayer(player); // set hud to track this player
     }
 
     public static DriverPlayer FindNearest(Vector3 position) {
