@@ -6,26 +6,25 @@ public abstract class CarState {
 
     protected Car car;
 
-    public float throttleMultiplier = 1;
-    public float turnMultiplier = 1;
+    public float throttleMultiplier { get; protected set; }
+    public float turnMultiplier { get; protected set; }
 
     public Vector3 forward { get; private set; }
     public Vector3 up { get; private set; }
 
-    public virtual CarState Update() {
-        Drive();
-        UpdateModel();
-        return null;
-    }
+    public Quaternion suspensionOrientation { get; protected set; }
+    public float suspensionRotateSpeed { get; protected set; }
+
+    public abstract CarState Update();
 
     public virtual void OnStart(Car car) {
         this.car = car;
+        CalcOrientation();
     }
     public virtual void OnEnd() {
         this.car = null;
     }
-    protected virtual bool DetectGround(out string materialName)
-    {
+    protected virtual bool DetectGround(out string materialName) {
         materialName = "";
 
         RaycastHit hit;
@@ -38,44 +37,17 @@ public abstract class CarState {
         up = isGrounded ? hit.normal : Vector3.up;
         return isGrounded;
     }
-    protected void Drive() {
-        if (car.currentFuel <= 0) return;
 
-        // move forward:
-        car.ballBody.AddForce(forward * car.throttle * Time.deltaTime);
-
-        // move side-to-side:
-        Vector3 vel = car.ballBody.velocity;
-        vel.x = car.ballBody.velocity.x + 100 * car.turnAmount * Time.deltaTime;
-
-        float maxHorizontalSpeed = 100;
-        if (vel.x > maxHorizontalSpeed) vel.x = maxHorizontalSpeed;
-        if (vel.x < -maxHorizontalSpeed) vel.x = -maxHorizontalSpeed;
-
-        car.ballBody.velocity = vel;
-    }
-    protected virtual void UpdateModel() {
-        UpdateModelRotation(Quaternion.FromToRotation(Vector3.up, up), 180);
-    }
-    protected void UpdateModelRotation(Quaternion suspensionRotation, float rotateSpeed) {
-
-        // rotate the suspension to align with provided rotation:
-        car.suspension.position = car.transform.position; // make the model follow the hamster wheel! ////////////////////// NOTE: If suspension is a child of the veichle do we need thi? 
-        car.suspension.rotation = Quaternion.RotateTowards(car.suspension.rotation, suspensionRotation, rotateSpeed * Time.deltaTime);
-
-        // rotate the car model to align with velocity:
-        if (car.model) {
-            Vector3 vel = car.ballBody.velocity;
-            float turn = Mathf.Atan2(vel.x, vel.z) * Mathf.Rad2Deg;
-            car.model.localEulerAngles = new Vector3(0, turn, 0);
-        }
-    }
+    protected abstract void CalcOrientation();
+    
 }
 public class CarStateGround : CarState {
     public CarStateGround() {
+        throttleMultiplier = 1;
+        turnMultiplier = 1;
     }
     override public CarState Update() {
-        base.Update();
+        CalcOrientation();
 
         bool isGrounded = DetectGround(out string material);
 
@@ -87,6 +59,10 @@ public class CarStateGround : CarState {
     public override void OnEnd() {
         car.SandParticles(0);
     }
+    protected override void CalcOrientation() {
+        suspensionOrientation = Quaternion.FromToRotation(Vector3.up, up);
+        suspensionRotateSpeed = 180;
+    }
 }
 public class CarStateAir : CarState {
     public CarStateAir() {
@@ -95,12 +71,13 @@ public class CarStateAir : CarState {
     }
 
     override public CarState Update() {
-        base.Update();
+        CalcOrientation();
         bool isGrounded = DetectGround(out string material);
         return isGrounded ?  new CarStateGround() : null;
     }
-    protected override void UpdateModel() {
+    protected override void CalcOrientation() {
         float pitch = -car.ballBody.velocity.y * 2;
-        UpdateModelRotation(Quaternion.Euler(pitch, 0, 0), 40);
+        suspensionOrientation = Quaternion.Euler(pitch, 0, 0);
+        suspensionRotateSpeed = 40;
     }
 }

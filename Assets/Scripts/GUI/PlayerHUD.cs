@@ -27,9 +27,11 @@ public class PlayerHUD : MonoBehaviour {
     }
     private void UpdateSpeedometer()
     {
-        float vel = (driver.car == null) ? 0 : driver.car.ballBody.velocity.z;
-
-        float p = vel / speedometerMaxVelocity;
+        float p = 0;
+        if (driver.car != null) {
+            float vel = driver.car.ballBody.velocity.z;
+            p = vel / driver.car.maxSpeed;
+        }
         p = Mathf.Clamp(p, 0, 1);
         float angle = Mathf.Lerp(120, -118, p);
         float finalAngle = (angle + previousAngle * 4) / 5;

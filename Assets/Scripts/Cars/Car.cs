@@ -47,6 +47,7 @@ public class Car : MonoBehaviour {
     public float throttleMin = 800;
     public float throttleMax = 2000;
 
+    public float maxSpeed = 200;
     private float health = 100;
 
     [HideInInspector] public Driver driver;
@@ -83,6 +84,10 @@ public class Car : MonoBehaviour {
     {
         if (driver != null) driver.Drive();
         SwitchState(state.Update());
+
+        MoveCar();
+        UpdateModel();
+
         if (health <= 0) Destroy(gameObject);
     }
     public void Kill(bool killSilently = false) {
@@ -102,7 +107,7 @@ public class Car : MonoBehaviour {
         ballBody.AddForce(Vector3.up * 20, ForceMode.Impulse);
     }
     public void Boost() {
-        float p = ballBody.velocity.z / 200;
+        float p = ballBody.velocity.z / maxSpeed;
         float m = boostFalloff.Evaluate(p);
         ballBody.AddForce(model.forward * 5000 * m * Time.deltaTime);
         model.GetComponentInChildren<MeshRenderer>().material.color = Color.black;
@@ -113,8 +118,7 @@ public class Car : MonoBehaviour {
         AddFuel(-throttlePercent * Time.deltaTime); // lose 1 fuel per second
     }
     public void Turn(float amount) {
-        turnAmount = amount * state.turnMultiplier;
-        text.text = turnAmount.ToString();
+        turnAmount = amount;
     }
     public void FireWeapons() {
         if (weapon != null) weapon.FireWeapons();
@@ -130,6 +134,36 @@ public class Car : MonoBehaviour {
             var em = p.emission;
             em.rateOverTime = perSecond;
             //em.rateOverDistance = overDistance;
+        }
+    }
+
+    private void MoveCar() {
+        if (currentFuel <= 0) return;
+
+        // move forward:
+        ballBody.AddForce(state.forward * throttle * state.throttleMultiplier * Time.deltaTime);
+
+        // move side-to-side:
+        Vector3 vel = ballBody.velocity;
+        vel.x = ballBody.velocity.x + 100 * turnAmount * state.turnMultiplier * Time.deltaTime;
+
+        float maxHorizontalSpeed = 100;
+        if (vel.x > maxHorizontalSpeed) vel.x = maxHorizontalSpeed;
+        if (vel.x < -maxHorizontalSpeed) vel.x = -maxHorizontalSpeed;
+
+        ballBody.velocity = vel;
+    }
+    public void UpdateModel() {
+
+        // rotate the suspension to align with provided rotation:
+        suspension.position = transform.position; // make the model follow the hamster wheel! ////////////////////// NOTE: If suspension is a child of the veichle do we need thi? 
+        suspension.rotation = Quaternion.RotateTowards(suspension.rotation, state.suspensionOrientation, state.suspensionRotateSpeed * Time.deltaTime);
+
+        // rotate the car model to align with velocity:
+        if (model) {
+            Vector3 vel = ballBody.velocity;
+            float turn = Mathf.Atan2(vel.x, vel.z) * Mathf.Rad2Deg;
+            model.localEulerAngles = new Vector3(0, turn, 0);
         }
     }
 }
