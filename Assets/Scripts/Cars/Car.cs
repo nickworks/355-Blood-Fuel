@@ -33,6 +33,8 @@ public class Car : MonoBehaviour {
     /// </summary>
     public Transform model;
 
+    public Transform aiSteerVisual;
+
     public ParticleSystem[] dustParticles;
     public AnimationCurve boostFalloff;
 

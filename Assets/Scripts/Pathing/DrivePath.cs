@@ -109,7 +109,6 @@ public class DrivePath : MonoBehaviour
     }
     public Vector3 ProjectPoint(Vector3 pt)
     {
-
         Vector3[] worldPoints = WorldPoints();
 
         if (worldPoints[0].z > pt.z) return worldPoints[0]; // if the whole path is ahead of the player, return the first point
@@ -118,7 +117,7 @@ public class DrivePath : MonoBehaviour
         for (int i = 0; i < worldPoints.Length; i++) { // go through each point:
             if (worldPoints[i].z < pt.z) continue; // if this point is behind the player, ignore this point
             Vector3 p1 = worldPoints[i];
-            Vector3 p2 = worldPoints[i - 1];
+            Vector3 p2 = (i == 0) ? worldPoints[worldPoints.Length - 1] :  worldPoints[i - 1];
             float range = p1.z - p2.z;
             float p = (pt.z - p2.z) / range;
             Vector3 proj = Vector3.Lerp(p2, p1, p);

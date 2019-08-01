@@ -25,7 +25,7 @@ public class ImpactExplosion : MonoBehaviour {
         //if (col.gameObject.tag == undefined) return;
         if(col.gameObject.tag == "Pickup")
         {
-            DriverPlayer.main.car.AddFuel(10);
+            PlayerManager.playerOne.car.AddFuel(10);
             Destroy(col.gameObject);
         }
         else if(col.impulse.sqrMagnitude > threshold * threshold)

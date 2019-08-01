@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour {
 
-   static int numEnemys = 1;
-   public int maxEnemys = 5;
-   // int minEnemys = 3;
+    public int maxEnemies = 5;
+    static public List<DriverAI> activeAi = new List<DriverAI>();
 
     float spawnTimer = 0;
-    
 
-    public GameObject enemyPrefab;
+    public Car enemyPrefab;
 
 	// Use this for initialization
 	void Start () {
@@ -21,8 +19,7 @@ public class EnemySpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-         //print(numEnemys);
-         if (numEnemys < maxEnemys && spawnTimer <= 0) {
+         if (activeAi.Count < maxEnemies && spawnTimer <= 0) {
             SpawnEnemy();
             
         } else if (spawnTimer > 0) {
@@ -32,25 +29,27 @@ public class EnemySpawner : MonoBehaviour {
 
 
     void SpawnEnemy() {
-        if (DriverPlayer.main == null) return;
+        if (PlayerManager.playerOne == null) return;
+        if (PlayerManager.playerOne.car == null) return;
+
         float buffer = 5;
         float spawnWidth = 20;
 
-        Vector3 position = DriverPlayer.main.car.transform.position;
+        Vector3 position = PlayerManager.playerOne.car.transform.position;
         position.z -= Random.Range(10, 15);
         position.x += Random.Range(-spawnWidth, spawnWidth);
         if (position.x > 0 && position.x < buffer) position.x = buffer;
         if (position.x < 0 && position.x > -buffer) position.x = -buffer;
 
-        Instantiate(enemyPrefab,position,Quaternion.identity);
-        numEnemys++;
-        spawnTimer = Random.Range(numEnemys, numEnemys*2);
+        Car car = Instantiate(enemyPrefab,position,Quaternion.identity);
+
+        DriverAI ai = new DriverAI();
+        ai.TakeControl(car);
+
+        spawnTimer = Random.Range(1, 2);
     }
 
-    static public void EnemyDead() {
-        numEnemys--;
+    static public void Remove(DriverAI ai) {
+        activeAi.Remove(ai);
     }
-
-
-
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    static public Driver playerOne;
+    static public DriverPlayer playerOne;
 
     public FollowTarget camera;
 

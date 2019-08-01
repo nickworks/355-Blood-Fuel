@@ -1,35 +1,18 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DriverAI : MonoBehaviour
+public class DriverAI : Driver
 {
-
-    /// <summary>
-    /// The car that this AI is driving.
-    /// </summary>
-    public Car car { get; private set; }
-
-    public Transform driveTarget;
 
     /// <summary>
     /// We want to drive towards this thing
     /// </summary>
     public Transform target;
 
-    void Start()
+    override public void Drive()
     {
-        car = GetComponent<Car>();
         car.infiniteFuel = true;
-        //body.AddForce(0, 0, 2000);
-        explosion = GetComponent<ImpactExplosion>();
-    }
-    void OnDestroy()
-    {
-        EnemySpawner.EnemyDead();
-    }
-    void Update()
-    {
         SteerTowardsPath();
         ApplySteeringAndThrottle();
     }
@@ -78,21 +61,13 @@ public class DriverAI : MonoBehaviour
         }
         else
         {
-            float targetDisSqr = (transform.position - target.position).sqrMagnitude;
-            if (transform.position.z < target.position.z && targetDisSqr > 50 * 50)
+            float targetDisSqr = (car.transform.position - target.position).sqrMagnitude;
+            if (car.transform.position.z < target.position.z && targetDisSqr > 50 * 50)
             { // too far behind
                 isDead = true;
             }
         }
         
-    }
-
-    void HandleDead()
-    {
-        if (isDead || !target)
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -115,7 +90,7 @@ public class DriverAI : MonoBehaviour
         if (other.gameObject.CompareTag("Explosion"))
         {
             //explosion.Explode();
-            SendMessage("Explode");
+            //SendMessage("Explode");
         }
         if (other.gameObject.CompareTag("SteerAway"))
         {
@@ -124,25 +99,29 @@ public class DriverAI : MonoBehaviour
     }
     void SteerAwayFrom(Collider c)
     {
-        bool turnRight = transform.position.x > c.transform.position.x;
+        bool turnRight = car.transform.position.x > c.transform.position.x;
         turnAmount = turnRight ? 1 : -1;
 
     }
     void SteerTowardsPath()
     {
-        Vector3 nearestPoint = DrivePath.ProjectToNearestPath(transform.position);
+        Vector3 nearestPoint = DrivePath.ProjectToNearestPath(car.transform.position);
         float turnMultiplier = 10f;
-        turnAmount = (nearestPoint.x - transform.position.x) * turnMultiplier;
+        turnAmount = (nearestPoint.x - car.transform.position.x) * turnMultiplier;
         turnAmount = Mathf.Clamp(turnAmount, -1, 1);
 
         //if (nearestPoint.x < transform.position.x) turnAmount = -1;
         //if (nearestPoint.x > transform.position.x) turnAmount = 1;
-        this.driveTarget.position = nearestPoint;
-        this.driveTarget.rotation = Quaternion.identity;
+
+        car.aiSteerVisual.position = nearestPoint;
+        car.aiSteerVisual.rotation = Quaternion.identity;
     }
     void Explode()
     {
-        DriverPlayer.score += 500;
+        PlayerManager.playerOne.score += 500;
     }
 
+    public override void OnDestroy() {
+        EnemySpawner.Remove(this);
+    }
 }

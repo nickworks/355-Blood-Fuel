@@ -63,8 +63,8 @@ public class EnemyController : MonoBehaviour {
 
     void Start() {
         body = GetComponent<Rigidbody>();
-        target = DriverPlayer.main.car.transform;
-        targetBody = DriverPlayer.main.car.ballBody;
+        target = PlayerManager.playerOne.car.transform;
+        targetBody = PlayerManager.playerOne.car.ballBody;
         body.AddForce(0, 0, 2000);
         explosion = GetComponent<ImpactExplosion>();
     }
@@ -361,7 +361,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     private void OnDestroy() {
-        EnemySpawner.EnemyDead();
+        
     }
 
     private void OnCollisionEnter(Collision collision) {
@@ -427,6 +427,6 @@ public class EnemyController : MonoBehaviour {
 
     void Explode()
     {
-        DriverPlayer.score += 500;
+        PlayerManager.playerOne.score += 500;
     }
 }

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class DriverPlayer : Driver {
 
-    static public DriverPlayer main;
-    static public float score = 0;
+    public float score = 0;
 
     public PlayerHUD prefabHUD;
     static PlayerHUD hud;
@@ -13,7 +12,6 @@ public class DriverPlayer : Driver {
     public DriverPlayer()
     {
         score = 0;
-        main = this;
         if (!hud)
         {
             //hud = Instantiate(prefabHUD);
@@ -40,4 +38,7 @@ public class DriverPlayer : Driver {
 
     }
 
+    public override void OnDestroy() {
+        
+    }
 }

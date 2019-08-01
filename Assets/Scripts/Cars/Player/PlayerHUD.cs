@@ -22,7 +22,7 @@ public class PlayerHUD : MonoBehaviour {
         UpdateFuelGauge();
         UpdateSpeedometer();
 
-        score.text = string.Join(" ", ((int)DriverPlayer.score).ToString().Split());
+        score.text = string.Join(" ", ((int)PlayerManager.playerOne.score).ToString().Split());
     }
     private void UpdateSpeedometer()
     {
