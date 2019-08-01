@@ -72,11 +72,11 @@ public class Car : MonoBehaviour {
         SwitchState(state.Update());
         if (health <= 0) Destroy(gameObject);
     }
-    public void Kill() {
+    public void Kill(bool killSilently = false) {
         health = 0;
         Destroy(gameObject);
     }
-    private void OnDestroy() {
+    void OnDestroy() {
         if (driver != null) driver.OnDestroy((health <= 0));
     }
     public void AddFuel(float delta)

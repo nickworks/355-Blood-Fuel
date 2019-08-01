@@ -70,15 +70,15 @@ public class DriverAI : Driver {
     void DestroyIfTooFarAway() {
         if(attackTarget == null) {
             Debug.Log("dying cause I don't have an attackTarget");
-            Object.Destroy(car);
+            car.Kill(true);
             return;
         }
         Vector3 vectorToTarget = (attackTarget.transform.position - car.transform.position);
         float targetDisSqr = vectorToTarget.sqrMagnitude;
         if (targetDisSqr > KILL_DIS * KILL_DIS) {
             // too far away
-            Debug.Log($"dying cause I'm too far away from the thing I want to attack ({vectorToTarget})");
-            Object.Destroy(car);
+            //Debug.Log($"dying cause I'm too far away from the thing I want to attack ({vectorToTarget})");
+            car.Kill(true);
         }
     }
     bool SteerAvoidObstacles() {
