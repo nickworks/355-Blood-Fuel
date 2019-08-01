@@ -71,7 +71,7 @@ public class CarStateGround : CarState {
     public CarStateGround() {
     }
     override public CarState Update() {
-        if (!DetectGround(out string material)) return new CarStateAir();
+        bool isGrounded = DetectGround(out string material);
 
         bool onSand = (material == "Sand (Instance)");
         car.SandParticles(onSand ? 50 : 0);
@@ -79,7 +79,7 @@ public class CarStateGround : CarState {
         Drive();
         UpdateModel();
 
-        return null;
+        return isGrounded ? null : new CarStateAir();
     }
     public override void OnEnd() {
         car.SandParticles(0);
@@ -92,10 +92,10 @@ public class CarStateAir : CarState {
     }
 
     override public CarState Update() {
-        if (DetectGround(out string material)) return new CarStateGround();
+        bool isGrounded = DetectGround(out string material);
         Drive();
         UpdateModel();
-        return null;
+        return isGrounded ?  new CarStateGround() : null;
     }
     protected override void UpdateModel() {
         float pitch = -car.ballBody.velocity.y * 2;
