@@ -9,13 +9,24 @@ public class TurretRotation : MonoBehaviour {
     public float fuelPerBarrelTossed = 10;
     public Transform cursor;
     public AnimationCurve curve;
+    float aimMaxDistance = 15;
 
     public Car car;
 
     void Start() {
         car = GetComponentInParent<Car>();
     }
+    private void OnDestroy() {
+        Destroy(cursor.gameObject);
+    }
     // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            SpawnBarrel();
+        }
+    }
     void LateUpdate()
     {
         if(PlayerInput.mode == InputMode.Gamepad)
@@ -30,35 +41,32 @@ public class TurretRotation : MonoBehaviour {
         }
         DrawAimPath();
     }
-
-    private void DrawAimPath()
+    void AimWithMouse()
     {
-        // TEMP DISABLE
-        /*
-        Vector3[] pts = new Vector3[DriverPlayer.main.line.positionCount];
+        float mx = Input.GetAxis("Mouse X");
+        float my = Input.GetAxis("Mouse Y");
         
-        float height = 2;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // make a ray
+        Plane aimPlane = new Plane(Vector3.up, transform.position); // make a plane
 
-        for (int i = 0; i < pts.Length; i++)
+        float rayLength = 0;
+        if (aimPlane.Raycast(ray, out rayLength)) // detect if the ray intersects the plane
         {
-            int max = pts.Length - 1 + 4;
-            float p = i / (float)max;
+            Vector3 hit = ray.GetPoint(rayLength); // detect where the intersection is
 
-            //p *= .6f;
-            Vector3 pt = Vector3.Lerp(transform.position, cursor.position, p);
-            pt.y += curve.Evaluate(p) * height;
-            pts[i] = pt;
-            if(i == 1)
+            Vector3 dis = transform.position - hit;
+            if (dis.sqrMagnitude > aimMaxDistance * aimMaxDistance)
             {
-                spawnPoint.position = pt;
+                dis = dis.normalized * aimMaxDistance;
+                hit = transform.position - dis;
             }
+            float yaw = -Mathf.Atan2(dis.z, dis.x) * 180 / Mathf.PI;
+            float parentYaw = transform.parent.eulerAngles.y;
+            transform.localEulerAngles = new Vector3(0, yaw - parentYaw, 0);
+            cursor.position = hit;
         }
-
-        DriverPlayer.main.line.SetPositions(pts);
-        */
     }
-    float aimMaxDistance = 15;
-    private void AimWithAnalog()
+    void AimWithAnalog()
     {
         float aimAxisH = Input.GetAxis("Horizontal2");
         float aimAxisV = Input.GetAxis("Vertical2");
@@ -89,39 +97,31 @@ public class TurretRotation : MonoBehaviour {
         cursor.rotation = Quaternion.identity;
 
     }
-
-    void AimWithMouse()
+    void DrawAimPath()
     {
-        float mx = Input.GetAxis("Mouse X");
-        float my = Input.GetAxis("Mouse Y");
+        // TEMP DISABLE
+        /*
+        Vector3[] pts = new Vector3[DriverPlayer.main.line.positionCount];
         
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // make a ray
-        Plane aimPlane = new Plane(Vector3.up, transform.position); // make a plane
+        float height = 2;
 
-        float rayLength = 0;
-        if (aimPlane.Raycast(ray, out rayLength)) // detect if the ray intersects the plane
+        for (int i = 0; i < pts.Length; i++)
         {
-            Vector3 hit = ray.GetPoint(rayLength); // detect where the intersection is
+            int max = pts.Length - 1 + 4;
+            float p = i / (float)max;
 
-            Vector3 dis = transform.position - hit;
-            if (dis.sqrMagnitude > aimMaxDistance * aimMaxDistance)
+            //p *= .6f;
+            Vector3 pt = Vector3.Lerp(transform.position, cursor.position, p);
+            pt.y += curve.Evaluate(p) * height;
+            pts[i] = pt;
+            if(i == 1)
             {
-                dis = dis.normalized * aimMaxDistance;
-                hit = transform.position - dis;
+                spawnPoint.position = pt;
             }
-            float yaw = -Mathf.Atan2(dis.z, dis.x) * 180 / Mathf.PI;
-            float parentYaw = transform.parent.eulerAngles.y;
-            transform.localEulerAngles = new Vector3(0, yaw - parentYaw, 0);
-            cursor.position = hit;
         }
-    }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            SpawnBarrel();
-        }
+        DriverPlayer.main.line.SetPositions(pts);
+        */
     }
 
     private void SpawnBarrel()
