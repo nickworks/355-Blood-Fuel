@@ -43,16 +43,13 @@ public class Car : MonoBehaviour {
 
     public float throttleMin = 800;
     public float throttleMax = 2000;
-    public float throttleMaxAir = 1500;
-    public float turnMultiplier = 1;
 
     private float health = 100;
 
     [HideInInspector] public Driver driver;
     CarState state;
 
-    void Start()
-    {
+    void Start() {
         ballBody = GetComponent<Rigidbody>();
         weapon = GetComponentInChildren<TurretRotation>();
 
@@ -99,14 +96,13 @@ public class Car : MonoBehaviour {
         ballBody.AddForce(model.forward * 5000 * m * Time.deltaTime);
         model.GetComponentInChildren<MeshRenderer>().material.color = Color.black;
     }
-    public void SetThrottle(float t)
-    {
-        if (t < 0) t = 0;
-        throttle = Mathf.Lerp(throttleMin, state.isGrounded ? throttleMax : throttleMaxAir, t);
+    public void SetThrottle(float throttlePercent) {
+        if (throttlePercent < 0) throttlePercent = 0;
+        throttle = Mathf.Lerp(throttleMin, state.throttleMultiplier * throttleMax, throttlePercent);
+        AddFuel(-throttlePercent * Time.deltaTime); // lose 1 fuel per second
     }
-    public void Turn(float amount)
-    {
-        turnAmount = amount * turnMultiplier;
+    public void Turn(float amount) {
+        turnAmount = amount * state.turnMultiplier;
     }
     public void FireWeapons() {
         if (weapon != null) weapon.FireWeapons();

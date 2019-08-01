@@ -155,13 +155,7 @@ MonoBehaviour:
   cam: {fileID: 2141918326}
   chunkUnloadOffset: 100
   prefabChunks:
-  - {fileID: 114069947782396694, guid: 4d4480e95fe02124e98e8a42067ae3b3, type: 3}
-  - {fileID: 114069947782396694, guid: 4d4480e95fe02124e98e8a42067ae3b3, type: 3}
-  - {fileID: 114069947782396694, guid: e783b5a7fd339c24d89efd1b48a9bd4f, type: 3}
-  - {fileID: 114069947782396694, guid: 1db096e6cc4591e4fad6522ced0500bb, type: 3}
-  - {fileID: 114069947782396694, guid: 6dd1e971c4f873a4181acdf580981450, type: 3}
-  - {fileID: 114069947782396694, guid: 693ce17fc0ce04346bd519d3e0b036cd, type: 3}
-  - {fileID: 114175125777673942, guid: fe9dff4607de3fb41bfcef7ab5a3a062, type: 3}
+  - {fileID: 1263362915072327137, guid: 69ac22e25253c884c934ac00847a83ac, type: 3}
 --- !u!4 &812214921
 Transform:
   m_ObjectHideFlags: 0
@@ -283,7 +277,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 8.06e-43, y: -2.6829313e-27, z: 8.06e-43, w: 1.0110651e-30}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -348,7 +342,7 @@ PrefabInstance:
     - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
         type: 3}
       propertyPath: targetDistance
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f5981a0da22dbe4fa785cbba80546a7, type: 3}
