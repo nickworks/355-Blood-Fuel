@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class DriverAI : Driver {
 
-    private const float KILL_DIS = 100;
+    /// <summary>
+    /// Distance from attack target at which to giveup and die. This is useful if
+    /// the AI's car falls out of the map or gets stuck somehow.
+    /// </summary>
+    private const int KILL_DIS = 100;
+
+    /// <summary>
+    /// How far to shoot a raycast forward for obstacle avoidance.
+    /// </summary>
+    private const int LOOK_DIS = 50;
 
     /// <summary>
     /// We want to drive towards this thing
@@ -85,9 +94,13 @@ public class DriverAI : Driver {
         RaycastHit look;
 
         Vector3 forward = car.ballBody.velocity.normalized;
-        float distance = car.ballBody.velocity.z;
+        float distance = LOOK_DIS;
 
-        if (Physics.Raycast(car.transform.position, forward, out look, distance)) {
+        Vector3 rayStart = car.transform.position;
+        Vector3 rayEnd = car.transform.position + forward * distance;
+
+
+        if (Physics.Raycast(rayStart, forward, out look, distance)) {
 
             bool colliderIsPlayer = look.collider.gameObject.CompareTag("Player");
             bool colliderIsPickup = look.collider.gameObject.CompareTag("Pickup");
@@ -98,10 +111,12 @@ public class DriverAI : Driver {
 
             } else {
 
-                bool colliderIsRamp = look.normal.y < 0.5f;
+                bool colliderIsRamp = look.normal.y > 0.5f;
                 float normalX = look.normal.x;
 
                 if (!colliderIsRamp) {
+
+                    car.SetLine(rayStart, rayEnd, Color.magenta);
 
                     float rightEdge = look.collider.bounds.max.x;
                     float leftEdge = look.collider.bounds.min.x;
@@ -116,6 +131,7 @@ public class DriverAI : Driver {
                 }
             }
         }
+        car.SetLine(rayStart, rayEnd);
         return false;
     }
     void SteerTowardsPath() {

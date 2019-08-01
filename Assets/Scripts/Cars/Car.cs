@@ -36,7 +36,10 @@ public class Car : MonoBehaviour {
     /// </summary>
     public Transform model;
 
+    LineRenderer lineRenderer;
+
     public Transform aiSteerVisual;
+    public TextMesh text;
 
     public ParticleSystem[] dustParticles;
     public AnimationCurve boostFalloff;
@@ -50,11 +53,20 @@ public class Car : MonoBehaviour {
     CarState state;
 
     void Start() {
+        lineRenderer = GetComponentInChildren<LineRenderer>();
         ballBody = GetComponent<Rigidbody>();
         weapon = GetComponentInChildren<TurretRotation>();
 
         currentFuel = maximumFuel;
         SwitchState(new CarStateGround());
+    }
+    public void SetLine(Vector3 start, Vector3 end, Color color = default) {
+        if (color == default) color = Color.black;
+
+        lineRenderer.material.color = color;
+
+        Vector3[] pts = { start, end };
+        lineRenderer.SetPositions(pts);
     }
     public void InitSpeed(Car car) {
         ballBody = GetComponent<Rigidbody>();
@@ -103,6 +115,7 @@ public class Car : MonoBehaviour {
     }
     public void Turn(float amount) {
         turnAmount = amount * state.turnMultiplier;
+        text.text = turnAmount.ToString();
     }
     public void FireWeapons() {
         if (weapon != null) weapon.FireWeapons();
