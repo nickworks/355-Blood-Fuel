@@ -10,6 +10,6 @@ public abstract class Driver {
         this.car = car;
         this.car.driver = this; // if the car had a former driver? it's gone now
     }
-    public abstract void OnDestroy();
+    public abstract void OnDestroy(bool isDead);
     public abstract void Drive();
 }

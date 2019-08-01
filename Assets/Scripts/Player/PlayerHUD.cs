@@ -22,7 +22,8 @@ public class PlayerHUD : MonoBehaviour {
         UpdateFuelGauge();
         UpdateSpeedometer();
 
-        score.text = string.Join(" ", ((int)driver.score).ToString().Split());
+        //score.text = string.Join(" ", ((int)driver.score).ToString().Split());
+        score.text = $"{EnemySpawner.activeAi.Count}";
     }
     private void UpdateSpeedometer()
     {

@@ -17,7 +17,7 @@ public class TurretRotation : MonoBehaviour {
         car = GetComponentInParent<Car>();
     }
     private void OnDestroy() {
-        Destroy(cursor.gameObject);
+        Destroy(cursor.gameObject); // remove cursor
     }
     // Update is called once per frame
     public void FireWeapons() {

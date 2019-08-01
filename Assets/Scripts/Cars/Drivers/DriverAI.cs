@@ -70,7 +70,7 @@ public class DriverAI : Driver {
     void DestroyIfTooFarAway() {
         if(attackTarget == null) {
             Debug.Log("dying cause I don't have an attackTarget");
-            car.health = 0;
+            Object.Destroy(car);
             return;
         }
         Vector3 vectorToTarget = (attackTarget.transform.position - car.transform.position);
@@ -78,7 +78,7 @@ public class DriverAI : Driver {
         if (targetDisSqr > KILL_DIS * KILL_DIS) {
             // too far away
             Debug.Log($"dying cause I'm too far away from the thing I want to attack ({vectorToTarget})");
-            car.health = 0;
+            Object.Destroy(car);
         }
     }
     bool SteerAvoidObstacles() {
@@ -129,7 +129,7 @@ public class DriverAI : Driver {
         car.aiSteerVisual.rotation = Quaternion.identity;
     }
 
-    public override void OnDestroy() {
+    public override void OnDestroy(bool isDead) {
         EnemySpawner.Remove(this);
     }
 }

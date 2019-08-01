@@ -17,7 +17,12 @@ public class ImpactExplosion : MonoBehaviour {
     }
     public void Explode()
     {
-        Destroy(gameObject);
+        Car car = GetComponent<Car>();
+        if (car) {
+            car.Kill(); // properly Destroys car / driver
+        } else {
+            Destroy(gameObject);
+        }
 
         GameObject particles = Instantiate(prefabExplosion, transform.position, Quaternion.identity);
         Destroy(particles, 2);

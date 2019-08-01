@@ -50,9 +50,9 @@ public class PlayerManager : MonoBehaviour
         return nearestPlayer;
     }
 
-    static public void Remove(DriverPlayer player) {
+    static public void Remove(DriverPlayer player, bool triggerGameOver) {
         activePlayers.Remove(player);
-        if (activePlayers.Count == 0) activeManager.GameOver();
+        if (triggerGameOver && activePlayers.Count == 0) activeManager.GameOver();
     }
     static public DriverPlayer PickRandom() {
         if (activePlayers.Count == 0) return null;

@@ -36,7 +36,7 @@ public class DriverPlayer : Driver {
         if (Input.GetButtonDown("Fire2")) car.Boost();
     }
 
-    public override void OnDestroy() {
-        PlayerManager.Remove(this);
+    public override void OnDestroy(bool isDead) {
+        PlayerManager.Remove(this, isDead);
     }
 }
