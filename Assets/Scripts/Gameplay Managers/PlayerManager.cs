@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour
 
         player.TakeControl(car); // player takes control of new car
 
-        camera.target = car.transform; // set camera to follow new car
+        camera.target = car; // set camera to follow new car
 
         PlayerHUD hud = Instantiate(prefabGuiOverlay); // spawn hud for this player
         hud.SetPlayer(player); // set hud to track this player

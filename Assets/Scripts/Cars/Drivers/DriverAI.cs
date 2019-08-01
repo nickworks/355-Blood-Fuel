@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,14 +26,34 @@ public class DriverAI : Driver {
     /// </summary>
     public Car attackTarget;
 
+    float turnAmount = 0;
+    float throttleAmount = 1;
+
     override public void Drive() {
         car.infiniteFuel = true;
 
         FindAnAttackTarget(); // find nearest player
         DestroyIfTooFarAway(); // if too far away, destroy self
+        AdjustThrottle();
+
         bool avoidingObstacles = SteerAvoidObstacles();
         if(!avoidingObstacles) SteerTowardsPath(); // steer towards nearest path
         ApplySteeringAndThrottle();
+    }
+
+    private void AdjustThrottle() {
+        if (attackTarget == null) return;
+
+        // if close to player:
+        // match player speed
+        
+        // if far behind:
+        // throttle up
+        
+        // if far ahead:
+        // throttle down
+
+
     }
 
     private void FindAnAttackTarget() {
@@ -42,35 +63,14 @@ public class DriverAI : Driver {
         }
     }
 
-    private void ApplySteeringAndThrottle()
-    {
-        float h = turnAmount;
-        float v = 1; // full throttle!
-        car.SetThrottle(v);
-        car.Turn(h);
+    private void ApplySteeringAndThrottle() {
+        car.SetThrottle(throttleAmount);
+        car.Turn(turnAmount);
         turnAmount = 0;
     }
 
     //////////////////////////////////////////////////////////
 
-    ImpactExplosion explosion;
-
-    float distToPlayer;
-
-    /// <summary>
-    /// The target distance from the player along the z axis
-    /// </summary>
-    float offset = 6;
-    /// <summary>
-    /// How long should we coast - in seconds
-    /// </summary>
-    float coastTimer;
-    /// <summary>
-    /// Are we touching the ground
-    /// </summary>
-
-    float turnAmount;
-    float chargePercent;
     
     /// <summary>
     /// Checks if this driver is too far from its attack target.

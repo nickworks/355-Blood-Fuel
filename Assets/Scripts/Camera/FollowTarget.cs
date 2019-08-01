@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FollowTarget : MonoBehaviour {
 
-    public Transform target;
+    public Car target;
     public float targetDistance = 20;
+    float distanceMultiplier = 1;
 
     Camera cam;
 	
@@ -16,10 +17,16 @@ public class FollowTarget : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (target) {
-            transform.position = target.position;
+            transform.position = target.transform.position;
+            float modifier = (target.ballBody.velocity.z - 50) / 10;
+            modifier = Mathf.Clamp(modifier, 0, 1);
+            distanceMultiplier = 1 + (modifier * modifier) / 2;
         }
         if (cam) { // zoom camera in or out:
-            cam.transform.localPosition += (new Vector3(0, 0, -targetDistance) - cam.transform.localPosition) * Time.deltaTime;
+
+            Vector3 localPositionTarget = new Vector3(0, 0, -targetDistance * distanceMultiplier);
+
+            cam.transform.localPosition += (localPositionTarget - cam.transform.localPosition) * Time.deltaTime;
         }
 	}
 }

@@ -101,9 +101,8 @@ public class Car : MonoBehaviour {
     {
         ballBody.AddForce(Vector3.up * 20, ForceMode.Impulse);
     }
-    public void Boost()
-    {
-        float p = ballBody.velocity.sqrMagnitude / 10000;
+    public void Boost() {
+        float p = ballBody.velocity.z / 200;
         float m = boostFalloff.Evaluate(p);
         ballBody.AddForce(model.forward * 5000 * m * Time.deltaTime);
         model.GetComponentInChildren<MeshRenderer>().material.color = Color.black;

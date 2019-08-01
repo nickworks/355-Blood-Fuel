@@ -12,7 +12,11 @@ public abstract class CarState {
     public Vector3 forward { get; private set; }
     public Vector3 up { get; private set; }
 
-    public abstract CarState Update();
+    public virtual CarState Update() {
+        Drive();
+        UpdateModel();
+        return null;
+    }
 
     public virtual void OnStart(Car car) {
         this.car = car;
@@ -71,13 +75,12 @@ public class CarStateGround : CarState {
     public CarStateGround() {
     }
     override public CarState Update() {
+        base.Update();
+
         bool isGrounded = DetectGround(out string material);
 
         bool onSand = (material == "Sand (Instance)");
         car.SandParticles(onSand ? 50 : 0);
-
-        Drive();
-        UpdateModel();
 
         return isGrounded ? null : new CarStateAir();
     }
@@ -92,9 +95,8 @@ public class CarStateAir : CarState {
     }
 
     override public CarState Update() {
+        base.Update();
         bool isGrounded = DetectGround(out string material);
-        Drive();
-        UpdateModel();
         return isGrounded ?  new CarStateGround() : null;
     }
     protected override void UpdateModel() {

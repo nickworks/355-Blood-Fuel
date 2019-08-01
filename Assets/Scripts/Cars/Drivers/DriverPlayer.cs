@@ -6,16 +6,8 @@ public class DriverPlayer : Driver {
 
     public float score = 0;
 
-    public PlayerHUD prefabHUD;
-    static PlayerHUD hud;
-
     public DriverPlayer() {
         score = 0;
-        if (!hud)
-        {
-            //hud = Instantiate(prefabHUD);
-            //hud.SetCar(car);
-        }
     }
     override public void Drive() {
         if (car == null) return;
@@ -33,7 +25,7 @@ public class DriverPlayer : Driver {
 
         if (Input.GetButtonDown("Jump")) car.Jump();
         if (Input.GetButtonDown("Fire1")) car.FireWeapons();
-        if (Input.GetButtonDown("Fire2")) car.Boost();
+        if (Input.GetButton("Fire2")) car.Boost();
     }
 
     public override void OnDestroy(bool isDead) {
