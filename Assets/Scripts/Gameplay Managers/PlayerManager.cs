@@ -49,6 +49,7 @@ public class PlayerManager : MonoBehaviour
         if (activePlayers.Count == 0) activeManager.GameOver();
     }
     static public DriverPlayer PickRandom() {
+        if (activePlayers.Count == 0) return null;
         return activePlayers[Random.Range(0, activePlayers.Count)];
     }
     public void GameOver() {

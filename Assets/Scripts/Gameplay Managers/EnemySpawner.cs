@@ -20,9 +20,8 @@ public class EnemySpawner : MonoBehaviour {
 	void Update () {
 
          if (activeAi.Count < maxEnemies && spawnTimer <= 0) {
-            //print("only " + activeAi.Count + " spawning 1 more");
-            Car car = PlayerManager.PickRandom().car;
-            if(car != null) SpawnEnemyNear(car.transform);
+            DriverPlayer player = PlayerManager.PickRandom();
+            if(player != null && player.car != null) SpawnEnemyNear(player.car.transform);
             
         } else if (spawnTimer > 0) {
             spawnTimer -= Time.deltaTime;

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DriverAI : Driver
-{
+public class DriverAI : Driver {
+
+    private const float KILL_DIS = 100;
 
     /// <summary>
     /// We want to drive towards this thing
@@ -15,17 +16,21 @@ public class DriverAI : Driver
     /// </summary>
     public Car attackTarget;
 
-    override public void Drive()
-    {
+    override public void Drive() {
         car.infiniteFuel = true;
-        if(attackTarget == null) {
+
+        FindAnAttackTarget(); // find nearest player
+        DestroyIfTooFarAway(); // if too far away, destroy self
+        bool avoidingObstacles = SteerAvoidObstacles();
+        if(!avoidingObstacles) SteerTowardsPath(); // steer towards nearest path
+        ApplySteeringAndThrottle();
+    }
+
+    private void FindAnAttackTarget() {
+        if (attackTarget == null) {
             DriverPlayer player = PlayerManager.FindNearest(car.transform.position);
             if (player != null) attackTarget = player.car;
         }
-        CheckIfDead();
-        SteerTowardsPath();
-        ApplySteeringAndThrottle();
-
     }
 
     private void ApplySteeringAndThrottle()
@@ -58,64 +63,62 @@ public class DriverAI : Driver
     float turnAmount;
     float chargePercent;
     
-    ///////////////////////////////////////////////////////// HANDLE DEATH ///////////////////////////////////////////////////////////////////
-
     /// <summary>
-    /// This function checks if we are violating any bounds that would cause us to be considered dead
+    /// Checks if this driver is too far from its attack target.
+    /// If it is, destroy this car.
     /// </summary>
-    void CheckIfDead()
-    {
+    void DestroyIfTooFarAway() {
         if(attackTarget == null) {
             Debug.Log("dying cause I don't have an attackTarget");
             car.health = 0;
             return;
-
         }
         Vector3 vectorToTarget = (attackTarget.transform.position - car.transform.position);
         float targetDisSqr = vectorToTarget.sqrMagnitude;
-        if (targetDisSqr >  50 * 50)
-        { // too far away
-
+        if (targetDisSqr > KILL_DIS * KILL_DIS) {
+            // too far away
             Debug.Log($"dying cause I'm too far away from the thing I want to attack ({vectorToTarget})");
             car.health = 0;
         }
     }
+    bool SteerAvoidObstacles() {
+        RaycastHit look;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            //SendMessage("Explode");
-        }
-    }
-    void OnTriggerStay(Collider other)
-    {
-        CheckCollider(other);
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        CheckCollider(other);
-    }
-    void CheckCollider(Collider other)
-    {
-        if (other.gameObject.CompareTag("Explosion"))
-        {
-            //explosion.Explode();
-            //SendMessage("Explode");
-        }
-        if (other.gameObject.CompareTag("SteerAway"))
-        {
-            //SteerAwayFrom(other);
-        }
-    }
-    void SteerAwayFrom(Collider c)
-    {
-        bool turnRight = car.transform.position.x > c.transform.position.x;
-        turnAmount = turnRight ? 1 : -1;
+        Vector3 forward = car.ballBody.velocity.normalized;
+        float distance = car.ballBody.velocity.z;
 
+        if (Physics.Raycast(car.transform.position, forward, out look, distance)) {
+
+            bool colliderIsPlayer = look.collider.gameObject.CompareTag("Player");
+            bool colliderIsPickup = look.collider.gameObject.CompareTag("Pickup");
+
+            if (colliderIsPlayer) {
+
+            } else if (colliderIsPickup) {
+
+            } else {
+
+                bool colliderIsRamp = look.normal.y < 0.5f;
+                float normalX = look.normal.x;
+
+                if (!colliderIsRamp) {
+
+                    float rightEdge = look.collider.bounds.max.x;
+                    float leftEdge = look.collider.bounds.min.x;
+
+                    float disLeft = Mathf.Abs(leftEdge - car.transform.position.x);
+                    float disRight = Mathf.Abs(rightEdge - car.transform.position.x);
+
+                    if (disLeft < disRight) turnAmount = -1;
+                    if (disRight < disLeft) turnAmount = 1;
+
+                    return true;
+                }
+            }
+        }
+        return false;
     }
-    void SteerTowardsPath()
-    {
+    void SteerTowardsPath() {
         steeringTarget = DrivePath.ProjectToNearestPath(car.transform.position);
         float turnMultiplier = 10f;
 
