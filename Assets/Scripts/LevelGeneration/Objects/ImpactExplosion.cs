@@ -30,12 +30,11 @@ public class ImpactExplosion : MonoBehaviour {
 
     void OnCollisionEnter(Collision col)
     {
+
+        // todo: remove this class
+
+        if (col.gameObject.tag == "Pickup") return; // if we hit a pickup, ignore it
         
-        if(gameObject.tag == "Car" && col.gameObject.tag == "Pickup")
-        {
-            GetComponent<Car>().AddFuel(10);
-            Destroy(col.gameObject);
-        }
         else if(col.impulse.sqrMagnitude > threshold * threshold)
         {
             // dot product of impulse & back
