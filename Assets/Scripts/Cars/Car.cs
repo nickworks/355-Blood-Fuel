@@ -143,15 +143,36 @@ public class Car : MonoBehaviour {
         // move forward:
         ballBody.AddForce(state.forward * throttle * state.throttleMultiplier * Time.deltaTime);
 
-        // move side-to-side:
-        Vector3 vel = ballBody.velocity;
-        vel.x = ballBody.velocity.x + 100 * turnAmount * state.turnMultiplier * Time.deltaTime;
+        // move horizontal:
 
+        // TODO: refactor
+        // this is a good step, but I think I should try
+        // using an angle and then derive horizontal velocity
+        // off of forward velocity and the angle
+
+        if(turnAmount == 0) {            
+            ballBody.velocity = DecelerateHorizontal(ballBody.velocity);
+        } else {
+            ballBody.velocity = AccelerateHorizontal(ballBody.velocity, turnAmount);
+        }
+    }
+    private Vector3 AccelerateHorizontal(Vector3 velocity, float direction) {
+        velocity.x += 100 * direction * state.turnMultiplier * Time.deltaTime;
         float maxHorizontalSpeed = 100;
-        if (vel.x > maxHorizontalSpeed) vel.x = maxHorizontalSpeed;
-        if (vel.x < -maxHorizontalSpeed) vel.x = -maxHorizontalSpeed;
-
-        ballBody.velocity = vel;
+        if (velocity.x > maxHorizontalSpeed) velocity.x = maxHorizontalSpeed;
+        if (velocity.x < -maxHorizontalSpeed) velocity.x = -maxHorizontalSpeed;
+        return velocity;
+    }
+    private Vector3 DecelerateHorizontal(Vector3 velocity) {
+        if(velocity.x > 0) {
+            velocity = AccelerateHorizontal(velocity, -1);
+            if (velocity.x < 0) velocity.x = 0;
+        }
+        if (velocity.x < 0) {
+            velocity = AccelerateHorizontal(velocity, 1);
+            if (velocity.x > 0) velocity.x = 0;
+        }
+        return velocity;
     }
     public void UpdateModel() {
 
