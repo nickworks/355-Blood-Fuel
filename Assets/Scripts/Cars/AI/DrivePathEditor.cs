@@ -13,7 +13,6 @@ using System.Reflection;
 public class DrivePathEditor : Editor
 {
     public static bool globalTransform { get; private set; }
-
     /// <summary>
     /// This method draws the Inspector GUI for PathNode objects.
     /// </summary>
@@ -23,31 +22,33 @@ public class DrivePathEditor : Editor
         DrivePath path = ((DrivePath)target);
 
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Push + "))
-        {
+        if (GUILayout.Button("( + )\nPush Point")) {
             path.AddPoint();
         }
-        if (GUILayout.Button("Pop - "))
-        {
+        if (GUILayout.Button("( - )\nPop Point")) {
             path.RemovePoint();  
         }
         GUILayout.EndHorizontal();
 
         DrivePathEditor.globalTransform = EditorGUILayout.Toggle("Global Transform", DrivePathEditor.globalTransform);
-        if (GUI.changed)
-        {
+        
+        bool pre = DrivePath.renderLines;
+        bool post = EditorGUILayout.Toggle("Render All Paths", pre);
+        if(pre != post) {
+            DrivePath.renderLines = post;
+            UnityEngine.Object[] paths = Resources.FindObjectsOfTypeAll(typeof(DrivePath));
+            foreach (UnityEngine.Object p in paths) {
+                // turn on or off all LineRenderers on DrivePaths
+                (p as DrivePath).GetComponent<LineRenderer>().enabled = DrivePath.renderLines;
+            }
+        }
+
+
+        if (GUI.changed) {
             UnityEditorInternal.InternalEditorUtility.RepaintAllViews(); // force a redraw...
         }
     }
-    /// <summary>
-    /// This method renames all of the PathNode objects in a path.
-    /// </summary>
-    /// <param name="path">A node from the desired path.</param>
-    void Rename(DrivePath path)
-    {
-        if (!path) return;
-        //path.GetLeftMostNode().RenameNodes("Node");
-    }
+
     void OnSceneGUI()
     {
         DrivePath dp = (DrivePath)target;
@@ -57,23 +58,22 @@ public class DrivePathEditor : Editor
         {
             Tools.current = Tool.None;
             Vector3[] pos = new Vector3[dp.points.Count];
-            for (int i = 0; i < pos.Length; i++)
-            {
+            for (int i = 0; i < pos.Length; i++) {
+                // create handles:
+                // this also stores the position of the handle (in case it moved)
                 pos[i] = Handles.PositionHandle(dp.WorldPoint(i), Quaternion.identity);
             }
-            if (EditorGUI.EndChangeCheck())
-            {
-                Undo.RecordObject(target, "Updated drive path");
-                for (int i = 0; i < pos.Length; i++)
-                {
-                    dp.SetFromWorld(i, pos[i]);
+            if (EditorGUI.EndChangeCheck()) { // if some value was changed:
+                Undo.RecordObject(target, "Updated drive path"); // register a new "undo"
+                for (int i = 0; i < pos.Length; i++) {
+                    dp.SetFromWorld(i, pos[i]); // set point from position handle
                 }
-                dp.Refresh();
+                dp.Refresh(); // update line renderer
             }
         } else // global mode:
         {
             if (Tools.current == Tool.None) Tools.current = Tool.Move;
-            EditorGUI.EndChangeCheck();
+            EditorGUI.EndChangeCheck(); // business as usual: move / rotate gameobject
         }
     } // ends OnSceneGUI()
 }

@@ -3,88 +3,104 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+[RequireComponent(typeof(LineRenderer))]
 public class DrivePath : MonoBehaviour
 {
+    /// <summary>
+    /// A list of all DrivePaths currently in the world.
+    /// </summary>
+    private static List<DrivePath> registeredPaths = new List<DrivePath>();
+    public static bool renderLines = true;
+
     /// <summary>
     /// Path points in local space
     /// </summary>
     [HideInInspector]
     public List<Vector3> points = new List<Vector3>() { Vector3.zero };
 
-    private static List<DrivePath> registeredPaths = new List<DrivePath>();
-
     private LineRenderer lines;
 
-    public static Vector3 ProjectToNearestPath(Vector3 pos)
-    {
+    /// <summary>
+    /// Given a world position, this function finds the nearest point on ANY path.
+    /// </summary>
+    /// <param name="pos">The world position to search from.</param>
+    /// <returns>The world position of a point on a path. If a path couldn't be found, the supplied point is returned.</returns>
+    public static Vector3 ProjectToNearestPath(Vector3 pos) {
         Vector3 result = pos;
         float currDistance = float.PositiveInfinity;
 
-        for(int i = registeredPaths.Count - 1; i >= 0; i--)
-        {
-            if(registeredPaths[i] == null)
-            {
+        for(int i = registeredPaths.Count - 1; i >= 0; i--) {
+            if(registeredPaths[i] == null) {
                 registeredPaths.RemoveAt(i);
-            } else
-            {
+            } else {
                 
                 Vector3 proj = registeredPaths[i].ProjectPoint(pos);
                 if (proj.z < pos.z) continue; // if the projected point is behind us, ignore it
                 float dis = (proj - pos).sqrMagnitude;
-                if (dis < currDistance)
-                {
+                if (dis < currDistance) {
                     currDistance = dis;
                     result = proj;
                 }
             }
         }
-
-
         return result;
     }
 
-    void Start()
-    {
+    void Start() {
         Refresh();
         registeredPaths.Add(this);
     }
-    void OnValidate()
-    {
+    void OnDestroy() {
+        registeredPaths.Remove(this);
+    }
+    void OnValidate() {
         Refresh();
     }
-    public void Refresh()
-    {
+    /// <summary>
+    /// This method redraws the LineRenderer.
+    /// </summary>
+    public void Refresh() {
         lines = GetComponent<LineRenderer>();
+        lines.useWorldSpace = false;
         lines.positionCount = points.Count;
         lines.SetPositions(points.ToArray());
+        lines.enabled = renderLines;
     }
-    void Update()
-    {
-        
-    }
-    void OnDrawGizmos()
-    {
+    void OnDrawGizmos() {
         DrawLines();
     }
-    public Vector3[] WorldPoints()
-    {
+    /// <summary>
+    /// Returns this path as an array of world-positions.
+    /// </summary>
+    /// <returns></returns>
+    public Vector3[] WorldPoints() {
         Vector3[] worldpoints = new Vector3[points.Count];
         for (int i = 0; i < points.Count; i++) worldpoints[i] = transform.TransformPoint(points[i]);
         return worldpoints;
     }
-    public Vector3 WorldPoint(int i)
-    {
+    /// <summary>
+    /// Returns the world-position in the array at a specified index.
+    /// </summary>
+    /// <param name="i">The index number to look up.</param>
+    /// <returns></returns>
+    public Vector3 WorldPoint(int i) {
         if (i < 0 || i >= points.Count) return Vector3.zero;
         return transform.TransformPoint(points[i]);
     }
-    public void SetFromWorld(int i, Vector3 p)
-    {
+    /// <summary>
+    /// Sets the position of one of the points. This should mostly be called from the inspector.
+    /// </summary>
+    /// <param name="i">The index number of the point to change.</param>
+    /// <param name="p">The world-position to move the point to.</param>
+    public void SetFromWorld(int i, Vector3 p) {
         if (i < 0 || i >= points.Count) return;
         if (i < 0 || i >= points.Count) return;
         points[i] = transform.InverseTransformPoint(p);
     }
-    void DrawLines()
-    {
+    /// <summary>
+    /// Draws the path using Gizmo lines (editor only).
+    /// </summary>
+    void DrawLines() {
         Gizmos.DrawIcon(transform.position, "icon-path.png", true);
 
         Vector3[] worldpoints = WorldPoints();
@@ -97,18 +113,26 @@ public class DrivePath : MonoBehaviour
             }
         }
     }
-    public void AddPoint()
-    {
+    /// <summary>
+    /// Adds a new point to the end of the path.
+    /// </summary>
+    public void AddPoint() {
         Vector3 endPt = points[points.Count - 1];
         points.Add(endPt + new Vector3(0, 0, 20));
     }
-    public void RemovePoint()
-    {
+    /// <summary>
+    /// Removes a point from the end of the path.
+    /// </summary>
+    public void RemovePoint() {
         if (points.Count == 1) return;
         points.RemoveAt(points.Count - 1);
     }
-    public Vector3 ProjectPoint(Vector3 pt)
-    {
+    /// <summary>
+    /// Finds the closest point on this path to a specified point.
+    /// </summary>
+    /// <param name="pt">The world-position point to search from.</param>
+    /// <returns>The corresponding position on the path.</returns>
+    public Vector3 ProjectPoint(Vector3 pt) {
         Vector3[] worldPoints = WorldPoints();
 
         if (worldPoints[0].z > pt.z) return worldPoints[0]; // if the whole path is ahead of the player, return the first point
