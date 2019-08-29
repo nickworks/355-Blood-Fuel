@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &466548863 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4943836269968144, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1369895788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &812214919
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,10 +158,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f82d1ee072ded0419d64ba476de831b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 2141918326}
-  chunkUnloadOffset: 100
+  cam: {fileID: 466548863}
+  numberOfChunksToLoad: 2
+  thresholdForRemovingChunks: 10
   prefabChunks:
-  - {fileID: 1263362915072327137, guid: 69ac22e25253c884c934ac00847a83ac, type: 3}
+  - {fileID: 596169554160980818, guid: 65ea7e6cda738b343886b4199569ce02, type: 3}
+  - {fileID: 596169554160980818, guid: 1b78243272006b640b14cc0fb5ffa697, type: 3}
+  - {fileID: 596169554160980818, guid: f02e9c9d4d3530842954ce9085bcc9a5, type: 3}
+  - {fileID: 596169554160980818, guid: 9ce161480e095d4439f109cd69b6a070, type: 3}
 --- !u!4 &812214921
 Transform:
   m_ObjectHideFlags: 0
@@ -358,9 +368,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96339f6b28e4b0644b70dc1f1fc0a05b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &2141918326 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4613512386788506, guid: 0f5981a0da22dbe4fa785cbba80546a7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1369895788}
-  m_PrefabAsset: {fileID: 0}

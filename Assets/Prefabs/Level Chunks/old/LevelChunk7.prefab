@@ -733,8 +733,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endOfChunk: {fileID: 1156743626168666179}
-  percentChanceOfFuelPickups: 1
-  percentChanceOfObstacles: 0.5
 --- !u!1 &1161452778579491331
 GameObject:
   m_ObjectHideFlags: 0
