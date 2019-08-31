@@ -59,7 +59,7 @@ public class LevelGenerator : MonoBehaviour {
         LevelChunk prefab = prefabChunks[Random.Range(0, numOfPrefabs)];
         LevelChunk newChunk = Instantiate(prefab, pos, Quaternion.identity);
         // flip it:
-        if(Random.Range(0,100) > 50) newChunk.transform.localScale = new Vector3(-1, 1, 1);
+        //if(Random.Range(0,100) > 50) newChunk.transform.localScale = new Vector3(-1, 1, 1);
 
         loadedChunks.Add(newChunk);
     }
