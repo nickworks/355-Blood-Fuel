@@ -5,7 +5,6 @@ using UnityEngine;
 public class TurretRotation : Weapon {
 
     public GameObject prefabBarrel;
-    
 
     public Car car;
 
@@ -18,14 +17,12 @@ public class TurretRotation : Weapon {
     public override void FireWeapons() {
         SpawnBarrel();
     }
-    
-    
 
     private void SpawnBarrel() {
         if (car.currentFuel > fuelPerBarrelTossed) {
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, Random.onUnitSphere);
             
-            Vector3 dir = spawnPoint.position - transform.position;
+            Vector3 dir = cursor.position - spawnPoint.position;
             dir.Normalize();
 
             GameObject obj = Instantiate(prefabBarrel, transform.position + dir, rot);

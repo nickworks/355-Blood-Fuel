@@ -12,14 +12,6 @@ public abstract class Weapon : MonoBehaviour {
     public AnimationCurve curve;
     float aimMaxDistance = 15;
 
-    void Start() {
-        lineRenderer = GetComponentInChildren<LineRenderer>();
-        print(lineRenderer);
-    }
-
-    void Update() {
-        
-    }
     public void AimAt(Vector3 pos) {
         cursor.position = pos;
         DrawAimPath();
@@ -27,13 +19,12 @@ public abstract class Weapon : MonoBehaviour {
     
     void DrawAimPath() {
         if (lineRenderer == null) lineRenderer = GetComponentInChildren<LineRenderer>();
-
         if (lineRenderer == null) return;
 
         Vector3[] pts = new Vector3[lineRenderer.positionCount];
         
         float height = 2;
-
+        
         for (int i = 0; i < pts.Length; i++)
         {
             int max = pts.Length - 1 + 4;
@@ -45,10 +36,10 @@ public abstract class Weapon : MonoBehaviour {
             pts[i] = pt;
             if(i == 1)
             {
-                spawnPoint.position = pt;
+                //spawnPoint.position = pt;
             }
         }
-
+        
         lineRenderer.SetPositions(pts);
         
     }

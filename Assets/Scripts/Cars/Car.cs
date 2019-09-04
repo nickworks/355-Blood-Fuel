@@ -80,9 +80,11 @@ public class Car : MonoBehaviour {
         state = newCS;
         newCS.OnStart(this);
     }
+    void FixedUpdate() {
+        if (driver != null) driver.Drive();
+    }
     void Update()
     {
-        if (driver != null) driver.Drive();
         SwitchState(state.Update());
 
         MoveCar();
