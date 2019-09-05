@@ -84,7 +84,7 @@ public class DriverAI : Driver {
     /// </summary>
     void DestroyIfTooFarAway() {
         if(attackTarget == null) {
-            Debug.Log("dying cause I don't have an attackTarget");
+            //Debug.Log("dying cause I don't have an attackTarget");
             car.Kill(true);
             return;
         }
@@ -164,7 +164,7 @@ public class DriverAI : Driver {
 
             bool pathIsCloser = (disToPath.sqrMagnitude < disToAttackTarget.sqrMagnitude);
             if (pathIsCloser) {
-                Debug.Log("path is closer");
+                //Debug.Log("path is closer");
                 return;
             }
         }

@@ -1,5 +1,91 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1080059822015931060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6388971145153513109}
+  - component: {fileID: 2502147700231944490}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6388971145153513109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080059822015931060}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.411, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5046095656134875364}
+  - {fileID: 5046095657656099220}
+  - {fileID: 5046095656126373817}
+  m_Father: {fileID: 5046095656344469949}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2502147700231944490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080059822015931060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fcca9e377b9a2b4fac9c0d71bf49d08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuelPerBarrelTossed: 10
+  spawnPoint: {fileID: 5046095656134875364}
+  cursor: {fileID: 5046095657458231809}
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 3.6954434
+      outSlope: 3.6954434
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.04556962
+    - serializedVersion: 3
+      time: 0.4912935
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -4.167996
+      outSlope: -4.167996
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.04156489
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  arcHeight: 5
+  prefabBarrel: {fileID: 1843774293268998, guid: 9e4f1fe2a0f1b8742a1e0010a00c0e6c,
+    type: 3}
+  car: {fileID: 0}
 --- !u!1 &4619983046456458926
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,9 +331,8 @@ GameObject:
   - component: {fileID: 5046095656126373817}
   - component: {fileID: 5046095656126373812}
   - component: {fileID: 5046095656126373819}
-  - component: {fileID: 5046095656126373818}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,14 +345,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5046095656126373816}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.411, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5319675, y: 0.5319675, z: 0.5319675}
-  m_Children:
-  - {fileID: 5046095657656099220}
-  - {fileID: 5046095656134875364}
-  m_Father: {fileID: 5046095656344469949}
-  m_RootOrder: 3
+  m_Children: []
+  m_Father: {fileID: 6388971145153513109}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5046095656126373812
 MeshFilter:
@@ -315,57 +398,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5046095656126373818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5046095656126373816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fcca9e377b9a2b4fac9c0d71bf49d08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fuelPerBarrelTossed: 10
-  spawnPoint: {fileID: 5046095656134875364}
-  cursor: {fileID: 5046095657458231809}
-  curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 3.6954434
-      outSlope: 3.6954434
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.04556962
-    - serializedVersion: 3
-      time: 0.4912935
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -4.167996
-      outSlope: -4.167996
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.04156489
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  prefabBarrel: {fileID: 1843774293268998, guid: 9e4f1fe2a0f1b8742a1e0010a00c0e6c,
-    type: 3}
-  car: {fileID: 0}
 --- !u!1 &5046095656134875371
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,12 +422,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5046095656134875371}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.58100015, z: 1.3800001}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.3090732, z: 0.73411524}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5046095656126373817}
-  m_RootOrder: 1
+  m_Father: {fileID: 6388971145153513109}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &3040584565852964909
 LineRenderer:
@@ -499,7 +531,7 @@ LineRenderer:
     textureMode: 0
     shadowBias: 0
     generateLightingData: 0
-  m_UseWorldSpace: 1
+  m_UseWorldSpace: 0
   m_Loop: 0
 --- !u!1 &5046095656258276871
 GameObject:
@@ -687,9 +719,9 @@ Transform:
   - {fileID: 5046095657458231809}
   - {fileID: 5046095657226367653}
   - {fileID: 5046095656356783740}
-  - {fileID: 5046095656126373817}
   - {fileID: 1724263121660640566}
   - {fileID: 1422317832601375362}
+  - {fileID: 6388971145153513109}
   m_Father: {fileID: 7201808980782525616}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5528,7 +5560,7 @@ MonoBehaviour:
     type: 3}
   ignoreVertical: 1
   spawnSafetyTimer: 0.1
-  turretRotation: {fileID: 5046095656126373818}
+  turretRotation: {fileID: 0}
 --- !u!114 &5046095656521649748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10436,11 +10468,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5046095657656099227}
   m_LocalRotation: {x: 0.36450154, y: 0.60591966, z: 0.36450154, w: 0.60591966}
-  m_LocalPosition: {x: 0, y: 0.24899994, z: 0.49600002}
-  m_LocalScale: {x: 0.3524657, y: 0.3524657, z: 0.35246533}
+  m_LocalPosition: {x: 0, y: 0.13245988, z: 0.2638559}
+  m_LocalScale: {x: 0.18750031, y: 0.18750031, z: 0.1875001}
   m_Children: []
-  m_Father: {fileID: 5046095656126373817}
-  m_RootOrder: 0
+  m_Father: {fileID: 6388971145153513109}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 62.059002}
 --- !u!33 &5046095657656099222
 MeshFilter:
@@ -10741,7 +10773,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 5046095656344469949}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &6007327018068350821
 MeshRenderer:
@@ -10836,5 +10868,5 @@ Transform:
   - {fileID: 5046095656021965935}
   - {fileID: 5046095656275797915}
   m_Father: {fileID: 5046095656344469949}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

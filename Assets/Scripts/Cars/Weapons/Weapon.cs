@@ -11,6 +11,7 @@ public abstract class Weapon : MonoBehaviour {
     public Transform cursor;
     public AnimationCurve curve;
     float aimMaxDistance = 15;
+    float arcHeight = 2;
 
     public void AimAt(Vector3 pos) {
         cursor.position = pos;
@@ -21,27 +22,33 @@ public abstract class Weapon : MonoBehaviour {
         if (lineRenderer == null) lineRenderer = GetComponentInChildren<LineRenderer>();
         if (lineRenderer == null) return;
 
-        Vector3[] pts = new Vector3[lineRenderer.positionCount];
-        
-        float height = 2;
-        
-        for (int i = 0; i < pts.Length; i++)
-        {
-            int max = pts.Length - 1 + 4;
-            float p = i / (float)max;
+        int resolution = 10;
+        Vector3[] arc = GetArc(resolution);
 
-            //p *= .6f;
-            Vector3 pt = Vector3.Lerp(transform.position, cursor.position, p);
-            pt.y += curve.Evaluate(p) * height;
-            pts[i] = pt;
-            if(i == 1)
-            {
-                //spawnPoint.position = pt;
+        lineRenderer.positionCount = resolution;
+        lineRenderer.SetPositions(arc);
+
+    }
+
+    public Vector3[] GetArc(int resolution, bool localSpace = true) {
+        
+        Vector3[] pts = new Vector3[resolution];
+
+        int max = pts.Length - 1;
+        for (int i = 0; i < pts.Length; i++) {
+            float p = i / (float)max;
+            pts[i] = GetArcAt(p);
+            if (localSpace) {
+                pts[i] = spawnPoint.InverseTransformPoint(pts[i]);
             }
         }
-        
-        lineRenderer.SetPositions(pts);
-        
+
+        return pts;
     }
-    public abstract void FireWeapons();
+    public Vector3 GetArcAt(float p) {
+        Vector3 pt = Vector3.Lerp(spawnPoint.position, cursor.position, p);
+        pt.y += curve.Evaluate(p) * arcHeight;
+        return pt;
+    }
+    public abstract void FireWeapons(Driver shooter);
 }

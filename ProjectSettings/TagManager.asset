@@ -7,6 +7,8 @@ TagManager:
   - Car
   - Explosion
   - Pickup
+  - SteerAway
+  - Death
   layers:
   - Default
   - TransparentFX

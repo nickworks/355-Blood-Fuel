@@ -14,27 +14,29 @@ public class TurretRotation : Weapon {
     private void OnDestroy() {
         Destroy(cursor.gameObject); // remove cursor
     }
-    public override void FireWeapons() {
-        SpawnBarrel();
-    }
-
-    private void SpawnBarrel() {
-        if (car.currentFuel > fuelPerBarrelTossed) {
-            Quaternion rot = Quaternion.FromToRotation(Vector3.up, Random.onUnitSphere);
+    public override void FireWeapons(Driver driver) {
+        
+        if (car.currentFuel < fuelPerBarrelTossed) return;
             
-            Vector3 dir = cursor.position - spawnPoint.position;
-            dir.Normalize();
+        Quaternion rot = Quaternion.FromToRotation(Vector3.up, Random.onUnitSphere);
 
-            GameObject obj = Instantiate(prefabBarrel, transform.position + dir, rot);
+        Vector3 dir = GetArcAt(.1f) - GetArcAt(0);
+        dir.Normalize();
 
-            Rigidbody barrel = obj.GetComponent<Rigidbody>();
-            barrel.velocity += car.ballBody.velocity; // inherit the car's velocity
+        GameObject obj = Instantiate(prefabBarrel, spawnPoint.position, rot);
 
-            barrel.AddForce(dir * 13, ForceMode.Impulse); // push the barrel
-            barrel.AddTorque(Random.onUnitSphere * 10); // random spin
+        ArcPhysics phys = obj.GetComponent<ArcPhysics>();
+        phys.SetArc(driver, spawnPoint.position, car.ballBody.velocity, GetArc(10), 1);
 
-            car.AddFuel(-fuelPerBarrelTossed); // lose fuel
-        }
+        /*
+        Rigidbody barrel = obj.GetComponent<Rigidbody>();
+        barrel.velocity += car.ballBody.velocity; // inherit the car's velocity
+
+        barrel.AddForce(dir * 13, ForceMode.Impulse); // push the barrel
+        barrel.AddTorque(Random.onUnitSphere * 10); // random spin
+        */
+
+        //car.AddFuel(-fuelPerBarrelTossed); // lose fuel   
     }
 }
 
