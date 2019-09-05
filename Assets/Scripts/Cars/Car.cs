@@ -51,7 +51,7 @@ public class Car : MonoBehaviour {
     private float health = 100;
 
     [HideInInspector] public Driver driver;
-    CarState state;
+    public CarState state { get; private set; }
 
     void Start() {
         lineRenderer = GetComponentInChildren<LineRenderer>();

@@ -58,15 +58,16 @@ public class ArcPhysics : MonoBehaviour
     void OnTriggerEnter(Collider other) {
 
         if (shooter.car != null && shooter.car.gameObject == other.gameObject) {
-            print("collided with shooter");
+            // This projectile overlapped with the thing that shot it.
+            // We should ignore that.
             return;
         }
         Disable();
     }
     void Disable() {
-        Collider collider = GetComponent<Collider>();
-        collider.isTrigger = false;
         enabled = false;
+        Collider collider = GetComponent<Collider>();
+        if(collider != null) collider.isTrigger = false;
         if(body != null) body.velocity = velocityForRigidbody;
     }
 }

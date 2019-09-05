@@ -42,7 +42,7 @@ public class DriverPlayer : Driver {
         float my = Input.GetAxis("Mouse Y");
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // make a ray
-        Plane aimPlane = new Plane(Vector3.up, car.transform.position); // make a plane
+        Plane aimPlane = new Plane(car.state.up, car.transform.position); // make a plane
 
         float rayLength = 0;
         if (aimPlane.Raycast(ray, out rayLength)) // detect if the ray intersects the plane

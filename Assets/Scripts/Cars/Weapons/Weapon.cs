@@ -7,14 +7,24 @@ public abstract class Weapon : MonoBehaviour {
     LineRenderer lineRenderer;
 
     public float fuelPerBarrelTossed = 10;
-    public Transform spawnPoint;
-    public Transform cursor;
+    public Transform spawnPoint; // this is a reference to where the projectiles would spawn
+    public Transform cursor; // this is a reference to where the weapon is aiming
     public AnimationCurve curve;
     float aimMaxDistance = 15;
     float arcHeight = 2;
 
     public void AimAt(Vector3 pos) {
-        cursor.position = pos;
+
+        // clamp to a max distance:
+        Vector3 dis = pos - transform.position;
+        float maxLateralDistance = 20;
+        float disMag = dis.magnitude;
+        if(disMag > maxLateralDistance) {
+            dis *= maxLateralDistance / disMag;
+        }
+
+        cursor.position = transform.position + dis;
+
         DrawAimPath();
     }
     

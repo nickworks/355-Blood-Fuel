@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretRotation : Weapon {
+public class BarrelLauncher : Weapon {
 
     public GameObject prefabBarrel;
 
