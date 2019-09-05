@@ -139,7 +139,7 @@ public class Car : MonoBehaviour {
 
     private void MoveCar() {
         if (currentFuel <= 0) return;
-
+        
         // move forward:
         ballBody.AddForce(state.forward * throttle * state.throttleMultiplier * Time.deltaTime);
 
@@ -155,6 +155,20 @@ public class Car : MonoBehaviour {
         } else {
             ballBody.velocity = AccelerateHorizontal(ballBody.velocity, turnAmount);
         }
+        text.text = "" + turnAmount;
+        
+        /*
+        float wheelAngleMax = 45;
+        float angle = 0; 
+        if(turnAmount < 0) angle = Mathf.Lerp(0, -wheelAngleMax, -turnAmount);
+        else angle = Mathf.Lerp(0, wheelAngleMax, turnAmount);
+
+        if (model) {
+            model.localEulerAngles = new Vector3(0, angle, 0);
+            ballBody.AddForce(model.forward * throttle * state.throttleMultiplier * Time.deltaTime);
+        }
+        text.text = "" + angle;
+        */
     }
     private Vector3 AccelerateHorizontal(Vector3 velocity, float direction) {
         velocity.x += 100 * direction * state.turnMultiplier * Time.deltaTime;
@@ -164,14 +178,18 @@ public class Car : MonoBehaviour {
         return velocity;
     }
     private Vector3 DecelerateHorizontal(Vector3 velocity) {
+        float decelMultiplier = .75f;
+        /*
         if(velocity.x > 0) {
-            velocity = AccelerateHorizontal(velocity, -1);
+            velocity = AccelerateHorizontal(velocity, -decelMultiplier);
             if (velocity.x < 0) velocity.x = 0;
         }
         if (velocity.x < 0) {
-            velocity = AccelerateHorizontal(velocity, 1);
+            velocity = AccelerateHorizontal(velocity, decelMultiplier);
             if (velocity.x > 0) velocity.x = 0;
         }
+        */
+        velocity.x *= .99f; // TODO: make framrate-independent
         return velocity;
     }
     public void UpdateModel() {
@@ -181,10 +199,12 @@ public class Car : MonoBehaviour {
         suspension.rotation = Quaternion.RotateTowards(suspension.rotation, state.suspensionOrientation, state.suspensionRotateSpeed * Time.deltaTime);
 
         // rotate the car model to align with velocity:
+        
         if (model) {
             Vector3 vel = ballBody.velocity;
             float turn = Mathf.Atan2(vel.x, vel.z) * Mathf.Rad2Deg;
             model.localEulerAngles = new Vector3(0, turn, 0);
         }
+        
     }
 }

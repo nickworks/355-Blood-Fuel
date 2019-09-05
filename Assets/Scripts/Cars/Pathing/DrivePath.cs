@@ -25,22 +25,24 @@ public class DrivePath : MonoBehaviour
     /// </summary>
     /// <param name="pos">The world position to search from.</param>
     /// <returns>The world position of a point on a path. If a path couldn't be found, the supplied point is returned.</returns>
-    public static Vector3 ProjectToNearestPath(Vector3 pos) {
+    public static Vector3 ProjectToNearestPath(Vector3 pos, out bool pathWasFound) {
+        pathWasFound = false;
         Vector3 result = pos;
         float currDistance = float.PositiveInfinity;
 
         for(int i = registeredPaths.Count - 1; i >= 0; i--) {
-            if(registeredPaths[i] == null) {
+            if(registeredPaths[i] == null) { // referenced path is null
                 registeredPaths.RemoveAt(i);
-            } else {
-                
-                Vector3 proj = registeredPaths[i].ProjectPoint(pos);
-                if (proj.z < pos.z) continue; // if the projected point is behind us, ignore it
-                float dis = (proj - pos).sqrMagnitude;
-                if (dis < currDistance) {
-                    currDistance = dis;
-                    result = proj;
-                }
+                print("good, a path was removed...");
+                continue; // don't do the following
+            }
+            Vector3 proj = registeredPaths[i].ProjectPoint(pos);
+            if (proj.z < pos.z) continue; // if the projected point is behind us, ignore it
+            float dis = (proj - pos).sqrMagnitude;
+            if (dis < currDistance) {
+                currDistance = dis;
+                result = proj;
+                pathWasFound = true;
             }
         }
         return result;
