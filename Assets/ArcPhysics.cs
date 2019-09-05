@@ -5,7 +5,10 @@ using UnityEngine;
 public class ArcPhysics : MonoBehaviour
 {
     Vector3 origin;
-    Vector3 velocity;
+
+    Vector3 velocityFromCar;
+    Vector3 velocityForRigidbody;
+
     float totalTime;
     Vector3[] arc;
     Driver shooter;
@@ -20,7 +23,7 @@ public class ArcPhysics : MonoBehaviour
     public void SetArc(Driver shooter, Vector3 origin, Vector3 velocity, Vector3[] arc, float totalTime) {
         this.shooter = shooter;
         this.origin = origin;
-        this.velocity = velocity;
+        this.velocityFromCar = velocity;
         this.arc = arc;
         this.totalTime = totalTime;
     }
@@ -28,8 +31,8 @@ public class ArcPhysics : MonoBehaviour
         float p = time / totalTime;
         int index = (int)(p * (arc.Length - 1));
 
-        Vector3 a = velocity * time + arc[index];
-        Vector3 b = velocity * time + arc[index + 1];
+        Vector3 a = velocityFromCar * time + arc[index];
+        Vector3 b = velocityFromCar * time + arc[index + 1];
 
         float percentAtA = index / (float)(arc.Length - 1);
         float percentAtB = (index + 1) / (float)(arc.Length - 1);
@@ -44,8 +47,8 @@ public class ArcPhysics : MonoBehaviour
         currentTime += Time.fixedDeltaTime;
         if (currentTime < totalTime) {
             Vector3 nextPosition = GetPositionAtTime(currentTime);
-
-            //body.velocity = (nextPosition - transform.position) / Time.fixedDeltaTime;
+            // calculate the local velocity of the barrel:
+            velocityForRigidbody = (nextPosition - transform.position) / Time.fixedDeltaTime;
             transform.position = nextPosition;
 
         } else {
@@ -64,5 +67,6 @@ public class ArcPhysics : MonoBehaviour
         Collider collider = GetComponent<Collider>();
         collider.isTrigger = false;
         enabled = false;
+        body.velocity = velocityForRigidbody;
     }
 }
