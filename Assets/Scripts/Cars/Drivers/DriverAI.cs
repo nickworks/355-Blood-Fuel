@@ -34,25 +34,31 @@ public class DriverAI : Driver {
 
         FindAnAttackTarget(); // find nearest player
         DestroyIfTooFarAway(); // if too far away, destroy self
-        AdjustThrottle();
 
+        AdjustThrottle(); // control the foot on the throttle
+
+        // TODO: turn this into a state machine ??
         bool avoidingObstacles = SteerAvoidObstacles();
-        if(!avoidingObstacles) SteerTowardsPath(); // steer towards nearest path
+        if (!avoidingObstacles) {
+            bool pathFound = SteerTowardsPath(); // steer towards nearest path
+            SteerTowardsAttackTarget(pathFound);
+            SteerTowardsTarget();
+        }
+
         ApplySteeringAndThrottle();
     }
 
     private void AdjustThrottle() {
         if (attackTarget == null) return;
 
-        // if close to player:
-        // match player speed
-        
-        // if far behind:
-        // throttle up
-        
-        // if far ahead:
-        // throttle down
+        Vector3 disToTarget = attackTarget.transform.position - car.transform.position;
 
+        // adjust throttle by distance from player:
+        throttleAmount = disToTarget.z / 1;
+        throttleAmount = Mathf.Clamp(throttleAmount, 0, 1);
+
+        // if far behind, boost:
+        if (disToTarget.z > 10) car.Boost();
 
     }
 
@@ -134,8 +140,12 @@ public class DriverAI : Driver {
         car.SetLine(rayStart, rayEnd);
         return false;
     }
-    void SteerTowardsPath() {
-        steeringTarget = DrivePath.ProjectToNearestPath(car.transform.position);
+    
+    bool SteerTowardsPath() {
+        steeringTarget = DrivePath.ProjectToNearestPath(car.transform.position, out bool pathWasFound);
+        return pathWasFound;        
+    }
+    public void SteerTowardsTarget() {
         float turnMultiplier = 10f;
 
         turnAmount = (steeringTarget.x - car.transform.position.x) * turnMultiplier;
@@ -143,6 +153,24 @@ public class DriverAI : Driver {
 
         car.aiSteerVisual.position = steeringTarget;
         car.aiSteerVisual.rotation = Quaternion.identity;
+    }
+
+    private void SteerTowardsAttackTarget(bool steeringTowardsPath) {
+        if (attackTarget == null) return;
+        if (steeringTowardsPath) {
+            Vector3 trgtPos = attackTarget.transform.position;
+            Vector3 disToPath = steeringTarget - car.transform.position;
+            Vector3 disToAttackTarget = attackTarget.transform.position - car.transform.position;
+
+            bool pathIsCloser = (disToPath.sqrMagnitude < disToAttackTarget.sqrMagnitude);
+            if (pathIsCloser) {
+                Debug.Log("path is closer");
+                return;
+            }
+        }
+        bool targetIsLeftOfMe = car.transform.position.x > attackTarget.transform.position.x;
+        float offset = targetIsLeftOfMe ? 5 : -5;
+        steeringTarget = attackTarget.transform.position + new Vector3(offset, 0, 0);
     }
 
     public override void OnDestroy(bool isDead) {

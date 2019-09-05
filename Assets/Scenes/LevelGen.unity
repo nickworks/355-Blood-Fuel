@@ -159,13 +159,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 466548863}
-  numberOfChunksToLoad: 2
+  numberOfChunksToLoad: 3
   thresholdForRemovingChunks: 10
   prefabChunks:
-  - {fileID: 596169554160980818, guid: 65ea7e6cda738b343886b4199569ce02, type: 3}
-  - {fileID: 596169554160980818, guid: 1b78243272006b640b14cc0fb5ffa697, type: 3}
-  - {fileID: 596169554160980818, guid: f02e9c9d4d3530842954ce9085bcc9a5, type: 3}
-  - {fileID: 596169554160980818, guid: 9ce161480e095d4439f109cd69b6a070, type: 3}
+  - {fileID: 114069947782396694, guid: 4d4480e95fe02124e98e8a42067ae3b3, type: 3}
+  - {fileID: 114069947782396694, guid: e783b5a7fd339c24d89efd1b48a9bd4f, type: 3}
+  - {fileID: 114069947782396694, guid: 1db096e6cc4591e4fad6522ced0500bb, type: 3}
+  - {fileID: 114069947782396694, guid: 6dd1e971c4f873a4181acdf580981450, type: 3}
+  - {fileID: 114069947782396694, guid: 693ce17fc0ce04346bd519d3e0b036cd, type: 3}
+  - {fileID: 114175125777673942, guid: fe9dff4607de3fb41bfcef7ab5a3a062, type: 3}
 --- !u!4 &812214921
 Transform:
   m_ObjectHideFlags: 0

@@ -6,6 +6,9 @@ public class LevelChunk : MonoBehaviour {
 
     public Transform endOfChunk;
 
+    public string creatorName;
+    public string chunkName;
+
     void Start () {
         
 	}
