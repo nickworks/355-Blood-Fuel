@@ -11,7 +11,7 @@ public class ImpactExplosion : MonoBehaviour {
     public GameObject prefabExplosion;
     public bool ignoreVertical = true;
     public float spawnSafetyTimer = .1f;
-    public TurretRotation turretRotation;
+    public BarrelLauncher turretRotation;
     void Start()
     {
     }
@@ -30,7 +30,7 @@ public class ImpactExplosion : MonoBehaviour {
 
     void OnCollisionEnter(Collision col)
     {
-
+        
         // todo: remove this class
 
         if (col.gameObject.tag == "Pickup") return; // if we hit a pickup, ignore it

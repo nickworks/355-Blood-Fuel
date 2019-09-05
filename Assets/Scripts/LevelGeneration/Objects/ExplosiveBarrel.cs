@@ -6,7 +6,7 @@ public class ExplosiveBarrel : MonoBehaviour {
 
     
     public float age = 0;
-    public float lifespan = 1;
+    public float lifespan = 3;
 
     public GameObject prefabExplosion;
     Rigidbody body;
@@ -18,23 +18,18 @@ public class ExplosiveBarrel : MonoBehaviour {
     void Start () {
         body = GetComponent<Rigidbody>();
 	}
-	void Update ()
-    {
+	void Update () {
         CountdownTimer();
-        
     }
 
-    private void CountdownTimer()
-    {
+    private void CountdownTimer() {
         age += Time.deltaTime;
-        if (age >= lifespan)
-        {
+        if (age >= lifespan) {
             Explode();
         }
     }
 
-    void Explode()
-    {
+    void Explode() {
         Destroy(gameObject);
         GameObject particles = Instantiate(prefabExplosion, transform.position, Quaternion.identity);
         Destroy(particles, 2);
