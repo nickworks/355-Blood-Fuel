@@ -18,16 +18,19 @@ public class LevelGenerator : MonoBehaviour {
     /// The currently loaded chunks.
     /// </summary>
     private List<LevelChunk> loadedChunks = new List<LevelChunk>();
-	
+
+    public static LevelChunk currentChunk { get; private set; }
+
 	void Start () {
         for (int i = 0; i < numberOfChunksToLoad; i++) {
             SpawnRandomChunk();
         }
-	}
+    }
 	
 	void Update () {
         CheckUnloadChunk();
         if (loadedChunks.Count < numberOfChunksToLoad) SpawnRandomChunk();
+        currentChunk = loadedChunks[0];
 	}
     /// <summary>
     /// This method unloads chunks that are off-screen.
@@ -40,7 +43,9 @@ public class LevelGenerator : MonoBehaviour {
             Destroy(loadedChunks[0].gameObject);
             loadedChunks.RemoveAt(0);
         }
+
     }
+
     /// <summary>
     /// Spawn a random chunk and place it just beyond the last chunk.
     /// </summary>
@@ -54,7 +59,7 @@ public class LevelGenerator : MonoBehaviour {
         LevelChunk prefab = prefabChunks[Random.Range(0, numOfPrefabs)];
         LevelChunk newChunk = Instantiate(prefab, pos, Quaternion.identity);
         // flip it:
-        if(Random.Range(0,100) > 50) newChunk.transform.localScale = new Vector3(-1, 1, 1);
+        //if(Random.Range(0,100) > 50) newChunk.transform.localScale = new Vector3(-1, 1, 1);
 
         loadedChunks.Add(newChunk);
     }

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,25 +8,29 @@ public class PlayerHUD : MonoBehaviour {
     DriverPlayer driver;
     public Transform speedNeedle;
     public Image[] barrels;
-    public Text score;
+    public Text textScore;
+    public Text textChunkName;
+    public Text textChunkNameShadow;
+    public Text textChunkCreator;
 
     public float speedometerMaxVelocity = 80;
     float previousAngle = 0;
 
-    public void SetPlayer(DriverPlayer player)
-    {
+    public void SetPlayer(DriverPlayer player) {
         driver = player;
     }
-    void Update()
-    {
+    void Update() {
         UpdateFuelGauge();
         UpdateSpeedometer();
 
         //score.text = string.Join(" ", ((int)driver.score).ToString().Split());
-        score.text = $"{EnemySpawner.activeAi.Count}";
+        if(textScore != null) textScore.text = $"{EnemySpawner.activeAi.Count}";
+
+        textChunkNameShadow.text = textChunkName.text = LevelGenerator.currentChunk.chunkName;
+        textChunkCreator.text = LevelGenerator.currentChunk.creatorName;
+
     }
-    private void UpdateSpeedometer()
-    {
+    private void UpdateSpeedometer() {
         float p = 0;
         if (driver.car != null) {
             float vel = driver.car.ballBody.velocity.z;
@@ -38,8 +42,7 @@ public class PlayerHUD : MonoBehaviour {
         speedNeedle.eulerAngles = new Vector3(0, 0, finalAngle);
         previousAngle = finalAngle;
     }
-    private void UpdateFuelGauge()
-    {
+    private void UpdateFuelGauge() {
         if (driver.car == null) return;
 
         float fuelPerBarrel = 10;

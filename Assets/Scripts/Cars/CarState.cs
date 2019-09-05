@@ -67,7 +67,7 @@ public class CarStateGround : CarState {
 public class CarStateAir : CarState {
     public CarStateAir() {
         throttleMultiplier = 0.75f;
-        turnMultiplier = .1f;
+        turnMultiplier = 0.75f;
     }
 
     override public CarState Update() {

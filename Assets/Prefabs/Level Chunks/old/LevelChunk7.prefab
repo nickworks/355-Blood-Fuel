@@ -733,6 +733,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endOfChunk: {fileID: 1156743626168666179}
+  creatorName: 
+  chunkName: 
 --- !u!1 &1161452778579491331
 GameObject:
   m_ObjectHideFlags: 0
