@@ -42,7 +42,7 @@ public class ArcPhysics : MonoBehaviour
         Vector3 pos = Vector3.Lerp(a, b, pSub);
         return origin + pos;
     }
-    // Update is called once per frame
+    // FixedUpdate is called once each time the physics engine updates
     void FixedUpdate() {
         currentTime += Time.fixedDeltaTime;
         if (currentTime < totalTime) {
@@ -67,6 +67,6 @@ public class ArcPhysics : MonoBehaviour
         Collider collider = GetComponent<Collider>();
         collider.isTrigger = false;
         enabled = false;
-        body.velocity = velocityForRigidbody;
+        if(body != null) body.velocity = velocityForRigidbody;
     }
 }
