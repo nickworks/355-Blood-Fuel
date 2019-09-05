@@ -78,7 +78,7 @@ public abstract class Weapon : MonoBehaviour {
         GameObject obj = Instantiate(prefab, spawnPoint.position, rot);
 
         // set arc (projectile) physics:
-        obj.GetComponent<ArcPhysics>().SetArc(car.driver, spawnPoint.position, car.ballBody.velocity, GetArc(10), 1);
+        obj.GetComponent<ArcPhysics>().SetArc(car.driver, spawnPoint.position, car.ballBody.velocity, GetArc(10), .5f);
 
         // set random spin:
         obj.GetComponent<Rigidbody>().AddTorque(Random.onUnitSphere * 100);
