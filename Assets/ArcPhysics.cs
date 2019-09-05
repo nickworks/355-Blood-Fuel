@@ -19,12 +19,22 @@ public class ArcPhysics : MonoBehaviour
     void Start() {
         body = GetComponent<Rigidbody>();
     }
-
-    public void SetArc(Driver shooter, Vector3 origin, Vector3 velocity, Vector3[] arc, float totalTime) {
+    /// <summary>
+    /// This method initializes the arc that this object should follow.
+    /// </summary>
+    /// <param name="shooter">The Driver that shot this projectile. This will be stored and used to make sure that a Driver can't hit themselves.</param>
+    /// <param name="spawnPoint">The world-space position of where the arc begins.</param>
+    /// <param name="carVelocity">The car's velocity when this object spawns. This object needs to inherit this velocity.</param>
+    /// <param name="arcPoints">An array of points that make up the arc.</param>
+    /// <param name="totalTime">How long the object should take to follow the arc.</param>
+    public void SetArc(Driver shooter, Vector3 spawnPoint, Vector3 carVelocity, Vector3[] arcPoints, float totalTime) {
         this.shooter = shooter;
-        this.origin = origin;
-        this.velocityFromCar = velocity;
-        this.arc = arc;
+        this.origin = spawnPoint;
+        this.velocityFromCar = carVelocity;
+
+        // TODO: does it make sense to encapsulate the calculation of these two values: (???)
+
+        this.arc = arcPoints;
         this.totalTime = totalTime;
     }
     public Vector3 GetPositionAtTime(float time) {

@@ -6,13 +6,21 @@ public abstract class Weapon : MonoBehaviour {
 
     LineRenderer lineRenderer;
 
-    public float fuelPerBarrelTossed = 10;
+    public Car car;
+
+    public float fuelPerShot = 10;
     public Transform spawnPoint; // this is a reference to where the projectiles would spawn
     public Transform cursor; // this is a reference to where the weapon is aiming
     public AnimationCurve curve;
     float aimMaxDistance = 15;
     float arcHeight = 2;
 
+    void Start() {
+        car = GetComponentInParent<Car>();
+    }
+    private void OnDestroy() {
+        Destroy(cursor.gameObject); // remove cursor
+    }
     public void AimAt(Vector3 pos) {
 
         // clamp to a max distance:
@@ -60,5 +68,19 @@ public abstract class Weapon : MonoBehaviour {
         pt.y += curve.Evaluate(p) * arcHeight;
         return pt;
     }
-    public abstract void FireWeapons(Driver shooter);
+    public abstract void FireWeapons();
+    public void ShootProjectile(GameObject prefab) {
+
+        // random rotation:
+        Quaternion rot = Quaternion.FromToRotation(Vector3.up, Random.onUnitSphere);
+
+        // spwn the barrel:
+        GameObject obj = Instantiate(prefab, spawnPoint.position, rot);
+
+        // set arc (projectile) physics:
+        obj.GetComponent<ArcPhysics>().SetArc(car.driver, spawnPoint.position, car.ballBody.velocity, GetArc(10), 1);
+
+        // set random spin:
+        obj.GetComponent<Rigidbody>().AddTorque(Random.onUnitSphere * 100);
+    }
 }

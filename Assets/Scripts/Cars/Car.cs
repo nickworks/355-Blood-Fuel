@@ -123,7 +123,7 @@ public class Car : MonoBehaviour {
         turnAmount = amount;
     }
     public void FireWeapons() {
-        if (weapon != null) weapon.FireWeapons(driver);
+        if (weapon != null) weapon.FireWeapons();
     }
     public void SandParticles(float amt)
     {
