@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6388971145153513109}
-  - component: {fileID: 2502147700231944490}
+  - component: {fileID: 4895365350923705775}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,13 +28,14 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.411, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 5046095657458231809}
   - {fileID: 5046095656134875364}
   - {fileID: 5046095657656099220}
   - {fileID: 5046095656126373817}
   m_Father: {fileID: 5046095656344469949}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2502147700231944490
+--- !u!114 &4895365350923705775
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,49 +44,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1080059822015931060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fcca9e377b9a2b4fac9c0d71bf49d08, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e0a924b6f480b740bea7c7c27d27ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelPerBarrelTossed: 10
+  car: {fileID: 0}
+  fuelPerShot: 10
   spawnPoint: {fileID: 5046095656134875364}
   cursor: {fileID: 5046095657458231809}
-  curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 3.6954434
-      outSlope: 3.6954434
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.04556962
-    - serializedVersion: 3
-      time: 0.4912935
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -4.167996
-      outSlope: -4.167996
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.04156489
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  arcHeight: 5
-  prefabBarrel: {fileID: 1843774293268998, guid: 9e4f1fe2a0f1b8742a1e0010a00c0e6c,
+  prefabRocket: {fileID: 1448178054316748330, guid: 0c8bb52c6fd906649a7b4dce2334338a,
     type: 3}
-  car: {fileID: 0}
+  amountOfRockets: 8
+  secondsBetweenLaunches: 0.1
+  cooldown: 2
 --- !u!1 &4619983046456458926
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +320,7 @@ Transform:
   m_LocalScale: {x: 0.5319675, y: 0.5319675, z: 0.5319675}
   m_Children: []
   m_Father: {fileID: 6388971145153513109}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5046095656126373812
 MeshFilter:
@@ -427,7 +397,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6388971145153513109}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &3040584565852964909
 LineRenderer:
@@ -716,7 +686,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5046095657458231809}
   - {fileID: 5046095657226367653}
   - {fileID: 5046095656356783740}
   - {fileID: 1724263121660640566}
@@ -755,7 +724,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5046095656344469949}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -54.88, y: -170, z: 0}
 --- !u!198 &5046095656356783742
 ParticleSystem:
@@ -5641,7 +5610,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5046095656344469949}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -54.88, y: 170, z: 0}
 --- !u!198 &5046095657226367655
 ParticleSystem:
@@ -10389,11 +10358,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5046095657458231808}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.411, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5046095656344469949}
+  m_Father: {fileID: 6388971145153513109}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5046095657458231811
@@ -10472,7 +10441,7 @@ Transform:
   m_LocalScale: {x: 0.18750031, y: 0.18750031, z: 0.1875001}
   m_Children: []
   m_Father: {fileID: 6388971145153513109}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 62.059002}
 --- !u!33 &5046095657656099222
 MeshFilter:
@@ -10773,7 +10742,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 5046095656344469949}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &6007327018068350821
 MeshRenderer:
@@ -10868,5 +10837,5 @@ Transform:
   - {fileID: 5046095656021965935}
   - {fileID: 5046095656275797915}
   m_Father: {fileID: 5046095656344469949}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

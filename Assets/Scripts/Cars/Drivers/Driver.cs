@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,4 +13,5 @@ public abstract class Driver {
     }
     public abstract void OnDestroy(bool isDead);
     public abstract void Drive();
+    public virtual void Update() { }
 }

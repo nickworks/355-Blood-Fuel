@@ -11,7 +11,6 @@ public class ImpactExplosion : MonoBehaviour {
     public GameObject prefabExplosion;
     public bool ignoreVertical = true;
     public float spawnSafetyTimer = .1f;
-    public BarrelLauncher turretRotation;
     void Start()
     {
     }

@@ -86,6 +86,8 @@ public class Car : MonoBehaviour {
     }
     void Update()
     {
+        if (driver != null) driver.Update(); // get input from player
+
         SwitchState(state.Update());
 
         MoveCar();

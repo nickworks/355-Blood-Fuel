@@ -117256,6 +117256,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4263366355626084}
     m_Modifications:
+    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
+        type: 3}
+      propertyPath: m_Name
+      value: Boulder
+      objectReference: {fileID: 0}
     - target: {fileID: 6489772381228826880, guid: fc1db3f2459899a49971922ba6dd3a02,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -117326,11 +117331,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2.5
       objectReference: {fileID: 0}
-    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
-        type: 3}
-      propertyPath: m_Name
-      value: Boulder
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1db3f2459899a49971922ba6dd3a02, type: 3}
 --- !u!4 &891927229332687336 stripped
@@ -117346,6 +117346,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7353653830612906991}
     m_Modifications:
+    - target: {fileID: 3194714785218388286, guid: ceb7d20d9b70f8e4894435f6dfe56014,
+        type: 3}
+      propertyPath: m_Name
+      value: Rock Piller (7)
+      objectReference: {fileID: 0}
     - target: {fileID: 9105449192806220998, guid: ceb7d20d9b70f8e4894435f6dfe56014,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -117400,11 +117405,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3194714785218388286, guid: ceb7d20d9b70f8e4894435f6dfe56014,
-        type: 3}
-      propertyPath: m_Name
-      value: Rock Piller (7)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceb7d20d9b70f8e4894435f6dfe56014, type: 3}

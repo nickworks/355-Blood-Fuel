@@ -30,12 +30,11 @@ public class DriverPlayer : Driver {
         if (car.weapon != null) {
             AimWithMouse();
         }
-
+    }
+    public override void Update() {
         if (Input.GetButtonDown("Jump")) car.Jump();
         if (Input.GetButtonDown("Fire1")) car.FireWeapons();
         if (Input.GetButton("Fire2")) car.Boost();
-
-        
     }
     void AimWithMouse() {
         float mx = Input.GetAxis("Mouse X");
