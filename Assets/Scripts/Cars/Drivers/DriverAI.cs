@@ -29,13 +29,7 @@ public class DriverAI : Driver {
     float turnAmount = 0;
     float throttleAmount = 1;
 
-    override public void Drive() {
-        car.infiniteFuel = true;
-
-        FindAnAttackTarget(); // find nearest player
-        DestroyIfTooFarAway(); // if too far away, destroy self
-
-        AdjustThrottle(); // control the foot on the throttle
+    override public void DriveFixedUpdate() {
 
         // TODO: turn this into a state machine ??
         bool avoidingObstacles = SteerAvoidObstacles();
@@ -47,7 +41,14 @@ public class DriverAI : Driver {
 
         ApplySteeringAndThrottle();
     }
+    public override void DriveUpdate() {
+        car.infiniteFuel = true;
 
+        FindAnAttackTarget(); // find nearest player
+        DestroyIfTooFarAway(); // if too far away, destroy self
+
+        AdjustThrottle(); // control the foot on the throttle
+    }
     private void AdjustThrottle() {
         if (attackTarget == null) return;
 
@@ -122,7 +123,7 @@ public class DriverAI : Driver {
 
                 if (!colliderIsRamp) {
 
-                    car.SetLine(rayStart, rayEnd, Color.magenta);
+                    //car.DrawRay(rayStart, rayEnd, Color.magenta);
 
                     float rightEdge = look.collider.bounds.max.x;
                     float leftEdge = look.collider.bounds.min.x;
@@ -137,7 +138,7 @@ public class DriverAI : Driver {
                 }
             }
         }
-        car.SetLine(rayStart, rayEnd);
+        //car.DrawRay(rayStart, rayEnd);
         return false;
     }
     

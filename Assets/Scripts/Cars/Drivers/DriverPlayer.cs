@@ -12,7 +12,7 @@ public class DriverPlayer : Driver {
     /// <summary>
     /// The Car calls it's Player's Drive() method every game tick.
     /// </summary>
-    override public void Drive() {
+    override public void DriveFixedUpdate() {
         if (car == null) return;
 
         //AddFuel(-1 * Time.deltaTime); // lose 1 fuel per second
@@ -31,7 +31,7 @@ public class DriverPlayer : Driver {
             AimWithMouse();
         }
     }
-    public override void Update() {
+    public override void DriveUpdate() {
         if (Input.GetButtonDown("Jump")) car.Jump();
         if (Input.GetButtonDown("Fire1")) car.FireWeapons();
         if (Input.GetButton("Fire2")) car.Boost();

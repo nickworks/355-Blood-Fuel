@@ -36,12 +36,11 @@ public class Car : MonoBehaviour {
     /// </summary>
     public Transform model;
 
-    public LineRenderer lineRenderer;
-
     public Transform aiSteerVisual;
     public TextMesh text;
 
     public ParticleSystem[] dustParticles;
+    public ParticleSystem boostParticles;
     public AnimationCurve boostFalloff;
 
     public float throttleMin = 800;
@@ -54,14 +53,13 @@ public class Car : MonoBehaviour {
     public CarState state { get; private set; }
 
     void Start() {
-        lineRenderer = GetComponentInChildren<LineRenderer>();
         ballBody = GetComponent<Rigidbody>();
         weapon = GetComponentInChildren<Weapon>();
 
         currentFuel = maximumFuel;
         SwitchState(new CarStateGround());
     }
-    public void SetLine(Vector3 start, Vector3 end, Color color = default) {
+    public void DrawRay(LineRenderer lineRenderer, Vector3 start, Vector3 end, Color color = default) {
         if (color == default) color = Color.black;
 
         lineRenderer.material.color = color;
@@ -82,17 +80,14 @@ public class Car : MonoBehaviour {
         newCS.OnStart(this);
     }
     void FixedUpdate() {
-        if (driver != null) driver.Drive();
-    }
-    void Update()
-    {
-        if (driver != null) driver.Update(); // get input from player
-
-        SwitchState(state.Update());
-
+        if (driver != null) driver.DriveFixedUpdate();
+        SwitchState(state.Update()); // detect ground
         MoveCar();
         UpdateModel();
-
+    }
+    void Update() {
+        SetParticleRate(boostParticles, 0);
+        if (driver != null) driver.DriveUpdate(); // get input from player
         if (health <= 0) Destroy(gameObject);
     }
     public void Kill(bool killSilently = false) {
@@ -116,6 +111,7 @@ public class Car : MonoBehaviour {
         float m = boostFalloff.Evaluate(p);
         ballBody.AddForce(model.forward * 5000 * m * Time.deltaTime);
         model.GetComponentInChildren<MeshRenderer>().material.color = Color.black;
+        SetParticleRate(boostParticles, 100);
     }
     public void SetThrottle(float throttlePercent) {
         if (throttlePercent < 0) throttlePercent = 0;
@@ -130,17 +126,17 @@ public class Car : MonoBehaviour {
     }
     public void SandParticles(float amt)
     {
-        SetParticleRate(dustParticles, amt);
-    }
-    void SetParticleRate(ParticleSystem[] ps, float perSecond)
-    {
-        foreach (ParticleSystem p in ps)
-        {
-            var em = p.emission;
-            em.rateOverTime = perSecond;
-            //em.rateOverDistance = overDistance;
+        foreach (ParticleSystem p in dustParticles) {
+            SetParticleRate(p, amt);
         }
     }
+    void SetParticleRate(ParticleSystem p, float perSecond)
+    {
+        if (p == null) return;
+        ParticleSystem.EmissionModule em = p.emission;
+        em.rateOverTime = perSecond;
+    }
+
 
     private void MoveCar() {
         if (currentFuel <= 0) return;
@@ -149,31 +145,11 @@ public class Car : MonoBehaviour {
         ballBody.AddForce(state.forward * throttle * state.throttleMultiplier * Time.deltaTime);
 
         // move horizontal:
-
-        // TODO: refactor
-        // this is a good step, but I think I should try
-        // using an angle and then derive horizontal velocity
-        // off of forward velocity and the angle
-
         if(turnAmount == 0) {            
             ballBody.velocity = DecelerateHorizontal(ballBody.velocity);
         } else {
             ballBody.velocity = AccelerateHorizontal(ballBody.velocity, turnAmount);
         }
-        text.text = "" + turnAmount;
-        
-        /*
-        float wheelAngleMax = 45;
-        float angle = 0; 
-        if(turnAmount < 0) angle = Mathf.Lerp(0, -wheelAngleMax, -turnAmount);
-        else angle = Mathf.Lerp(0, wheelAngleMax, turnAmount);
-
-        if (model) {
-            model.localEulerAngles = new Vector3(0, angle, 0);
-            ballBody.AddForce(model.forward * throttle * state.throttleMultiplier * Time.deltaTime);
-        }
-        text.text = "" + angle;
-        */
     }
     private Vector3 AccelerateHorizontal(Vector3 velocity, float direction) {
         velocity.x += 100 * direction * state.turnMultiplier * Time.deltaTime;
@@ -183,17 +159,6 @@ public class Car : MonoBehaviour {
         return velocity;
     }
     private Vector3 DecelerateHorizontal(Vector3 velocity) {
-        float decelMultiplier = .75f;
-        /*
-        if(velocity.x > 0) {
-            velocity = AccelerateHorizontal(velocity, -decelMultiplier);
-            if (velocity.x < 0) velocity.x = 0;
-        }
-        if (velocity.x < 0) {
-            velocity = AccelerateHorizontal(velocity, decelMultiplier);
-            if (velocity.x > 0) velocity.x = 0;
-        }
-        */
         velocity.x *= .99f; // TODO: make framrate-independent
         return velocity;
     }
