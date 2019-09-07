@@ -30,7 +30,7 @@ public class ImpactExplosion : MonoBehaviour {
     void OnCollisionEnter(Collision col)
     {
         
-        // todo: remove this class
+        // todo: remove this class ... maybe?
 
         if (col.gameObject.tag == "Pickup") return; // if we hit a pickup, ignore it
         

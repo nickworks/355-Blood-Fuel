@@ -13,19 +13,19 @@ public class DriverPlayer : Driver {
     /// The Car calls it's Player's Drive() method every game tick.
     /// </summary>
     override public void DriveFixedUpdate() {
+        
         if (car == null) return;
 
         //AddFuel(-1 * Time.deltaTime); // lose 1 fuel per second
-        if (car.currentFuel > 1) score += Time.deltaTime;
+        if (car.currentFuel > 1) score += Time.fixedDeltaTime;
 
-        float h = Input.GetAxis("Horizontal");
+        float h = Input.GetAxisRaw("Horizontal");
         float t = Input.GetAxis("Triggers");
 
         float v = Input.GetAxis("Vertical");
 
         car.SetThrottle(Mathf.Max(-t, v));
         car.Turn(h);
-
 
         if (car.weapon != null) {
             AimWithMouse();

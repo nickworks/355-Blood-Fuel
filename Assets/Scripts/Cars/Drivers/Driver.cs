@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Driver {
 
     public Car car { get; private set; }
+    private float age = 0;
+    private float waveAmp;
+    private float waveMedian;
+    private float countdownWiggle = 0;
+
+    public float steerOffset { get; private set; }
 
     public void TakeControl(Car car) {
         this.car = car;
@@ -24,5 +29,14 @@ public abstract class Driver {
     /// It's intended to run every game tick.
     /// Player input (button presses) should be detected and handled here.
     /// </summary>
-    public virtual void DriveUpdate() { }
+    public virtual void DriveUpdate() {
+        age += Time.deltaTime;
+        countdownWiggle -= Time.deltaTime;
+        if(countdownWiggle <= 0) {
+            waveAmp = Random.Range(1, 5f);
+            waveMedian = Random.Range(10, 20f);
+            countdownWiggle = Random.Range(3, 10f);
+        }
+        steerOffset = Mathf.Sin(age) * waveAmp + waveMedian;
+    }
 }

@@ -121,6 +121,9 @@ public class Car : MonoBehaviour {
     public void Turn(float amount) {
         turnAmount = amount;
     }
+    public void Turn(int amount) {
+        turnAmount = amount;
+    }
     public void FireWeapons() {
         if (weapon != null) weapon.FireWeapons();
     }
@@ -145,21 +148,21 @@ public class Car : MonoBehaviour {
         ballBody.AddForce(state.forward * throttle * state.throttleMultiplier * Time.deltaTime);
 
         // move horizontal:
-        if(turnAmount == 0) {            
+        if (turnAmount == 0) {
             ballBody.velocity = DecelerateHorizontal(ballBody.velocity);
         } else {
             ballBody.velocity = AccelerateHorizontal(ballBody.velocity, turnAmount);
         }
     }
     private Vector3 AccelerateHorizontal(Vector3 velocity, float direction) {
-        velocity.x += 100 * direction * state.turnMultiplier * Time.deltaTime;
+        velocity.x += 100 * direction * state.turnMultiplier * Time.fixedDeltaTime;
         float maxHorizontalSpeed = 100;
         if (velocity.x > maxHorizontalSpeed) velocity.x = maxHorizontalSpeed;
         if (velocity.x < -maxHorizontalSpeed) velocity.x = -maxHorizontalSpeed;
         return velocity;
     }
     private Vector3 DecelerateHorizontal(Vector3 velocity) {
-        velocity.x *= .99f; // TODO: make framrate-independent
+        velocity.x = MathStuff.Damp(velocity.x, .01f, Time.fixedDeltaTime);
         return velocity;
     }
     public void UpdateModel() {

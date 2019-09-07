@@ -35,7 +35,10 @@ public class PhysicsHoming : MonoBehaviour
     }
     void FixedUpdate() {
         age += Time.fixedDeltaTime;
-        if (target == null) return;
+        if (target == null) {
+            gameObject.SendMessage("Explode");
+            return;
+        }
 
 
         Vector3 homingDirection = (target.position - transform.position).normalized;

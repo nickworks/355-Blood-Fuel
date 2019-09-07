@@ -16,8 +16,12 @@ public class FollowTarget : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
+	}
+    void FixedUpdate() {
         if (target) {
-            transform.position = target.transform.position;
+            //transform.position = target.transform.position;
+            transform.position = MathStuff.Damp(transform.position, target.transform.position, 0f, Time.fixedDeltaTime);
             float modifier = 1;
             if (target.ballBody) modifier = (target.ballBody.velocity.z - 50) / 10;
             modifier = Mathf.Clamp(modifier, 0, 1);
@@ -27,7 +31,8 @@ public class FollowTarget : MonoBehaviour {
 
             Vector3 localPositionTarget = new Vector3(0, 0, -targetDistance * distanceMultiplier);
 
-            cam.transform.localPosition += (localPositionTarget - cam.transform.localPosition) * Time.deltaTime;
+            //cam.transform.localPosition += (localPositionTarget - cam.transform.localPosition) * Time.deltaTime;
+            cam.transform.localPosition = MathStuff.Damp(cam.transform.localPosition, localPositionTarget, .001f, Time.fixedDeltaTime);
         }
-	}
+    }
 }

@@ -42,6 +42,7 @@ public class DriverAI : Driver {
         ApplySteeringAndThrottle();
     }
     public override void DriveUpdate() {
+        base.DriveUpdate();
         car.infiniteFuel = true;
 
         FindAnAttackTarget(); // find nearest player
@@ -52,10 +53,12 @@ public class DriverAI : Driver {
     private void AdjustThrottle() {
         if (attackTarget == null) return;
 
+        float metersInFrontOfPlayer = 20;
+
         Vector3 disToTarget = attackTarget.transform.position - car.transform.position;
 
         // adjust throttle by distance from player:
-        throttleAmount = disToTarget.z / 1;
+        throttleAmount = (disToTarget.z + metersInFrontOfPlayer) / 1;
         throttleAmount = Mathf.Clamp(throttleAmount, 0, 1);
 
         // if far behind, boost:
@@ -165,12 +168,12 @@ public class DriverAI : Driver {
 
             bool pathIsCloser = (disToPath.sqrMagnitude < disToAttackTarget.sqrMagnitude);
             if (pathIsCloser) {
-                //Debug.Log("path is closer");
-                return;
+                // path is closer
+                return; // don't try to steer towards the player
             }
         }
         bool targetIsLeftOfMe = car.transform.position.x > attackTarget.transform.position.x;
-        float offset = targetIsLeftOfMe ? 5 : -5;
+        float offset = (targetIsLeftOfMe ? 1 : -1) * steerOffset;
         steeringTarget = attackTarget.transform.position + new Vector3(offset, 0, 0);
     }
 
