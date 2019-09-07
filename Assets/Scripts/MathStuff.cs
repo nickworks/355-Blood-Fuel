@@ -23,4 +23,7 @@ public class MathStuff {
     public static Vector3 Damp(Vector3 source, Vector3 target, float smoothing, float dt) {
         return Vector3.Lerp(source, target, 1 - Mathf.Pow(smoothing, dt));
     }
+    public static Quaternion Damp(Quaternion source, Quaternion target, float smoothing, float dt) {
+        return Quaternion.Slerp(source, target, 1 - Mathf.Pow(smoothing, dt));
+    }
 }

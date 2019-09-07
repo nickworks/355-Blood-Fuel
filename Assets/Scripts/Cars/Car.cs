@@ -51,6 +51,7 @@ public class Car : MonoBehaviour {
 
     [HideInInspector] public Driver driver;
     public CarState state { get; private set; }
+    public bool isBoosting { get; private set; }
 
     void Start() {
         ballBody = GetComponent<Rigidbody>();
@@ -86,9 +87,10 @@ public class Car : MonoBehaviour {
         UpdateModel();
     }
     void Update() {
-        SetParticleRate(boostParticles, 0);
+        isBoosting = false;
         if (driver != null) driver.DriveUpdate(); // get input from player
         if (health <= 0) Destroy(gameObject);
+        SetParticleRate(boostParticles, isBoosting ? 100 : 0);
     }
     public void Kill(bool killSilently = false) {
         health = 0;
@@ -102,8 +104,7 @@ public class Car : MonoBehaviour {
         currentFuel += delta;
         currentFuel = Mathf.Clamp(currentFuel, 0, maximumFuel);
     }
-    public void Jump()
-    {
+    public void Jump() {
         ballBody.AddForce(Vector3.up * 20, ForceMode.Impulse);
     }
     public void Boost() {
@@ -111,7 +112,7 @@ public class Car : MonoBehaviour {
         float m = boostFalloff.Evaluate(p);
         ballBody.AddForce(model.forward * 5000 * m * Time.deltaTime);
         model.GetComponentInChildren<MeshRenderer>().material.color = Color.black;
-        SetParticleRate(boostParticles, 100);
+        isBoosting = true;
     }
     public void SetThrottle(float throttlePercent) {
         if (throttlePercent < 0) throttlePercent = 0;

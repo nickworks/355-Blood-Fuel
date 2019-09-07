@@ -346,13 +346,88 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
         type: 3}
+      propertyPath: cameraDistanceCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
         type: 3}
       propertyPath: targetDistance
-      value: 10
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceCurve.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceCurve.m_Curve.Array.data[0].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceCurve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceCurve.m_Curve.Array.data[1].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceCurve.m_Curve.Array.data[1].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceCurve.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceCurve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceMin
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: cameraDistanceMax
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f5981a0da22dbe4fa785cbba80546a7, type: 3}
