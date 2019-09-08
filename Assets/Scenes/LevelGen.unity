@@ -422,15 +422,31 @@ PrefabInstance:
     - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
         type: 3}
       propertyPath: cameraDistanceMin
-      value: 40
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
         type: 3}
       propertyPath: cameraDistanceMax
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+        type: 3}
+      propertyPath: pitchControl
+      value: 
+      objectReference: {fileID: 1531076792}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f5981a0da22dbe4fa785cbba80546a7, type: 3}
+--- !u!4 &1531076792 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4897095754681390, guid: 0f5981a0da22dbe4fa785cbba80546a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1369895788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1667868497 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114854007489079884, guid: 0f5981a0da22dbe4fa785cbba80546a7,
