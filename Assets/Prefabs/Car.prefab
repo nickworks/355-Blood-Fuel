@@ -5547,7 +5547,6 @@ MonoBehaviour:
   maximumFuel: 100
   suspension: {fileID: 7201808980782525616}
   model: {fileID: 5046095656344469949}
-  lineRenderer: {fileID: 0}
   aiSteerVisual: {fileID: 2912843492053184526}
   text: {fileID: 4557279800023199051}
   dustParticles:
@@ -5579,7 +5578,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   throttleMin: 800
-  throttleMax: 2000
+  throttleMax: 1500
   maxSpeed: 200
 --- !u!1 &5046095657226367652
 GameObject:

@@ -55,7 +55,7 @@ public class Car : MonoBehaviour {
     void Start() {
         ballBody = GetComponent<Rigidbody>();
         weapon = GetComponentInChildren<Weapon>();
-
+        
         currentFuel = maximumFuel;
         SwitchState(new CarStateGround());
     }
@@ -84,6 +84,7 @@ public class Car : MonoBehaviour {
         SwitchState(state.Update()); // detect ground
         MoveCar();
         UpdateModel();
+        ballBody.velocity += new Vector3(0, -10, 0) * Time.fixedDeltaTime;
     }
     void Update() {
         isBoosting = false;
