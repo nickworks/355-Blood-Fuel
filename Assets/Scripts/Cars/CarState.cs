@@ -52,12 +52,12 @@ public class CarStateGround : CarState {
         bool isGrounded = DetectGround(out string material);
 
         bool onSand = (material == "Sand (Instance)");
-        car.SandParticles(onSand ? 50 : 0);
+        car.SandParticles(onSand);
 
         return isGrounded ? null : new CarStateAir();
     }
     public override void OnEnd() {
-        car.SandParticles(0);
+        
     }
     protected override void CalcOrientation() {
         suspensionOrientation = Quaternion.FromToRotation(Vector3.up, up);

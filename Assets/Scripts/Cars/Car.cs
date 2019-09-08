@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -128,10 +127,39 @@ public class Car : MonoBehaviour {
     public void FireWeapons() {
         if (weapon != null) weapon.FireWeapons();
     }
-    public void SandParticles(float amt)
+    public void SandParticles(bool onSand)
     {
         foreach (ParticleSystem p in dustParticles) {
-            SetParticleRate(p, amt);
+            SetParticleRate(p, onSand ? 50 : 0);
+        }
+
+        float amt = 0;
+        if (onSand) {
+            float t = ballBody.velocity.sqrMagnitude / 10000;
+            t *= t;
+            amt = Mathf.Lerp(0, 100, t);
+        }
+        // DUST:
+        if (amt > Random.Range(0, 100f)) {
+            WorldParticles.obj.Emit(
+                    EffectType.Dust,
+                    transform.position,
+                    ballBody.velocity);
+        }
+
+        // SAND:
+        foreach (ParticleSystem p in dustParticles) {
+
+            if (amt > Random.Range(0, 200f)) {
+                float X = Random.Range(-2, 2);
+                float Y = Random.Range(10, 40);
+                float Z = Random.Range(0, 0);
+
+                WorldParticles.obj.Emit(
+                        EffectType.Sand,
+                        p.transform.position,
+                        ballBody.velocity * .99f + new Vector3(X, Y, Z));
+            }
         }
     }
     void SetParticleRate(ParticleSystem p, float perSecond)
