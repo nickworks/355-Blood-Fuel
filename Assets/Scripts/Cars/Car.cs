@@ -69,6 +69,7 @@ public class Car : MonoBehaviour {
     }
     public void InitSpeed(Car car) {
         if (car == null) return;
+        if (car.ballBody == null) return;
         ballBody = GetComponent<Rigidbody>();
         ballBody.velocity = car.ballBody.velocity;
     }
@@ -169,7 +170,9 @@ public class Car : MonoBehaviour {
         ParticleSystem.EmissionModule em = p.emission;
         em.rateOverTime = perSecond;
     }
-
+    public void Hurt(float amount) {
+        health -= amount;
+    }
 
     private void MoveCar() {
         if (currentFuel <= 0) return;
