@@ -5,7 +5,8 @@ using UnityEngine;
 public class RockPillarSpawnSettings : MonoBehaviour
 {
 
-        public Transform[] childTrans;
+    public Transform[] childTrans;
+    public GameObject[] childObjects;
 
     // Start is called before the first frame update
     void Start()
@@ -58,11 +59,18 @@ public class RockPillarSpawnSettings : MonoBehaviour
         }
 
         //TODO: Randomly decide if the pillar will have 0-2 extra limbs. 
-        // The chance will be 1 in 20 for an extra, and another 1 in 20 for an additional. (Maybe make these 1 in 10's)
+        // The chance will be 1 in 20 for an extra, and another 1 in 20 for an additional. (Maybe make both these 1 in 10's)
         // If chosen to be created, Will make a cube, shpere, capsule, or cylendar a child of body.
         // Move the children to the edges of the body. Move up or down between 0-1.5. 
         // rotate all 3 axises randomly. Scale it between 0.75-1.5.
-
+        int extraLimbChance = Random.Range(1, 20);
+        if (true)
+        {
+            int pickALimb = Random.Range(1, 4);
+            childObjects[3 + pickALimb].SetActive(true);
+            childTrans[3 + pickALimb].localPosition = new Vector3(Random.Range(-1.5f, -1.5f), Random.Range(-1.5f, -1.5f), Random.Range(-1.5f, -1.5f));
+            childTrans[3 + pickALimb].localScale = new Vector3(Random.Range(0.75f, 1.5f), Random.Range(0.75f, 1.5f), Random.Range(0.75f, 1.5f));
+        }
 
     }
 
