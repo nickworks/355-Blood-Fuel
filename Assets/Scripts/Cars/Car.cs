@@ -172,6 +172,7 @@ public class Car : MonoBehaviour {
     }
     public void Hurt(float amount) {
         health -= amount;
+        if(health <= 0) gameObject.SendMessage("Explode");
     }
 
     private void MoveCar() {

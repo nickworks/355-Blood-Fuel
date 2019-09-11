@@ -5547,7 +5547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threshold: 15
-  prefabExplosion: {fileID: 1551211562780154, guid: 7332fe54d4fdcd54b9e47195e5f9732c,
+  prefabExplosion: {fileID: 1309491674721752, guid: d29b6e2dbd2d7724895cb0fb112bfd43,
     type: 3}
   ignoreVertical: 1
   spawnSafetyTimer: 0.1
