@@ -4915,6 +4915,10 @@ MonoBehaviour:
   numberOfChunksToLoad: 3
   thresholdForRemovingChunks: 20
   prefabChunks:
+  - {fileID: 596169554160980818, guid: 65ea7e6cda738b343886b4199569ce02, type: 3}
+  - {fileID: -4732134724717557575, guid: d0352cb3d0afd1e4e8a0e2b6d141cee1, type: 3}
+  - {fileID: 3170782612720124170, guid: 1b78243272006b640b14cc0fb5ffa697, type: 3}
+  - {fileID: -4732134724717557575, guid: f02e9c9d4d3530842954ce9085bcc9a5, type: 3}
   - {fileID: 6661484501131145137, guid: 9ce161480e095d4439f109cd69b6a070, type: 3}
 --- !u!4 &812214921
 Transform:
