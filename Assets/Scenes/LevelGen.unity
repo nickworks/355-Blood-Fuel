@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657785, g: 0.49641478, b: 0.5748181, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657785, g: 0.4964149, b: 0.57481855, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4915,7 +4915,7 @@ MonoBehaviour:
   numberOfChunksToLoad: 3
   thresholdForRemovingChunks: 20
   prefabChunks:
-  - {fileID: -4732134724717557575, guid: d0352cb3d0afd1e4e8a0e2b6d141cee1, type: 3}
+  - {fileID: 6661484501131145137, guid: 9ce161480e095d4439f109cd69b6a070, type: 3}
 --- !u!4 &812214921
 Transform:
   m_ObjectHideFlags: 0
