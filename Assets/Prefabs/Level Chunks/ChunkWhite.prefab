@@ -2126,7 +2126,7 @@ GameObject:
   - component: {fileID: 1978767720245928518}
   - component: {fileID: 695381812884884644}
   m_Layer: 0
-  m_Name: White
+  m_Name: TerrainWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
