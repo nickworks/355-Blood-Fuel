@@ -5911,6 +5911,31 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 548383146072871095, guid: cea9a04af4b7ef84ab3a944e8fddbab3,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.511264
+      objectReference: {fileID: 0}
+    - target: {fileID: 548383146072871095, guid: cea9a04af4b7ef84ab3a944e8fddbab3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.715
+      objectReference: {fileID: 0}
+    - target: {fileID: 548383146072871095, guid: cea9a04af4b7ef84ab3a944e8fddbab3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.438
+      objectReference: {fileID: 0}
+    - target: {fileID: 548383146072871095, guid: cea9a04af4b7ef84ab3a944e8fddbab3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.383
+      objectReference: {fileID: 0}
+    - target: {fileID: 548383146072871095, guid: cea9a04af4b7ef84ab3a944e8fddbab3,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.49550056
+      objectReference: {fileID: 0}
     - target: {fileID: 4540632858833555133, guid: cea9a04af4b7ef84ab3a944e8fddbab3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5990,31 +6015,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 2.7234557
-      objectReference: {fileID: 0}
-    - target: {fileID: 548383146072871095, guid: cea9a04af4b7ef84ab3a944e8fddbab3,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.511264
-      objectReference: {fileID: 0}
-    - target: {fileID: 548383146072871095, guid: cea9a04af4b7ef84ab3a944e8fddbab3,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.715
-      objectReference: {fileID: 0}
-    - target: {fileID: 548383146072871095, guid: cea9a04af4b7ef84ab3a944e8fddbab3,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.438
-      objectReference: {fileID: 0}
-    - target: {fileID: 548383146072871095, guid: cea9a04af4b7ef84ab3a944e8fddbab3,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.383
-      objectReference: {fileID: 0}
-    - target: {fileID: 548383146072871095, guid: cea9a04af4b7ef84ab3a944e8fddbab3,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.49550056
       objectReference: {fileID: 0}
     - target: {fileID: 7237264272887595499, guid: cea9a04af4b7ef84ab3a944e8fddbab3,
         type: 3}
