@@ -11567,7 +11567,7 @@ GameObject:
   - component: {fileID: 4994698674965274593}
   - component: {fileID: 6884407878171481238}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: stalagmite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
