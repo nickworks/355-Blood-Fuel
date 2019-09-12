@@ -18,7 +18,8 @@ public class FollowTarget : MonoBehaviour {
 	void Update () {
         if (target) {
             transform.position = target.transform.position;
-            float modifier = (target.ballBody.velocity.z - 50) / 10;
+            float modifier = 1;
+            if (target.ballBody) modifier = (target.ballBody.velocity.z - 50) / 10;
             modifier = Mathf.Clamp(modifier, 0, 1);
             distanceMultiplier = 1 + (modifier * modifier) / 2;
         }

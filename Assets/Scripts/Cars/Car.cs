@@ -70,6 +70,7 @@ public class Car : MonoBehaviour {
         lineRenderer.SetPositions(pts);
     }
     public void InitSpeed(Car car) {
+        if (car == null) return;
         ballBody = GetComponent<Rigidbody>();
         ballBody.velocity = car.ballBody.velocity;
     }
