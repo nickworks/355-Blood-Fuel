@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CarBoosting))]
 public class Car : MonoBehaviour {
 
 
@@ -16,6 +17,8 @@ public class Car : MonoBehaviour {
     /// The ball that is the car. Think of it as a hamster ball.
     /// </summary>
     public Rigidbody ballBody { get; private set; }
+
+    public CarBoosting boost { get; private set; }
 
     /// <summary>
     /// This is the orientation of the tires. -1 to 1
@@ -39,8 +42,6 @@ public class Car : MonoBehaviour {
     public TextMesh text;
 
     public ParticleSystem[] dustParticles;
-    public ParticleSystem boostParticles;
-    public AnimationCurve boostFalloff;
 
     public float throttleMin = 800;
     public float throttleMax = 2000;
@@ -50,11 +51,13 @@ public class Car : MonoBehaviour {
 
     [HideInInspector] public Driver driver;
     public CarState state { get; private set; }
-    public bool isBoosting { get; private set; }
+
+    
 
     void Start() {
         ballBody = GetComponent<Rigidbody>();
         weapon = GetComponentInChildren<Weapon>();
+        boost = GetComponent<CarBoosting>();
         
         currentFuel = maximumFuel;
         SwitchState(new CarStateGround());
@@ -88,10 +91,8 @@ public class Car : MonoBehaviour {
         ballBody.velocity += new Vector3(0, -10, 0) * Time.fixedDeltaTime;
     }
     void Update() {
-        isBoosting = false;
         if (driver != null) driver.DriveUpdate(); // get input from player
         if (health <= 0) Destroy(gameObject);
-        SetParticleRate(boostParticles, isBoosting ? 100 : 0);
     }
     public void Kill(bool killSilently = false) {
         health = 0;
@@ -112,12 +113,12 @@ public class Car : MonoBehaviour {
 
         ballBody.AddForce(Vector3.up * 20, ForceMode.Impulse);
     }
+    /// <summary>
+    /// This function should be called from Update(), not FixedUpdate(). So deltaTime should be used.
+    /// </summary>
     public void Boost() {
-        float p = ballBody.velocity.z / maxSpeed;
-        float m = boostFalloff.Evaluate(p);
-        ballBody.AddForce(model.forward * 5000 * m * Time.deltaTime);
-        model.GetComponentInChildren<MeshRenderer>().material.color = Color.black;
-        isBoosting = true;
+        print("boost?");
+        boost.Boost();
     }
     public void SetThrottle(float throttlePercent) {
         if (throttlePercent < 0) throttlePercent = 0;
