@@ -106,6 +106,10 @@ public class Car : MonoBehaviour {
         currentFuel = Mathf.Clamp(currentFuel, 0, maximumFuel);
     }
     public void Jump() {
+
+        // check if grounded
+        if (!state.isGrounded) return;
+
         ballBody.AddForce(Vector3.up * 20, ForceMode.Impulse);
     }
     public void Boost() {
