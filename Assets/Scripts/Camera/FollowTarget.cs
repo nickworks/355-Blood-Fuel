@@ -38,7 +38,7 @@ public class FollowTarget : MonoBehaviour {
             // calculate a distanceMultiplier from velocity
             float p = 1;
             if (target.ballBody) p = Mathf.Clamp(target.ballBody.velocity.z / maxSpeed, 0, 1);
-            if (target.isBoosting) p = 1;
+            if (target && target.boost && target.boost.isBoosting) p = 1;
             p = Mathf.Clamp(p, 0, 1);
             p = cameraDistanceCurve.Evaluate(p);
             cameraDistance = Mathf.Lerp(cameraDistanceMin, cameraDistanceMax, p);
@@ -48,7 +48,7 @@ public class FollowTarget : MonoBehaviour {
 
             // CAMERA SHAKE:
             cameraPitch = 30;
-            if (target.isBoosting) {
+            if (target && target.boost && target.boost.isBoosting) {
                 float amp = 10 * target.ballBody.velocity.z / maxSpeed;
                 cameraPitch += Random.Range(-amp, amp);
             }

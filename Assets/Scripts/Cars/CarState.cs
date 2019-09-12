@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class CarState {
 
     protected Car car;
-
+    public bool isGrounded { get; protected set; }
     public float throttleMultiplier { get; protected set; }
     public float turnMultiplier { get; protected set; }
 
@@ -45,6 +45,7 @@ public class CarStateGround : CarState {
     public CarStateGround() {
         throttleMultiplier = 1;
         turnMultiplier = 1;
+        isGrounded = true;
     }
     override public CarState Update() {
         CalcOrientation();
@@ -66,6 +67,7 @@ public class CarStateGround : CarState {
 }
 public class CarStateAir : CarState {
     public CarStateAir() {
+        isGrounded = false;
         throttleMultiplier = 0.75f;
         turnMultiplier = 0.75f;
     }
