@@ -117412,6 +117412,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7353653830612906991}
     m_Modifications:
+    - target: {fileID: 3194714785218388286, guid: ceb7d20d9b70f8e4894435f6dfe56014,
+        type: 3}
+      propertyPath: m_Name
+      value: Rock Pillar
+      objectReference: {fileID: 0}
     - target: {fileID: 9105449192806220998, guid: ceb7d20d9b70f8e4894435f6dfe56014,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -117466,11 +117471,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3194714785218388286, guid: ceb7d20d9b70f8e4894435f6dfe56014,
-        type: 3}
-      propertyPath: m_Name
-      value: Rock Pillar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceb7d20d9b70f8e4894435f6dfe56014, type: 3}
@@ -117577,6 +117577,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4263366355626084}
     m_Modifications:
+    - target: {fileID: 5046095656521649755, guid: 68a3268ba014d754ab9ed2feff42c176,
+        type: 3}
+      propertyPath: m_Name
+      value: Car
+      objectReference: {fileID: 0}
     - target: {fileID: 5046095656521649740, guid: 68a3268ba014d754ab9ed2feff42c176,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -117631,11 +117636,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5046095656521649755, guid: 68a3268ba014d754ab9ed2feff42c176,
-        type: 3}
-      propertyPath: m_Name
-      value: Car
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68a3268ba014d754ab9ed2feff42c176, type: 3}

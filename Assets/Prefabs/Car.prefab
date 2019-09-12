@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6388971145153513109}
-  - component: {fileID: 113744131194974930}
+  - component: {fileID: 6614267895867908058}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 5046095656344469949}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &113744131194974930
+--- !u!114 &6614267895867908058
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,39 +44,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1080059822015931060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fcca9e377b9a2b4fac9c0d71bf49d08, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e0a924b6f480b740bea7c7c27d27ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 0}
   fuelPerShot: 10
   spawnPoint: {fileID: 5046095656134875364}
   cursor: {fileID: 5046095657458231809}
-  prefabBarrel: {fileID: 1843774293268998, guid: 9e4f1fe2a0f1b8742a1e0010a00c0e6c,
+  prefabRocket: {fileID: 1448178054316748330, guid: 0c8bb52c6fd906649a7b4dce2334338a,
     type: 3}
-  arcCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 3.4875
-      outSlope: 3.4875
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.06451613
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -4.04799
-      outSlope: -4.04799
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.06947893
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  amountOfRockets: 8
+  secondsBetweenLaunches: 0.1
+  cooldown: 2
 --- !u!1 &4619983046456458926
 GameObject:
   m_ObjectHideFlags: 0
