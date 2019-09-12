@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,12 +35,11 @@ public class Car : MonoBehaviour {
     /// </summary>
     public Transform model;
 
-    public LineRenderer lineRenderer;
-
     public Transform aiSteerVisual;
     public TextMesh text;
 
     public ParticleSystem[] dustParticles;
+    public ParticleSystem boostParticles;
     public AnimationCurve boostFalloff;
 
     public float throttleMin = 800;
@@ -52,16 +50,16 @@ public class Car : MonoBehaviour {
 
     [HideInInspector] public Driver driver;
     public CarState state { get; private set; }
+    public bool isBoosting { get; private set; }
 
     void Start() {
-        lineRenderer = GetComponentInChildren<LineRenderer>();
         ballBody = GetComponent<Rigidbody>();
         weapon = GetComponentInChildren<Weapon>();
-
+        
         currentFuel = maximumFuel;
         SwitchState(new CarStateGround());
     }
-    public void SetLine(Vector3 start, Vector3 end, Color color = default) {
+    public void DrawRay(LineRenderer lineRenderer, Vector3 start, Vector3 end, Color color = default) {
         if (color == default) color = Color.black;
 
         lineRenderer.material.color = color;
@@ -70,6 +68,8 @@ public class Car : MonoBehaviour {
         lineRenderer.SetPositions(pts);
     }
     public void InitSpeed(Car car) {
+        if (car == null) return;
+        if (car.ballBody == null) return;
         ballBody = GetComponent<Rigidbody>();
         ballBody.velocity = car.ballBody.velocity;
     }
@@ -81,16 +81,17 @@ public class Car : MonoBehaviour {
         newCS.OnStart(this);
     }
     void FixedUpdate() {
-        if (driver != null) driver.Drive();
-    }
-    void Update()
-    {
-        SwitchState(state.Update());
-
+        if (driver != null) driver.DriveFixedUpdate();
+        SwitchState(state.Update()); // detect ground
         MoveCar();
         UpdateModel();
-
+        ballBody.velocity += new Vector3(0, -10, 0) * Time.fixedDeltaTime;
+    }
+    void Update() {
+        isBoosting = false;
+        if (driver != null) driver.DriveUpdate(); // get input from player
         if (health <= 0) Destroy(gameObject);
+        SetParticleRate(boostParticles, isBoosting ? 100 : 0);
     }
     public void Kill(bool killSilently = false) {
         health = 0;
@@ -104,8 +105,7 @@ public class Car : MonoBehaviour {
         currentFuel += delta;
         currentFuel = Mathf.Clamp(currentFuel, 0, maximumFuel);
     }
-    public void Jump()
-    {
+    public void Jump() {
         ballBody.AddForce(Vector3.up * 20, ForceMode.Impulse);
     }
     public void Boost() {
@@ -113,6 +113,7 @@ public class Car : MonoBehaviour {
         float m = boostFalloff.Evaluate(p);
         ballBody.AddForce(model.forward * 5000 * m * Time.deltaTime);
         model.GetComponentInChildren<MeshRenderer>().material.color = Color.black;
+        isBoosting = true;
     }
     public void SetThrottle(float throttlePercent) {
         if (throttlePercent < 0) throttlePercent = 0;
@@ -122,21 +123,56 @@ public class Car : MonoBehaviour {
     public void Turn(float amount) {
         turnAmount = amount;
     }
+    public void Turn(int amount) {
+        turnAmount = amount;
+    }
     public void FireWeapons() {
         if (weapon != null) weapon.FireWeapons();
     }
-    public void SandParticles(float amt)
+    public void SandParticles(bool onSand)
     {
-        SetParticleRate(dustParticles, amt);
-    }
-    void SetParticleRate(ParticleSystem[] ps, float perSecond)
-    {
-        foreach (ParticleSystem p in ps)
-        {
-            var em = p.emission;
-            em.rateOverTime = perSecond;
-            //em.rateOverDistance = overDistance;
+        foreach (ParticleSystem p in dustParticles) {
+            SetParticleRate(p, onSand ? 50 : 0);
         }
+
+        float amt = 0;
+        if (onSand) {
+            float t = ballBody.velocity.sqrMagnitude / 10000;
+            t *= t;
+            amt = Mathf.Lerp(0, 100, t);
+        }
+        // DUST:
+        if (amt > Random.Range(0, 100f)) {
+            WorldParticles.obj.Emit(
+                    EffectType.Dust,
+                    transform.position,
+                    ballBody.velocity);
+        }
+
+        // SAND:
+        foreach (ParticleSystem p in dustParticles) {
+
+            if (amt > Random.Range(0, 200f)) {
+                float X = Random.Range(-2, 2);
+                float Y = Random.Range(10, 40);
+                float Z = Random.Range(0, 0);
+
+                WorldParticles.obj.Emit(
+                        EffectType.Sand,
+                        p.transform.position,
+                        ballBody.velocity * .99f + new Vector3(X, Y, Z));
+            }
+        }
+    }
+    void SetParticleRate(ParticleSystem p, float perSecond)
+    {
+        if (p == null) return;
+        ParticleSystem.EmissionModule em = p.emission;
+        em.rateOverTime = perSecond;
+    }
+    public void Hurt(float amount) {
+        health -= amount;
+        if(health <= 0) gameObject.SendMessage("Explode");
     }
 
     private void MoveCar() {
@@ -146,52 +182,21 @@ public class Car : MonoBehaviour {
         ballBody.AddForce(state.forward * throttle * state.throttleMultiplier * Time.deltaTime);
 
         // move horizontal:
-
-        // TODO: refactor
-        // this is a good step, but I think I should try
-        // using an angle and then derive horizontal velocity
-        // off of forward velocity and the angle
-
-        if(turnAmount == 0) {            
+        if (turnAmount == 0) {
             ballBody.velocity = DecelerateHorizontal(ballBody.velocity);
         } else {
             ballBody.velocity = AccelerateHorizontal(ballBody.velocity, turnAmount);
         }
-        text.text = "" + turnAmount;
-        
-        /*
-        float wheelAngleMax = 45;
-        float angle = 0; 
-        if(turnAmount < 0) angle = Mathf.Lerp(0, -wheelAngleMax, -turnAmount);
-        else angle = Mathf.Lerp(0, wheelAngleMax, turnAmount);
-
-        if (model) {
-            model.localEulerAngles = new Vector3(0, angle, 0);
-            ballBody.AddForce(model.forward * throttle * state.throttleMultiplier * Time.deltaTime);
-        }
-        text.text = "" + angle;
-        */
     }
     private Vector3 AccelerateHorizontal(Vector3 velocity, float direction) {
-        velocity.x += 100 * direction * state.turnMultiplier * Time.deltaTime;
+        velocity.x += 100 * direction * state.turnMultiplier * Time.fixedDeltaTime;
         float maxHorizontalSpeed = 100;
         if (velocity.x > maxHorizontalSpeed) velocity.x = maxHorizontalSpeed;
         if (velocity.x < -maxHorizontalSpeed) velocity.x = -maxHorizontalSpeed;
         return velocity;
     }
     private Vector3 DecelerateHorizontal(Vector3 velocity) {
-        float decelMultiplier = .75f;
-        /*
-        if(velocity.x > 0) {
-            velocity = AccelerateHorizontal(velocity, -decelMultiplier);
-            if (velocity.x < 0) velocity.x = 0;
-        }
-        if (velocity.x < 0) {
-            velocity = AccelerateHorizontal(velocity, decelMultiplier);
-            if (velocity.x > 0) velocity.x = 0;
-        }
-        */
-        velocity.x *= .99f; // TODO: make framrate-independent
+        velocity.x = MathStuff.Damp(velocity.x, .01f, Time.fixedDeltaTime);
         return velocity;
     }
     public void UpdateModel() {

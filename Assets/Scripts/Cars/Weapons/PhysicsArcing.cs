@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcPhysics : MonoBehaviour
+public class PhysicsArcing : MonoBehaviour
 {
     Vector3 origin;
 

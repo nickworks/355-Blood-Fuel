@@ -12,13 +12,14 @@ public class DriverPlayer : Driver {
     /// <summary>
     /// The Car calls it's Player's Drive() method every game tick.
     /// </summary>
-    override public void Drive() {
+    override public void DriveFixedUpdate() {
+        
         if (car == null) return;
 
         //AddFuel(-1 * Time.deltaTime); // lose 1 fuel per second
-        if (car.currentFuel > 1) score += Time.deltaTime;
+        if (car.currentFuel > 1) score += Time.fixedDeltaTime;
 
-        float h = Input.GetAxis("Horizontal");
+        float h = Input.GetAxisRaw("Horizontal");
         float t = Input.GetAxis("Triggers");
 
         float v = Input.GetAxis("Vertical");
@@ -26,16 +27,14 @@ public class DriverPlayer : Driver {
         car.SetThrottle(Mathf.Max(-t, v));
         car.Turn(h);
 
-
         if (car.weapon != null) {
             AimWithMouse();
         }
-
+    }
+    public override void DriveUpdate() {
         if (Input.GetButtonDown("Jump")) car.Jump();
         if (Input.GetButtonDown("Fire1")) car.FireWeapons();
         if (Input.GetButton("Fire2")) car.Boost();
-
-        
     }
     void AimWithMouse() {
         float mx = Input.GetAxis("Mouse X");
