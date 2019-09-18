@@ -3177,7 +3177,7 @@ GameObject:
   - component: {fileID: 3559374909820899456}
   - component: {fileID: 246559353356226139}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Drive Path 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
