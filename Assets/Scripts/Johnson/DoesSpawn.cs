@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class DoesSpawn : MonoBehaviour
 {
+    public float pickerMax;
+    public float pickerMin;
+    public float threshold;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,13 +22,21 @@ public class DoesSpawn : MonoBehaviour
 
     void Spawn()
     {
-        float picker = Random.Range(1f, 10f);
+        if (pickerMax == 0 && pickerMin == 0)
+        {
+            pickerMax = 10f;
+            pickerMin = 1;
+        }
 
-        if(picker <= 5f)
+        float picker = Random.Range(pickerMin, pickerMax);
+
+        if (threshold == 0) threshold = 5f;
+
+        if (picker <= threshold)
         {
             gameObject.SetActive(true);
         }
-        else if(picker >= 5f)
+        else if(picker >= threshold)
         {
             gameObject.SetActive(false);
         }
