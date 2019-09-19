@@ -6659,11 +6659,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4263366355626084}
     m_Modifications:
-    - target: {fileID: 448795063276486360, guid: a481d827903ddb040b7d6398d2ede09e,
-        type: 3}
-      propertyPath: m_Name
-      value: Arch 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2128665888339097681, guid: a481d827903ddb040b7d6398d2ede09e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6733,6 +6728,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 36.41593
+      objectReference: {fileID: 0}
+    - target: {fileID: 448795063276486360, guid: a481d827903ddb040b7d6398d2ede09e,
+        type: 3}
+      propertyPath: m_Name
+      value: Arch 1
       objectReference: {fileID: 0}
     - target: {fileID: 8462229164864409552, guid: a481d827903ddb040b7d6398d2ede09e,
         type: 3}
