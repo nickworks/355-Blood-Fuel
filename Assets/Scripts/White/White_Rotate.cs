@@ -7,7 +7,7 @@ public class White_Rotate : MonoBehaviour
     void Start()
     {
         var euler = transform.eulerAngles;
-        euler.y = Random.Range(0f, 360f);
+        euler.y = Random.Range(-270f, 0f);
         transform.eulerAngles = euler;
     }
 }
