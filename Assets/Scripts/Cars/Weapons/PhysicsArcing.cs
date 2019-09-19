@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ProjectileController))]
 public class PhysicsArcing : MonoBehaviour
 {
     Vector3 origin;
@@ -11,13 +12,15 @@ public class PhysicsArcing : MonoBehaviour
 
     float totalTime;
     Vector3[] arc;
-    Driver shooter;
     Rigidbody body;
 
     float currentTime = 0;
 
+    ProjectileController projectile;
+
     void Start() {
         body = GetComponent<Rigidbody>();
+        projectile = GetComponent<ProjectileController>();
     }
     /// <summary>
     /// This method initializes the arc that this object should follow.
@@ -27,8 +30,7 @@ public class PhysicsArcing : MonoBehaviour
     /// <param name="carVelocity">The car's velocity when this object spawns. This object needs to inherit this velocity.</param>
     /// <param name="arcPoints">An array of points that make up the arc.</param>
     /// <param name="totalTime">How long the object should take to follow the arc.</param>
-    public void SetArc(Driver shooter, Vector3 spawnPoint, Vector3 carVelocity, Vector3[] arcPoints, float totalTime) {
-        this.shooter = shooter;
+    public void SetArc(Vector3 spawnPoint, Vector3 carVelocity, Vector3[] arcPoints, float totalTime) {
         this.origin = spawnPoint;
         this.velocityFromCar = carVelocity;
 
@@ -67,10 +69,10 @@ public class PhysicsArcing : MonoBehaviour
     }
     void OnTriggerEnter(Collider other) {
 
-        if (shooter.car != null && shooter.car.gameObject == other.gameObject) {
-            // This projectile overlapped with the thing that shot it.
-            // We should ignore that.
-            return;
+        if (projectile.IsShooter(other.gameObject)) {
+                // This projectile overlapped with the thing that shot it.
+                // We should ignore that.
+                return;
         }
         Disable();
     }

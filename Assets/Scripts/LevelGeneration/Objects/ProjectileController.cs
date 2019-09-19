@@ -1,18 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class simply stores a reference to the driver that
+/// shot this projectile. This prevents self-injury.
+/// </summary>
 public class ProjectileController : MonoBehaviour {
-    public float speed;
-    public int type;
-    Rigidbody rb;
-    // Use this for initialization
-    void Start () {
-       rb  = GetComponent<Rigidbody>();
+
+    Driver shooter;
+
+    public void SetShooter(Driver driver) {
+        shooter = driver;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        rb.AddForce(transform.forward * speed, ForceMode.Impulse);
-	}
+    public bool IsShooter(GameObject obj) {
+        return (obj == shooter.car.gameObject);
+    }
 }
