@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * This class randomizes the x position of the last arch in Ghost Town when spawned.
+ */
 public class RandomizeArchPosition : MonoBehaviour
 {
-    // Start is called before the first frame update
+    /*
+     * This function randomizes the x position.
+     */
     void Start()
     {
         var xPosition = transform.position;
