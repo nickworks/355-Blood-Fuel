@@ -66,10 +66,10 @@ public class RockPillarSpawnSettings : MonoBehaviour
         int extraLimbChance = Random.Range(1, 20);
         if (true)
         {
-            int pickALimb = Random.Range(1, 4);
-            childObjects[3 + pickALimb].SetActive(true);
-            childTrans[3 + pickALimb].localPosition = new Vector3(Random.Range(-1.5f, -1.5f), Random.Range(-1.5f, -1.5f), Random.Range(-1.5f, -1.5f));
-            childTrans[3 + pickALimb].localScale = new Vector3(Random.Range(0.75f, 1.5f), Random.Range(0.75f, 1.5f), Random.Range(0.75f, 1.5f));
+            //int pickALimb = Random.Range(1, 4);
+            //childObjects[3 + pickALimb].SetActive(true);
+            //childTrans[3 + pickALimb].localPosition = new Vector3(Random.Range(-1.5f, -1.5f), Random.Range(-1.5f, -1.5f), Random.Range(-1.5f, -1.5f));
+            //childTrans[3 + pickALimb].localScale = new Vector3(Random.Range(0.75f, 1.5f), Random.Range(0.75f, 1.5f), Random.Range(0.75f, 1.5f));
         }
 
     }
