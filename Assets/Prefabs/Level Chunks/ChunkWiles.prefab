@@ -26932,11 +26932,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7485834232224825145}
     m_Modifications:
-    - target: {fileID: 7772566479325534209, guid: a10ab73137efe6744a26254deba98a9f,
-        type: 3}
-      propertyPath: m_Name
-      value: MassStands
-      objectReference: {fileID: 0}
     - target: {fileID: 3681514675132351828, guid: a10ab73137efe6744a26254deba98a9f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -26991,6 +26986,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7772566479325534209, guid: a10ab73137efe6744a26254deba98a9f,
+        type: 3}
+      propertyPath: m_Name
+      value: MassStands
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a10ab73137efe6744a26254deba98a9f, type: 3}

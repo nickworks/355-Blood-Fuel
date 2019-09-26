@@ -7004,11 +7004,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4263366355626084}
     m_Modifications:
-    - target: {fileID: 6256490022680837438, guid: 8d8cd153bacf40e4298fce4030bb372b,
-        type: 3}
-      propertyPath: m_Name
-      value: Mountain Temple
-      objectReference: {fileID: 0}
     - target: {fileID: 5007355391547359123, guid: 8d8cd153bacf40e4298fce4030bb372b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7063,6 +7058,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256490022680837438, guid: 8d8cd153bacf40e4298fce4030bb372b,
+        type: 3}
+      propertyPath: m_Name
+      value: Mountain Temple
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d8cd153bacf40e4298fce4030bb372b, type: 3}
@@ -7460,11 +7460,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4263366355626084}
     m_Modifications:
-    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
-        type: 3}
-      propertyPath: m_Name
-      value: Boulder (4)
-      objectReference: {fileID: 0}
     - target: {fileID: 6489772381228826880, guid: fc1db3f2459899a49971922ba6dd3a02,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7534,6 +7529,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 3.0205812
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
+        type: 3}
+      propertyPath: m_Name
+      value: Boulder (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1db3f2459899a49971922ba6dd3a02, type: 3}
@@ -8634,11 +8634,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4263366355626084}
     m_Modifications:
-    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
-        type: 3}
-      propertyPath: m_Name
-      value: Boulder (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 6489772381228826880, guid: fc1db3f2459899a49971922ba6dd3a02,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8708,6 +8703,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.9435
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
+        type: 3}
+      propertyPath: m_Name
+      value: Boulder (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1db3f2459899a49971922ba6dd3a02, type: 3}
@@ -9920,11 +9920,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4263366355626084}
     m_Modifications:
-    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
-        type: 3}
-      propertyPath: m_Name
-      value: Boulder (5)
-      objectReference: {fileID: 0}
     - target: {fileID: 6489772381228826880, guid: fc1db3f2459899a49971922ba6dd3a02,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9994,6 +9989,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 5.53602
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
+        type: 3}
+      propertyPath: m_Name
+      value: Boulder (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1db3f2459899a49971922ba6dd3a02, type: 3}
@@ -12032,11 +12032,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4263366355626084}
     m_Modifications:
-    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
-        type: 3}
-      propertyPath: m_Name
-      value: Boulder (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 6489772381228826880, guid: fc1db3f2459899a49971922ba6dd3a02,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12106,6 +12101,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 5.53602
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
+        type: 3}
+      propertyPath: m_Name
+      value: Boulder (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1db3f2459899a49971922ba6dd3a02, type: 3}
@@ -12312,11 +12312,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4263366355626084}
     m_Modifications:
-    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
-        type: 3}
-      propertyPath: m_Name
-      value: Boulder (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 6489772381228826880, guid: fc1db3f2459899a49971922ba6dd3a02,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12386,6 +12381,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 3.9758778
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
+        type: 3}
+      propertyPath: m_Name
+      value: Boulder (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1db3f2459899a49971922ba6dd3a02, type: 3}
@@ -16003,11 +16003,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4263366355626084}
     m_Modifications:
-    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
-        type: 3}
-      propertyPath: m_Name
-      value: Boulder
-      objectReference: {fileID: 0}
     - target: {fileID: 6489772381228826880, guid: fc1db3f2459899a49971922ba6dd3a02,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16077,6 +16072,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 6.1339
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680090969578045865, guid: fc1db3f2459899a49971922ba6dd3a02,
+        type: 3}
+      propertyPath: m_Name
+      value: Boulder
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1db3f2459899a49971922ba6dd3a02, type: 3}
