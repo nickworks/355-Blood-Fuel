@@ -13,7 +13,15 @@ public class RandomizeCliffScale : MonoBehaviour
     void Start()
     {
         var scale = transform.localScale;
+        var xPosition = transform.position;
+
+        /*
+         * Scales the cliff's z value to a random number between 3.5 and 4.
+         */
         scale.z = Random.Range(3.5f, 4f);
         transform.localScale = scale;
+
+        xPosition.x = Random.Range(-200f, 200f);
+        transform.position = xPosition;
     }
 }

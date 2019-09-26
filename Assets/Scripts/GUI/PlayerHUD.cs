@@ -12,6 +12,7 @@ public class PlayerHUD : MonoBehaviour {
     public Text textChunkName;
     public Text textChunkNameShadow;
     public Text textChunkCreator;
+    public Image boostMeter;
 
     public float speedometerMaxVelocity = 80;
     float previousAngle = 0;
@@ -22,6 +23,8 @@ public class PlayerHUD : MonoBehaviour {
     void Update() {
         UpdateFuelGauge();
         UpdateSpeedometer();
+
+        boostMeter.fillAmount = driver.car.boost.secondsOfBoostCurrent / driver.car.boost.secondsOfBoostTotal;
 
         //score.text = string.Join(" ", ((int)driver.score).ToString().Split());
         if(textScore != null) textScore.text = $"{EnemySpawner.activeAi.Count}";
