@@ -767,7 +767,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6d3da268112c40a1a8af3752976b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelAmount: 10
 --- !u!1 &1077280363314084
 GameObject:
   m_ObjectHideFlags: 0
@@ -4316,7 +4315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6d3da268112c40a1a8af3752976b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelAmount: 10
 --- !u!1 &1356288802963786
 GameObject:
   m_ObjectHideFlags: 0
@@ -5028,7 +5026,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6d3da268112c40a1a8af3752976b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelAmount: 10
 --- !u!1 &1400688971387350
 GameObject:
   m_ObjectHideFlags: 0
@@ -5748,7 +5745,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6d3da268112c40a1a8af3752976b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelAmount: 10
 --- !u!1 &1438855496415436
 GameObject:
   m_ObjectHideFlags: 0
@@ -7918,7 +7914,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6d3da268112c40a1a8af3752976b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelAmount: 10
 --- !u!1 &1712845644978384
 GameObject:
   m_ObjectHideFlags: 0
@@ -9952,7 +9947,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6d3da268112c40a1a8af3752976b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelAmount: 10
 --- !u!1 &1934898099558304
 GameObject:
   m_ObjectHideFlags: 0
@@ -10076,7 +10070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c6d3da268112c40a1a8af3752976b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuelAmount: 10
 --- !u!1 &1936533721625980
 GameObject:
   m_ObjectHideFlags: 0

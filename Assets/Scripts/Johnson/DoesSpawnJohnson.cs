@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoesSpawn : MonoBehaviour
+public class DoesSpawnJohnson : MonoBehaviour
 {
     public float pickerMax;
     public float pickerMin;

@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawn : MonoBehaviour
+public class BoulderStopper : MonoBehaviour
 {
-   public int death = 0;
-    public int chance = 3;
+
+    public Rigidbody[] rb;
+
     // Start is called before the first frame update
     void Start()
     {
-        death += Random.Range(0, chance);
-        if (death > 0)
-        {
-            Destroy();
-        }
+        
     }
 
     // Update is called once per frame
@@ -21,9 +18,13 @@ public class Spawn : MonoBehaviour
     {
         
     }
-    void Destroy()
-    {
 
-        Destroy(gameObject);
+    private void OnTriggerEnter(Collider other)
+    {
+        foreach (Rigidbody rigid in rb)
+        {
+            rigid.isKinematic = true;
+
+        }
     }
 }
