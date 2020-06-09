@@ -4308,7 +4308,8 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0.000005722046, y: 20.96447, z: 0}
-  - {x: -12.076395, y: 22.864243, z: 102.39891}
+  - {x: -6.9706364, y: 22.864243, z: 102.39891}
+  - {x: 13.620001, y: 22.864243, z: 148.32437}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -4378,7 +4379,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - {x: 0.000005722046, y: 20.96447, z: 0}
-  - {x: -12.076395, y: 22.864243, z: 102.39891}
+  - {x: -6.9706364, y: 22.864243, z: 102.39891}
+  - {x: 13.620001, y: 22.864243, z: 148.32437}
 --- !u!1 &5366603431742399265
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ public class FollowTarget : MonoBehaviour {
         if (target) {
             
             // move the camera-target towards the target car's position:
-            float distanceAboveCar = 2;
+            float distanceAboveCar = 1;
             transform.position = MathStuff.Damp(transform.position, target.transform.position + new Vector3(0, distanceAboveCar, 0), 0f, Time.fixedDeltaTime);
 
             // calculate a distanceMultiplier from velocity
