@@ -7,7 +7,7 @@ public class RocketLauncher : Weapon {
     public PhysicsHoming prefabRocket;
     public int amountOfRockets = 8;
     public float secondsBetweenLaunches = .1f;
-    public float cooldown = 2;
+    private float cooldown = 2;
 
     float countdownCooldown;
     float countdownLaunches;
@@ -23,11 +23,12 @@ public class RocketLauncher : Weapon {
                 amountOfRocketsInChamber--;
             }
         } else {
-            if(countdownCooldown < 0) countdownCooldown -= Time.deltaTime;
+            if(countdownCooldown > 0) countdownCooldown -= Time.deltaTime;
         }
     }
     public override void FireWeapons() {
         if (countdownCooldown > 0) return;
+        countdownCooldown = cooldown;
         countdownLaunches = 0;
         amountOfRocketsInChamber = amountOfRockets;
     }

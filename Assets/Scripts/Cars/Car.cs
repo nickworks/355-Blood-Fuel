@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,6 +32,11 @@ public class Car : MonoBehaviour {
     /// and orient the suspension to the ground.
     /// </summary>
     public Transform suspension;
+
+    public void Handbrake() {
+        if(state.isGrounded) ballBody.velocity *= .95f;
+    }
+
     /// <summary>
     /// The model should be a child of suspension.
     /// It will turn on its local yaw to animate turning.
@@ -94,6 +99,9 @@ public class Car : MonoBehaviour {
         if (driver != null) driver.DriveUpdate(); // get input from player
         if (health <= 0) Destroy(gameObject);
     }
+    void LateUpdate() {
+        UpdateModel();
+    }
     public void Kill(bool killSilently = false) {
         health = 0;
         Destroy(gameObject);
@@ -117,13 +125,14 @@ public class Car : MonoBehaviour {
     /// This function should be called from Update(), not FixedUpdate(). So deltaTime should be used.
     /// </summary>
     public void Boost() {
-        print("boost?");
+        print("I WANT TO BOOST");
         boost.Boost();
     }
     public void SetThrottle(float throttlePercent) {
         if (throttlePercent < 0) throttlePercent = 0;
         throttle = Mathf.Lerp(throttleMin, state.throttleMultiplier * throttleMax, throttlePercent);
-        AddFuel(-throttlePercent * Time.deltaTime); // lose 1 fuel per second
+
+        AddFuel(-throttlePercent * Time.deltaTime * 2); // lose 2 fuel per second
     }
     public void Turn(float amount) {
         turnAmount = amount;
@@ -147,7 +156,7 @@ public class Car : MonoBehaviour {
             amt = Mathf.Lerp(0, 100, t);
         }
         // DUST:
-        if (amt > Random.Range(0, 100f)) {
+        if (amt > UnityEngine.Random.Range(0, 100f)) {
             WorldParticles.obj.Emit(
                     EffectType.Dust,
                     transform.position,
@@ -157,10 +166,10 @@ public class Car : MonoBehaviour {
         // SAND:
         foreach (ParticleSystem p in dustParticles) {
 
-            if (amt > Random.Range(0, 200f)) {
-                float X = Random.Range(-2, 2);
-                float Y = Random.Range(10, 40);
-                float Z = Random.Range(0, 0);
+            if (amt > UnityEngine.Random.Range(0, 200f)) {
+                float X = UnityEngine.Random.Range(-2, 2);
+                float Y = UnityEngine.Random.Range(10, 40);
+                float Z = UnityEngine.Random.Range(0, 0);
 
                 WorldParticles.obj.Emit(
                         EffectType.Sand,

@@ -42,7 +42,7 @@ public class FollowTarget : MonoBehaviour {
             p = Mathf.Clamp(p, 0, 1);
             p = cameraDistanceCurve.Evaluate(p);
             cameraDistance = Mathf.Lerp(cameraDistanceMin, cameraDistanceMax, p);
-
+            cameraDistance = Mathf.Lerp(cameraDistance, cameraDistance * 4, target.driver.wantsToAim?1:0);
             cameraAngle = Mathf.Lerp(cameraAngleMin, cameraAngleMax, p);
 
 
@@ -57,7 +57,7 @@ public class FollowTarget : MonoBehaviour {
         if (cam) { // zoom camera in or out:
 
             Vector3 localPositionTarget = new Vector3(0, 0, -cameraDistance);
-            cam.transform.localPosition = MathStuff.Damp(cam.transform.localPosition, localPositionTarget, .5f, Time.fixedDeltaTime);
+            cam.transform.localPosition = MathStuff.Damp(cam.transform.localPosition, localPositionTarget, .1f, Time.fixedDeltaTime);
 
             pitchControl.localRotation = MathStuff.Damp(pitchControl.localRotation, Quaternion.Euler(cameraPitch, 0, 0), .1f, Time.fixedDeltaTime);
             cam.fieldOfView = MathStuff.Damp(cam.fieldOfView, cameraAngle, .5f, Time.fixedDeltaTime);

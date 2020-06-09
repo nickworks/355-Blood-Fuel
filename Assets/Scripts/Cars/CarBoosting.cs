@@ -49,7 +49,11 @@ public class CarBoosting : MonoBehaviour
         float m = boostFalloff.Evaluate(p);
 
         // TODO: rewrite this to avoid boosting up / down in air (??)
-        car.ballBody.AddForce(car.model.forward * 5000 * m * Time.deltaTime);
+        //car.ballBody.AddForce(car.model.forward * 5000 * m * Time.deltaTime);
+        Vector3 dir = car.ballBody.velocity.normalized;
+        if (!car.state.isGrounded) dir.y *= .1f;
+        car.ballBody.AddForce(dir * 5000 * m * Time.deltaTime);
+        car.AddFuel(-10 * Time.deltaTime);
 
         //model.GetComponentInChildren<MeshRenderer>().material.color = Color.black;
         isBoosting = true;

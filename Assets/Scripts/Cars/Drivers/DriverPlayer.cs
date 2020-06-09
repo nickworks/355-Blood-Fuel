@@ -16,25 +16,24 @@ public class DriverPlayer : Driver {
         
         if (car == null) return;
 
-        //AddFuel(-1 * Time.deltaTime); // lose 1 fuel per second
         if (car.currentFuel > 1) score += Time.fixedDeltaTime;
 
-        float h = Input.GetAxisRaw("Horizontal");
-        float t = Input.GetAxis("Triggers");
+        float h = Input.GetAxisRaw("Steering");
+        float t = Input.GetAxis("Gas");
 
-        float v = Input.GetAxis("Vertical");
-
-        car.SetThrottle(Mathf.Max(-t, v));
+        car.SetThrottle(t);
         car.Turn(h);
 
         if (car.weapon != null) {
-            AimWithMouse();
+            //AimWithMouse();
+            AimWithAnalog();
         }
     }
     public override void DriveUpdate() {
         if (Input.GetButtonDown("Jump")) car.Jump();
-        if (Input.GetButtonDown("Fire1")) car.FireWeapons();
-        if (Input.GetButton("Fire2")) car.Boost();
+        if (Input.GetButton("FireWeapons")) car.FireWeapons();
+        if (Input.GetButton("Boost")) car.Boost();
+        if (Input.GetButton("Handbrake")) car.Handbrake();
     }
     void AimWithMouse() {
         float mx = Input.GetAxis("Mouse X");
@@ -52,11 +51,11 @@ public class DriverPlayer : Driver {
         }
     }
     void AimWithAnalog() {
-        /*
+        
         float aimAxisH = Input.GetAxis("Horizontal2");
         float aimAxisV = Input.GetAxis("Vertical2");
 
-        float trigger = Input.GetAxis("Triggers");
+        
 
         //PlayerController.main.line.enabled = Input.GetButton("BumperRight");
         //PlayerController.main.line.enabled = (trigger < -.2f);
@@ -64,23 +63,19 @@ public class DriverPlayer : Driver {
         Vector3 target = new Vector3(aimAxisH, 0, aimAxisV);
         if (target.sqrMagnitude > 1) target.Normalize();
 
-        bool deadZone = (target.sqrMagnitude < .1f); // deadZone
+        wantsToAim = (target.sqrMagnitude > .25f); // deadZone
+        if (!wantsToAim) {
+            target = car.ballBody.velocity.normalized;
+        }
+        float aimMaxDistance = 6; // the farthest the player can aim
         target *= aimMaxDistance;
-        if (aimAxisV > 0) target.z *= 2;
+        //if (aimAxisV > 0) target.z *= 2;
 
         //DriverPlayer.main.line.enabled = !deadZone; // TEMP DISABLE
 
-        if (deadZone) return;
+        target += car.transform.position;
 
-        bool aimFurtherOut = (target.sqrMagnitude >= cursor.localPosition.sqrMagnitude);
-        float inputAlignAmount = Vector3.Dot(target, cursor.localPosition);
-        bool letsAimThisThing = (aimFurtherOut || inputAlignAmount < .5f || target.sqrMagnitude > .8f);
-
-        if (letsAimThisThing) {
-            cursor.localPosition += (target - cursor.localPosition) * Time.deltaTime * 4;
-        }
-        cursor.rotation = Quaternion.identity;
-        */
+        car.weapon.AimAt(target);
     }
 
     public override void OnDestroy(bool isDead) {

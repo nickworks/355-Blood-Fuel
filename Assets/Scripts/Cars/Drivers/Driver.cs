@@ -11,6 +11,7 @@ public abstract class Driver {
     private float countdownWiggle = 0;
 
     public float steerOffset { get; private set; }
+    public bool wantsToAim { get; protected set; }
 
     public void TakeControl(Car car) {
         this.car = car;
