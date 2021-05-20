@@ -13,11 +13,12 @@ public class BarrelLauncher : Weapon {
         base.AimAt(pos);
         DrawAimPath();
     }
-    public override void FireWeapons() {
+    public override bool FireWeapons() {
 
-        if (car.currentFuel < fuelPerShot) return;
+        if(!base.FireWeapons()) return false;
         //car.AddFuel(-fuelPerBarrelTossed); // lose fuel
         ShootProjectile(prefabBarrel);
+        return true;
     }
 
     void DrawAimPath() {
@@ -52,7 +53,7 @@ public class BarrelLauncher : Weapon {
         return pt;
     }
     public void ShootProjectile(GameObject prefab) {
-
+        print("SPAWN BARREL");
         // random rotation:
         Quaternion rot = Quaternion.FromToRotation(Vector3.up, Random.onUnitSphere);
 

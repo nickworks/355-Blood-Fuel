@@ -34,6 +34,11 @@ public class DriverPlayer : Driver {
         if (Input.GetButton("FireWeapons")) car.FireWeapons();
         if (Input.GetButton("Boost")) car.Boost();
         if (Input.GetButton("Handbrake")) car.Handbrake();
+
+        Vector2 scroll = Input.mouseScrollDelta;
+        if (scroll.y < 0) car.NextWeapon();
+        if (scroll.y > 0) car.PrevWeapon();
+
     }
     void AimWithMouse() {
         float mx = Input.GetAxis("Mouse X");

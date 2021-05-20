@@ -11,8 +11,8 @@ public class ObstacleSpawner : MonoBehaviour {
 
         bool isTree = (Random.Range(0, 100) >= 50);
 
-        tree1.SetActive(isTree);
-        rock1.SetActive(!isTree);
+        if(tree1) tree1.SetActive(isTree);
+        if(rock1) rock1.SetActive(!isTree);
 
         Quaternion rot = Quaternion.identity;
         rot.eulerAngles = new Vector3(0, Random.Range(0, 360), 0);

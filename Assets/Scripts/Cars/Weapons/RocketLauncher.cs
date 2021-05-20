@@ -26,10 +26,12 @@ public class RocketLauncher : Weapon {
             if(countdownCooldown > 0) countdownCooldown -= Time.deltaTime;
         }
     }
-    public override void FireWeapons() {
-        if (countdownCooldown > 0) return;
-        countdownCooldown = cooldown;
+    public override bool FireWeapons() {
+
+        if (!base.FireWeapons()) return false;
+
         countdownLaunches = 0;
         amountOfRocketsInChamber = amountOfRockets;
+        return true;
     }
 }

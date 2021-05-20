@@ -13,6 +13,9 @@ public class Car : MonoBehaviour {
 
     public Weapon weapon { get; private set; }
 
+    public List<Weapon> weapons = new List<Weapon>();
+    int weaponIndex = 0;
+
     /// <summary>
     /// The ball that is the car. Think of it as a hamster ball.
     /// </summary>
@@ -57,8 +60,6 @@ public class Car : MonoBehaviour {
     [HideInInspector] public Driver driver;
     public CarState state { get; private set; }
 
-    
-
     void Start() {
         ballBody = GetComponent<Rigidbody>();
         weapon = GetComponentInChildren<Weapon>();
@@ -66,6 +67,7 @@ public class Car : MonoBehaviour {
         
         currentFuel = maximumFuel;
         SwitchState(new CarStateGround());
+        UpdateWeapon();
     }
     public void DrawRay(LineRenderer lineRenderer, Vector3 start, Vector3 end, Color color = default) {
         if (color == default) color = Color.black;
@@ -125,7 +127,6 @@ public class Car : MonoBehaviour {
     /// This function should be called from Update(), not FixedUpdate(). So deltaTime should be used.
     /// </summary>
     public void Boost() {
-        print("I WANT TO BOOST");
         boost.Boost();
     }
     public void SetThrottle(float throttlePercent) {
@@ -142,6 +143,21 @@ public class Car : MonoBehaviour {
     }
     public void FireWeapons() {
         if (weapon != null) weapon.FireWeapons();
+    }
+    public void NextWeapon() {
+        weaponIndex++;
+        UpdateWeapon();
+    }
+    public void PrevWeapon() {
+        weaponIndex--;
+        UpdateWeapon();
+    }
+    private void UpdateWeapon() {
+        if (weapons.Count <= 0) return;
+        if (weaponIndex < 0) weaponIndex = weapons.Count - 1;
+        if (weaponIndex >= weapons.Count) weaponIndex = 0;
+        if (weapon) Destroy(weapon.gameObject);
+        if (model) weapon = Instantiate(weapons[weaponIndex], model);
     }
     public void SandParticles(bool onSand)
     {
