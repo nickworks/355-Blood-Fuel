@@ -135,7 +135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4263366355626084}
-  - component: {fileID: -4732134724717557575}
+  - component: {fileID: 4975046263240584302}
   m_Layer: 0
   m_Name: ChunkPattison
   m_TagString: Untagged
@@ -164,7 +164,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -11.285001, y: -4.861, z: 10.003}
---- !u!114 &-4732134724717557575
+--- !u!114 &4975046263240584302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1995490955008618}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a52bfcfdeddd764c908021f3b8bb3b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 66a4864fb3ec34d46ad9cae3857206fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   endOfChunk: {fileID: 4890910411661010}
@@ -4528,6 +4528,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dfae9f368257f4489753b805dd7caf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnLoot: 1
+  prefabLoot: {fileID: 4932496691668966, guid: 57a11299140495f47b02456cbcc50add, type: 3}
   points:
   - {x: 0.000005722046, y: 20.96447, z: 0}
   - {x: -6.9706364, y: 22.864243, z: 102.39891}

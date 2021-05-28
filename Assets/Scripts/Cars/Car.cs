@@ -30,6 +30,10 @@ public class Car : MonoBehaviour {
     public float turnAmount { get; private set; }
     public float throttle { get; private set; }
 
+    float valModelTurnX = 0;
+    float velModelTurnX = 0;
+
+
     /// <summary>
     /// This script will snap the position's position to the ball,
     /// and orient the suspension to the ground.
@@ -46,7 +50,6 @@ public class Car : MonoBehaviour {
     /// </summary>
     public Transform model;
 
-    public Transform aiSteerVisual;
     public TextMesh text;
 
     public ParticleSystem[] dustParticles;
@@ -210,7 +213,7 @@ public class Car : MonoBehaviour {
         
         // move forward:
         ballBody.AddForce(state.forward * throttle * state.throttleMultiplier * Time.deltaTime);
-
+        
         // move horizontal:
         if (turnAmount == 0) {
             ballBody.velocity = DecelerateHorizontal(ballBody.velocity);
@@ -233,14 +236,17 @@ public class Car : MonoBehaviour {
 
         // rotate the suspension to align with provided rotation:
         suspension.position = transform.position; // make the model follow the hamster wheel! ////////////////////// NOTE: If suspension is a child of the veichle do we need thi? 
-        suspension.rotation = Quaternion.RotateTowards(suspension.rotation, state.suspensionOrientation, state.suspensionRotateSpeed * Time.deltaTime);
+        suspension.rotation = Quaternion.RotateTowards(suspension.rotation, state.suspensionOrientation, state.suspensionRotateSpeed * Time.fixedDeltaTime);
 
         // rotate the car model to align with velocity:
         
         if (model) {
             Vector3 vel = ballBody.velocity;
             float turn = Mathf.Atan2(vel.x, vel.z) * Mathf.Rad2Deg;
-            model.localEulerAngles = new Vector3(0, turn, 0);
+
+            MathStuff.Spring(ref valModelTurnX, ref velModelTurnX, turn, 0.9f, 20, Time.fixedDeltaTime);
+
+            model.localEulerAngles = new Vector3(0, valModelTurnX, 0);
         }
         
     }

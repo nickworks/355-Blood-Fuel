@@ -78,7 +78,7 @@ public class CarStateAir : CarState {
         return isGrounded ?  new CarStateGround() : null;
     }
     protected override void CalcOrientation() {
-        float pitch = -car.ballBody.velocity.y * 2;
+        float pitch = -car.ballBody.velocity.y;
         suspensionOrientation = Quaternion.Euler(pitch, 0, 0);
         suspensionRotateSpeed = 40;
     }

@@ -4982,10 +4982,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 466548863}
-  numberOfChunksToLoad: 3
+  numberOfChunksToLoad: 2
   thresholdForRemovingChunks: 20
   prefabChunks:
-  - {fileID: -4732134724717557575, guid: d0352cb3d0afd1e4e8a0e2b6d141cee1, type: 3}
+  - {fileID: 4975046263240584302, guid: d0352cb3d0afd1e4e8a0e2b6d141cee1, type: 3}
 --- !u!4 &812214921
 Transform:
   m_ObjectHideFlags: 0

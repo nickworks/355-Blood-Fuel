@@ -6,7 +6,7 @@ public class ExplosiveBarrel : MonoBehaviour {
 
     
     public float age = 0;
-    public float lifespan = 3;
+    public float lifespan = 6;
 
     public GameObject prefabExplosion;
     Rigidbody body;

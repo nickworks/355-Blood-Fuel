@@ -154,9 +154,6 @@ public class DriverAI : Driver {
 
         turnAmount = (steeringTarget.x - car.transform.position.x) * turnMultiplier;
         turnAmount = Mathf.Clamp(turnAmount, -1, 1);
-
-        car.aiSteerVisual.position = steeringTarget;
-        car.aiSteerVisual.rotation = Quaternion.identity;
     }
 
     private void SteerTowardsAttackTarget(bool steeringTowardsPath) {

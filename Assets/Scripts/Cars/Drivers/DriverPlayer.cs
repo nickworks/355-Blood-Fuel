@@ -25,8 +25,8 @@ public class DriverPlayer : Driver {
         car.Turn(h);
 
         if (car.weapon != null) {
-            //AimWithMouse();
-            AimWithAnalog();
+            AimWithMouse();
+            //AimWithAnalog();
         }
     }
     public override void DriveUpdate() {
@@ -48,12 +48,12 @@ public class DriverPlayer : Driver {
         Plane aimPlane = new Plane(car.state.up, car.transform.position); // make a plane
 
         float rayLength = 0;
+        Vector3 hit = ray.GetPoint(20);
         if (aimPlane.Raycast(ray, out rayLength)) // detect if the ray intersects the plane
         {
-            Vector3 hit = ray.GetPoint(rayLength); // detect where the intersection is
-
-            car.weapon.AimAt(hit);
+            if(rayLength < 20) hit = ray.GetPoint(rayLength); // detect where the intersection is
         }
+        car.weapon.AimAt(hit);
     }
     void AimWithAnalog() {
         

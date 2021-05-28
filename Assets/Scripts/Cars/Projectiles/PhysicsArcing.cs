@@ -72,12 +72,15 @@ public class PhysicsArcing : MonoBehaviour
             // We should ignore that.
             return;
         }
-        Disable();
+        Disable(); // if hit something, turn off arc motion
     }
+    /// <summary>
+    /// Turn off arcing and enable physics:
+    /// </summary>
     void Disable() {
         enabled = false;
         Collider collider = GetComponent<Collider>();
-        if(collider != null) collider.isTrigger = false;
-        if(body != null) body.velocity = velocityForRigidbody;
+        if(collider != null) collider.isTrigger = false; // turn on physics!
+        if(body != null) body.velocity = velocityForRigidbody; // add velocity!
     }
 }

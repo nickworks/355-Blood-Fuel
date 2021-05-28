@@ -6,6 +6,8 @@ public abstract class Weapon : MonoBehaviour {
 
     [HideInInspector] public Car car;
 
+    Vector3 aimOffset = Vector3.zero;
+
     public bool isFullAuto = false;
     public float roundsPerSecond = 2;
     public float baseDelayBetweenRounds {
@@ -30,6 +32,9 @@ public abstract class Weapon : MonoBehaviour {
     private void Update() {
         if (cooldownShot > 0) cooldownShot -= Time.deltaTime;
     }
+    private void FixedUpdate() {
+        cursor.position = transform.position + aimOffset;
+    }
     private void OnDestroy() {
         Destroy(cursor.gameObject); // remove cursor
     }
@@ -37,12 +42,12 @@ public abstract class Weapon : MonoBehaviour {
 
         // clamp to a max distance:
         Vector3 dis = pos - transform.position;
-        float maxLateralDistance = 20;
+        float maxLateralDistance = 10;
         float disMag = dis.magnitude;
         if(disMag > maxLateralDistance) {
-            dis *= maxLateralDistance / disMag;
+            //dis *= maxLateralDistance / disMag;
         }
-        cursor.position = transform.position + dis;
+        aimOffset = dis;
     }
     
     public virtual bool FireWeapons() {

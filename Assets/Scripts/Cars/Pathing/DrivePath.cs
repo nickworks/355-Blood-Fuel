@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 [RequireComponent(typeof(LineRenderer))]
 public class DrivePath : MonoBehaviour
@@ -11,6 +12,9 @@ public class DrivePath : MonoBehaviour
     /// </summary>
     private static List<DrivePath> registeredPaths = new List<DrivePath>();
     public static bool renderLines = true;
+
+    public bool spawnLoot = true;
+    public Transform prefabLoot;
 
     /// <summary>
     /// Path points in local space
@@ -50,8 +54,21 @@ public class DrivePath : MonoBehaviour
 
     void Start() {
         Refresh();
+        if (spawnLoot) SpawnLoot();
         registeredPaths.Add(this);
     }
+
+    private void SpawnLoot() {
+        if (!prefabLoot) return;
+        foreach(Vector3 pt in points) {
+            Vector3 wp = transform.TransformPoint(pt);
+            Ray ray = new Ray(wp + new Vector3(0, 5, 0), Vector3.down);
+            if(Physics.Raycast(ray, out RaycastHit hit, 50)) {
+                Instantiate(prefabLoot, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+            }
+        }
+    }
+
     void OnDestroy() {
         registeredPaths.Remove(this);
     }
