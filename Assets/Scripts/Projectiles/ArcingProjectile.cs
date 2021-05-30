@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhysicsArcing : MonoBehaviour
+public class ArcingProjectile : Projectile
 {
     Vector3 origin;
 
@@ -11,10 +11,9 @@ public class PhysicsArcing : MonoBehaviour
 
     float totalTime;
     Vector3[] arc;
-    Driver shooter;
-    Rigidbody body;
 
-    float currentTime = 0;
+    Rigidbody body;
+    bool isArcing = true;
 
     void Start() {
         body = GetComponent<Rigidbody>();
@@ -23,21 +22,19 @@ public class PhysicsArcing : MonoBehaviour
     /// This method initializes the arc that this object should follow.
     /// </summary>
     /// <param name="shooter">The Driver that shot this projectile. This will be stored and used to make sure that a Driver can't hit themselves.</param>
-    /// <param name="spawnPoint">The world-space position of where the arc begins.</param>
-    /// <param name="carVelocity">The car's velocity when this object spawns. This object needs to inherit this velocity.</param>
     /// <param name="arcPoints">An array of points that make up the arc.</param>
-    /// <param name="totalTime">How long the object should take to follow the arc.</param>
-    public void SetArc(Driver shooter, Vector3 spawnPoint, Vector3 carVelocity, Vector3[] arcPoints, float totalTime) {
+    public void SetArc(Driver shooter, Vector3[] arcPoints) {
         this.shooter = shooter;
-        this.origin = spawnPoint;
-        this.velocityFromCar = carVelocity;
+
+        this.origin = this.transform.position;
+        this.velocityFromCar = shooter.car.ballBody.velocity;
 
         // TODO: does it make sense to encapsulate the calculation of these two values: (???)
 
         this.arc = arcPoints;
-        this.totalTime = totalTime;
+        this.totalTime = 0.5f; // the arc should take about .5 seconds
     }
-    public Vector3 GetPositionAtTime(float time) {
+    private Vector3 GetPositionAtTime(float time) {
         float p = time / totalTime;
         int index = (int)(p * (arc.Length - 1));
 
@@ -52,33 +49,32 @@ public class PhysicsArcing : MonoBehaviour
         Vector3 pos = Vector3.Lerp(a, b, pSub);
         return origin + pos;
     }
-    // FixedUpdate is called once each time the physics engine updates
-    void FixedUpdate() {
-        currentTime += Time.fixedDeltaTime;
-        if (currentTime < totalTime) {
-            Vector3 nextPosition = GetPositionAtTime(currentTime);
-            // calculate the local velocity of the barrel:
-            velocityForRigidbody = (nextPosition - transform.position) / Time.fixedDeltaTime;
-            transform.position = nextPosition;
+    // step the physics forward
+    public override void FixedUpdate() {
+        base.FixedUpdate();
+        if (isArcing) {
+            if (age < totalTime) {
+                Vector3 nextPosition = GetPositionAtTime(age);
+                // calculate the local velocity of the barrel:
+                velocityForRigidbody = (nextPosition - transform.position) / Time.fixedDeltaTime;
+                transform.position = nextPosition;
 
-        } else {
-            Disable();
+            } else {
+                SwitchToPhysics();
+            }
         }
     }
     void OnTriggerEnter(Collider other) {
 
-        if (shooter.car != null && shooter.car.gameObject == other.gameObject) {
-            // This projectile overlapped with the thing that shot it.
-            // We should ignore that.
-            return;
-        }
-        Disable(); // if hit something, turn off arc motion
+        if (!CanIgnoreCollider(other)) SwitchToPhysics(); // if hit something, turn off arc motion
+        
     }
     /// <summary>
     /// Turn off arcing and enable physics:
     /// </summary>
-    void Disable() {
-        enabled = false;
+    void SwitchToPhysics() {
+        isArcing = false;
+        //enabled = false;
         Collider collider = GetComponent<Collider>();
         if(collider != null) collider.isTrigger = false; // turn on physics!
         if(body != null) body.velocity = velocityForRigidbody; // add velocity!

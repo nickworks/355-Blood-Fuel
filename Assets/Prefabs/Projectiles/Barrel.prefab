@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 136446380866545188}
   - component: {fileID: 54089211078485230}
   - component: {fileID: 114544892007217760}
-  - component: {fileID: 114048196190253494}
   - component: {fileID: -6966386439993005771}
   m_Layer: 0
   m_Name: Barrel
@@ -78,36 +77,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df33ac477635c3478fecb188f96997c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threshold: 10
+  threshold: 2
   prefabExplosion: {fileID: 1551211562780154, guid: 7332fe54d4fdcd54b9e47195e5f9732c,
     type: 3}
-  ignoreVertical: 1
+  ignoreVertical: 0
   spawnSafetyTimer: 0.5
-  turretRotation: {fileID: 0}
---- !u!114 &114048196190253494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843774293268998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a50ba37f1382674da2b64e94ff9ddf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  age: 0
-  lifespan: 1
-  prefabExplosion: {fileID: 1551211562780154, guid: 7332fe54d4fdcd54b9e47195e5f9732c,
-    type: 3}
-  vertical:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  ptStart: {x: 0, y: 0, z: 0}
-  ptEnd: {x: 0, y: 0, z: 0}
 --- !u!114 &-6966386439993005771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +94,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd4786f8828cc8d4eabc476410e18e87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifespanAverage: 3
+  lifespanRange: 1
+  explodeInAir: 0
+  prefabExplosion: {fileID: 1551211562780154, guid: 7332fe54d4fdcd54b9e47195e5f9732c,
+    type: 3}
 --- !u!1 &1969795063859544
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,9 +142,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -190,6 +172,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &33762742714569642
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhysicsHoming : MonoBehaviour
+public class HomingProjectile : Projectile
 {
     float boostStrength = 50;
     float boostTime = 2;
@@ -13,28 +13,16 @@ public class PhysicsHoming : MonoBehaviour
     Transform target;
     Vector3 velocity;
     Vector3 origin;
-    float age = 0;
-    Driver shooter;
     
-    void Start()
-    {
-        
-    }
-    public void Launch(Driver shooter, Vector3 origin, Vector3 dir, Transform target, Vector3 carVelocity) {
+    public void Launch(Driver shooter, Vector3 dir) {
 
         launchDirection = dir + Random.insideUnitSphere * .5f;
         this.shooter = shooter;
-        this.target = target;
-        this.origin = origin;
-        this.velocity = carVelocity;
+        this.target = shooter.car.weapon.cursor;
+        this.origin = transform.position;
+        this.velocity = shooter.car.ballBody.velocity;
     }
-    // Update is called once per frame
-    void Update() {
-
-
-    }
-    void FixedUpdate() {
-        age += Time.fixedDeltaTime;
+    override public void FixedUpdate() {
         if (target == null) {
             gameObject.SendMessage("Explode");
             return;
@@ -49,17 +37,5 @@ public class PhysicsHoming : MonoBehaviour
         transform.position += velocity * Time.fixedDeltaTime;
 
         transform.rotation = Quaternion.LookRotation(boostDirection);
-    }
-    void OnTriggerEnter(Collider other) {
-
-        if (shooter.car != null && shooter.car.gameObject == other.gameObject) {
-            // This projectile overlapped with the thing that shot it.
-            return; // ignore it
-        }
-        if (other.gameObject.GetComponentInParent<PhysicsHoming>()) {
-            // We ran into another homing projectile.
-            return; // ignore it
-        }
-        gameObject.SendMessage("Explode");
     }
 }

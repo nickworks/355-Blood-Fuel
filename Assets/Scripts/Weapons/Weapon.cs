@@ -29,7 +29,7 @@ public abstract class Weapon : MonoBehaviour {
     void Start() {
         car = GetComponentInParent<Car>();
     }
-    private void Update() {
+    public virtual void Update() {
         if (cooldownShot > 0) cooldownShot -= Time.deltaTime;
     }
     private void FixedUpdate() {

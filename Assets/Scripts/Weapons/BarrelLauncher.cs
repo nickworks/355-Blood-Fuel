@@ -53,7 +53,7 @@ public class BarrelLauncher : Weapon {
         return pt;
     }
     public void ShootProjectile(GameObject prefab) {
-        print("SPAWN BARREL");
+
         // random rotation:
         Quaternion rot = Quaternion.FromToRotation(Vector3.up, Random.onUnitSphere);
 
@@ -61,7 +61,7 @@ public class BarrelLauncher : Weapon {
         GameObject obj = Instantiate(prefab, spawnPoint.position, rot);
 
         // set arc (projectile) physics:
-        obj.GetComponent<PhysicsArcing>().SetArc(car.driver, spawnPoint.position, car.ballBody.velocity, GetArc(10), .5f);
+        obj.GetComponent<ArcingProjectile>().SetArc(car.driver, GetArc(10));
 
         // set random spin:
         obj.GetComponent<Rigidbody>().AddTorque(Random.onUnitSphere * 100);
